@@ -1,0 +1,31 @@
+# Project Starfish 
+
+A  cross platform client side application that would let you open a file in IDE of your choice (vscode, eclipse, intellij, emacs, vi, etc.) and  other cammands locally directly from the browser or file system.This will enable an option to “Open in IDE” through browser extension on various websites like github, gitlab,gitbucket etc similar to one you see in this demo below.
+
+image::https://user-images.githubusercontent.com/31308705/79685056-61078280-8253-11ea-8ac1-aab1531ca0ab.gif[Starfish Demo]
+
+## Workflow
+- Click on "Open in IDE" on Repository page.
+- Repository is cloned
+- The cloned Repository is opened in the preferred IDE.
+
+## Necessary Utilities 
+- A browser extension that injects "Open In IDE" button 
+- Custom URI Handler to handle `ide://` scheme.
+- A native application that clones the repository and opens up the IDE.
+- A configuration file (.yaml) to hold the Preferred IDE and Clone Path.
+- Command line support for application.
+
+## Targeted Websites:
+- Primary: [github.com](https://github.com/)
+- Secondary: [gitlab.com](https://gitlab.com/)
+- Additional: [bitbucket](https://bitbucket.org/)
+..more can be added
+
+## Targeted Platforms:
+- Linux
+- Windows
+- Mac OS X
+
+## Technology for Development
+- https://quarkus.io/[Quarkus]
