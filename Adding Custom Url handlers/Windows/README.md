@@ -7,4 +7,4 @@
 
 - The `Output.md` describes the Out put on invoking `Ide:"Hello%20World"` from  the Browser.
 
-References : https://docs.microsoft.com/
+ References : https://docs.microsoft.com/
