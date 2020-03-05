@@ -1,4 +1,4 @@
-# Creating Custom URL Handlers on Linux:
+# creating custom url handlers on linux:
 ### Note: Still Working to enhance
 - To register a new URL scheme handler with XDG, first create a Desktop Entry which specifies the x-scheme-handler/... MIME type:
 ```
