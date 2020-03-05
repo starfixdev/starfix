@@ -1,4 +1,8 @@
-  /*Test File for Custom URL Handler Testing */
+  /*Test File for Custom URL Handler Testing
+  @Pluggable Protocol Handler .
+  @Author:Fahad Israr(github.com/fahad-israr)
+ The following sample code contains a simple C# console application demonstrating one way to implement a pluggable protocol handler for the Ide URI scheme.*/
+
   using System;
   using System.Collections.Generic;
 using System.Text;
