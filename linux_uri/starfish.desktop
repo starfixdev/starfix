@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Starfish Application
+Exec=bash starfish_handler.bash '%u'
+Icon=starfish
+Type=Application
+Terminal=true
+MimeType=x-scheme-handler/ide;

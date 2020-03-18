@@ -1,4 +1,3 @@
-import java.awt.im.InputContext;
 import java.io.*;
 
 /**
@@ -11,7 +10,6 @@ public class CreateProject {
     static String OSName    = System.getProperty("os.name").toLowerCase();
 
     public static void main(String[] args) throws IOException{
-
         if (OSName.contains("win")) {
             System.out.println("THIS IS WINDOWS");
 
@@ -22,9 +20,10 @@ public class CreateProject {
             //TODO: ADD support of a Code-editor
 
         }
-        else if (OSName.indexOf("linux") > 0) {
-
-        } else if (OSName.indexOf("mac") > 0) {
+        else if (OSName.contains("linux")) {
+	    System.out.println("This is linux");
+      	    createHandlerForLinux(); 
+	 } else if (OSName.indexOf("mac") > 0) {
             //ADD URI handler
         }
         System.out.println("DONE"); //FIXME: THIS LINE IS JUST FOR TEST PURPOSES
@@ -60,6 +59,30 @@ public class CreateProject {
     }
 
     public static void createHandlerForLinux() {
+	try {
+		Runtime rt = Runtime.getRuntime();	
+		// rt.exec("bash linux_uri/linux_app_uri.bash");
+		 Process proc = rt.exec("sudo bash linux_uri/linux_add_uri.bash");
+            BufferedReader stdInput = new BufferedReader(new
+                    InputStreamReader(proc.getInputStream()) );
 
-    }
+            BufferedReader stdError = new BufferedReader(new
+                    InputStreamReader(proc.getErrorStream()) );
+
+            System.out.println("Here is the standard output of the command:\n");
+            String s = null;
+            while ((s = stdInput.readLine()) != null) {
+                System.out.println(s);
+            }
+
+            System.out.println("Here is the errors:");
+            while ((s = stdError.readLine()) != null) {
+                System.out.println(s);
+            }
+
+    	} catch (IOException e) {
+		e.printStackTrace();	
+	}
+
+}
 }
