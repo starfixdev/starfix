@@ -1,0 +1,12 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\ide]
+@="URL:ide"
+"URL Protocol"=""
+
+[HKEY_CLASSES_ROOT\ide\shell]
+
+[HKEY_CLASSES_ROOT\ide\shell\open]
+
+[HKEY_CLASSES_ROOT\ide\shell\open\command]
+@="\"C:\\Program Files\\Java\\jdk-10.0.2\\bin\\java.exe\" \"-classpath\" \"C:\\Users\\CG-DTE\\IdeaProjects\\StarfishDemo\\out\\production\\StarfishDemo\" \"FileOpener\" \"%1\""
