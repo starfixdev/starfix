@@ -1,8 +1,5 @@
-javac CreateProject.java
-javac FileOpener.java
 
 sudo cp starfish_handler.bash /usr/bin/
-sudo cp FileOpener.class $HOME
+sudo cp FileOpener.class /usr/bin/
 sudo chmod +x $HOME/FileOpener.class
-
-java CreateProject
+sudo bash linux_uri/linux_add_uri.bash

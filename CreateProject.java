@@ -56,7 +56,7 @@ public class CreateProject {
     public static void createHandlerForLinux() {
 	    try {
 		    Runtime rt = Runtime.getRuntime();	
-		    Process proc = rt.exec("sudo bash linux_uri/linux_add_uri.bash");
+		    Process proc = rt.exec("sudo bash install.bash");
             BufferedReader stdInput = new BufferedReader(new
                     InputStreamReader(proc.getInputStream()) );
 
