@@ -5,7 +5,7 @@
 ## Installing
 
 Compile files with `javac CreateProject.java OpenFile.java`
-and run `java CreateProject` to setup URI handler in windows and linux
+and run `sudo java CreateProject` to setup URI handler in windows and linux
 
 ## Usage
 
