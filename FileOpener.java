@@ -3,58 +3,50 @@ import java.io.*;
 import java.util.Scanner;
 
 public class FileOpener {
+    static String OSName = System.getProperty("os.name").toLowerCase();
     static Runtime rt           = Runtime.getRuntime();
     static Scanner input        = new Scanner(System.in);
     // all commands must always contain a '?' one and only at end.
-    static String[] commands    = {"open-file/?", "clone-url/?"};
-
+    static String[] commands    = {"open-file?", "clone-url?", "open-file/?", "clone-url/?"};
+    static String path = null;
     public static void main(String[] args){
         if (args.length == 0 || args[0].length() <= 4) {
             // Only ide: specified (no commands specified)
+            printUsage();
             return;
         }
 
         System.out.println("\n\t*******Starting*******");
-        System.out.println("MAIN => " + args[0]);
 
         String[] op_data = parseInput(args);
 
         if (op_data == null || op_data.length != 2) {
-            System.out.println("UNKNOWN COMMAND");
+            System.out.println("Invalid Input");
             input.nextLine();
             return;
         } else {
             switch(op_data[0]) {
+                case "open-file":
                 case "open-file/":
-                    openFile(op_data[1]);
+                    openFileInVSCode(op_data[1]);
                     break;
+                case "clone-url":
                 case "clone-url/":
-                    System.out.println("cloning url=>" + op_data[1] );
                     isGitLink(op_data[1]+".git");
                     cloneURL(op_data[1]);
+                    if (path != null) 
+                        openFileInVSCode(path);
+                    else
+                        System.out.println("Cannot open file");
                     break;
                 default:
-                    System.out.println("Do you know what you're typing.");
+                    System.out.println("Unknown Command " + op_data[0]);
             }
         }
-        System.out.println("IN MAIN");
+        System.out.println("Press Enter : " );
         input.nextLine();
     }
-
-    /**
-     * Input as URI I can get
-     * __while accessing file
-     *      ide://path(represented as link)
-     *      ide:path
-     *      ide:\\path
-     *      ide:
-     * __while accessing link
-     *      ide:https://wwww.jobhi/
-     *      ide:\\https://LINK
-     *      ide://link
-     *      ide\\ => ide%5C%5C
-     *      ide:link
-     */
+    
 
     /**
      * returns command and link as String[] in this order
@@ -69,45 +61,42 @@ public class FileOpener {
         }
 
         //remove ide:// from link
-        link = link.substring(6); // 6 is length of ide://
-
-        System.out.println("parseInput => " + link); //FIXME:
+        link = link.substring(6);
 
         String link_LC = link.toLowerCase();
 
         for (String command : commands) {
             if (link_LC.startsWith(command) ) {
-                System.out.println("IDENTIFIED ");
                 returnFile = link.split("[?]", 2);
             }
         }
 
-
-        // for (String com : returnFile) System.out.println("returnFile => " + com);
-
         return returnFile;
     }
 
-    public static void openFile(String path) {
+    public static void openFileInVSCode(String path) {
         try {
-            System.out.println("GOT HERE => " + path);
+            // System.out.println("GOT HERE => " + path);
             path = path.replace("\\", "/");
             System.out.println(path);
-            rt.exec("cmd /c start vscode://file/" + path); //FIXME: call cli code function
-            System.out.println("-->EXECUTION COMPLETE");
+            if (OSName.contains("win") )
+                rt.exec("cmd /c start vscode://file/" + path); //FIXME: call cli code function
+            else if (OSName.contains("linux") ) {
+                rt.exec("xdg-open vscode://file/" + path);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    //FIXME: check if it's a git repository
     public static boolean isGitLink(String path) {
         return true;
     }
 
     public static void cloneURL(String link) {
-        System.out.println(link);
         System.out.print("Specify Path : ");
-        String path = input.nextLine(); // TODO: Create Path object and check this path
+        path = input.nextLine(); // TODO: Create Path object and check this path
         System.out.println(link +  " <= link\n" + "path => " + path);
         String[] parts_of_link = link.split("/");
         String folderName = parts_of_link[parts_of_link.length - 1];
@@ -115,9 +104,16 @@ public class FileOpener {
         try {
             Process proc = rt.exec("git clone " + link + " " + path + "/" + folderName);
             proc.waitFor();
-        } catch (IOException|InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("Path Not Found = " + path);
         }
-        System.out.println("Successfully Cloned");
+    }
+
+    public static void printUsage() {
+        System.out.println("url -> ide://open-file?path_to_file  - to open file");
+        System.out.println("write ide://clone-url? before url link in browser git to clone and open the repository");
+        System.out.println("\t\t It should be valid git repository");
     }
 }
