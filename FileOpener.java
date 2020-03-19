@@ -2,6 +2,10 @@
 import java.io.*;
 import java.util.Scanner;
 
+/**
+ * This program handles the URI
+ */
+
 public class FileOpener {
     static String OSName = System.getProperty("os.name").toLowerCase();
     static Runtime rt           = Runtime.getRuntime();
@@ -46,7 +50,6 @@ public class FileOpener {
         System.out.println("Press Enter : " );
         input.nextLine();
     }
-    
 
     /**
      * returns command and link as String[] in this order
@@ -76,7 +79,6 @@ public class FileOpener {
 
     public static void openFileInVSCode(String path) {
         try {
-            // System.out.println("GOT HERE => " + path);
             path = path.replace("\\", "/");
             System.out.println(path);
             if (OSName.contains("win") )
@@ -89,7 +91,7 @@ public class FileOpener {
         }
     }
 
-    //FIXME: check if it's a git repository
+    //FIXME: check if it's a valid git repository
     public static boolean isGitLink(String path) {
         return true;
     }
