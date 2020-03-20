@@ -99,7 +99,7 @@ public class FileOpener {
     public static void cloneURL(String link) {
         System.out.print("Specify Path : ");
         path = input.nextLine(); // TODO: Create Path object and check this path
-        System.out.println(link +  " <= link\n" + "path => " + path);
+        
         String[] parts_of_link = link.split("/");
         String folderName = parts_of_link[parts_of_link.length - 1];
 
