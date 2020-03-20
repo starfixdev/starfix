@@ -25,5 +25,8 @@ change it to
     to
     >`ide://open-file?C:path\to\folder`
 
+    or run command
+    >`start ide://open-file?C:path\to\folder`
+
 - In Linux to open path in VSCode
     >`xdg-open ide://open-file?path\to\folder`
