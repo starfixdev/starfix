@@ -33,14 +33,18 @@ public class FileOpener {
             switch(op_data[0]) {
                 case "open-file":
                 case "open-file/":
-                    openFileInVSCode(op_data[1]);
+                    saveHere = new File(op_data[1]);
+                    if (saveHere != null && saveHere.exists() )
+                        openFileInVSCode();
+                    else
+                        System.out.println("This is not a valid path");
                     break;
                 case "clone-url":
                 case "clone-url/":
                     isGitLink(op_data[1]+".git");
                     cloneURL(op_data[1]);
-                    if (path != null) 
-                        openFileInVSCode(path);
+                    if (saveHere != null && saveHere.exists() ) 
+                        openFileInVSCode();
                     else
                         System.out.println("Cannot open file");
                     break;
@@ -67,10 +71,10 @@ public class FileOpener {
         //remove ide:// from link
         link = link.substring(6);
 
-        //FIXME: String link_LC = link.toLowerCase();
+        String link_LC = link.toLowerCase();
 
         for (String command : commands) {
-            if (link_LC.equalsIgnoreCase(command) ) {
+            if (link_LC.startsWith(command) ) {
                 returnFile = link.split("[?]", 2);
             }
         }
@@ -78,14 +82,12 @@ public class FileOpener {
         return returnFile;
     }
 
-    public static void openFileInVSCode(String path) {
+    public static void openFileInVSCode() {
         try {
-            path = path.replace("\\", "/");
-            System.out.println(path);
             if (OSName.contains("win") )
-                rt.exec("cmd /c start vscode://file/" + path); //FIXME: call cli code function
+                rt.exec("cmd /c start vscode://file/" + saveHere); //TODO: call cli code function
             else if (OSName.contains("linux") ) {
-                rt.exec("xdg-open vscode://file/" + path);
+                rt.exec("xdg-open vscode://file/" + saveHere);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -109,12 +111,12 @@ public class FileOpener {
         String folderName = parts_of_link[parts_of_link.length - 1];
 
         try {
-            Process proc = rt.exec("git clone " + link + " " + path + "/" + folderName);
+            Process proc = rt.exec("git clone " + link + " " + saveHere + "/" + folderName);
             proc.waitFor();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            System.out.println("Path Not Found = " + path);
+            System.out.println("Path Not Found = " + saveHere);
         }
     }
 
