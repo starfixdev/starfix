@@ -1,5 +1,6 @@
 
 import java.io.*;
+import java.io.File;
 import java.util.Scanner;
 
 /**
@@ -12,7 +13,7 @@ public class FileOpener {
     static Scanner input        = new Scanner(System.in);
     // all commands must always contain a '?' one and only at end.
     static String[] commands    = {"open-file?", "clone-url?", "open-file/?", "clone-url/?"};
-    static String path = null;
+    static File saveHere = null;
     public static void main(String[] args){
         if (args.length == 0 || args[0].length() <= 4) {
             // Only ide: specified (no commands specified)
@@ -66,10 +67,10 @@ public class FileOpener {
         //remove ide:// from link
         link = link.substring(6);
 
-        String link_LC = link.toLowerCase();
+        //FIXME: String link_LC = link.toLowerCase();
 
         for (String command : commands) {
-            if (link_LC.startsWith(command) ) {
+            if (link_LC.equalsIgnoreCase(command) ) {
                 returnFile = link.split("[?]", 2);
             }
         }
@@ -98,8 +99,12 @@ public class FileOpener {
 
     public static void cloneURL(String link) {
         System.out.print("Specify Path : ");
-        path = input.nextLine(); // TODO: Create Path object and check this path
-        
+        saveHere = new File(input.nextLine() );
+        if (!saveHere.exists()) {
+            System.out.println("Invalid Path");
+            return;
+        } 
+
         String[] parts_of_link = link.split("/");
         String folderName = parts_of_link[parts_of_link.length - 1];
 
