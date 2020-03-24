@@ -1,4 +1,7 @@
-/*Intended solely to test if the application is running */
+/*
+-Intended solely to test if the application is running 
+-Test it at http://localhost:8080/hello/greeting/anything_you_want
+ */
 package org.acme.getting.started;
 
 import javax.inject.Inject;
