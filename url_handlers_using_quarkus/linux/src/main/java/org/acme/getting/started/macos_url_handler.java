@@ -1,7 +1,7 @@
 package org.acme.getting.started;
 import java.io.*;
-/*Adding Custom URL Handler to Linux for ide:// */
- public class linux_url_handler{
+/*Adding Custom URL Handler to MacOS for ide:// */
+ public class macos_url_handler{
      public static void main(String[] args) throws Exception{
 
              Runtime run = Runtime.getRuntime();  
@@ -11,7 +11,7 @@ import java.io.*;
             //the exec method. The command can also be passed externally as input to the method.  
 
             Process p = null;  
-            String cmd = "sudo bash install";  
+            String cmd = "mv ide_handler.app ~/Applications";  //Moving to Applications
             try {  
                 p = run.exec(cmd);  
 
@@ -21,10 +21,28 @@ import java.io.*;
             }  
             catch (Exception e) {  
                 e.printStackTrace();  
-                System.out.println("ERROR.RUNNING.CMD");  
+                System.out.println("ERROR While Moving to Applications");  
 
             }finally{
                 p.destroy();
+            }
+
+            cmd = "open -a ide_handler"; //Executing our Application
+            try {  
+                p = run.exec(cmd);  
+
+                p.getErrorStream();  
+                p.waitFor();
+
             }  
+            catch (Exception e) {  
+                e.printStackTrace();  
+                System.out.println("ERROR while executing application");  
+
+            }finally{
+                p.destroy();
+            }
+
+              
      }
  }
