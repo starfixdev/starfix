@@ -13,4 +13,4 @@ _As a mockup we open `apt` instead of starfish(as it is not developed yet)_
 - it will prompt to `open xdg-open`
 - click on `open-xdg-open` 
 - note that we are trigerring apt with the url for mockup 
-- ofcourse it is an invalid package so t will give error
+- ofcourse it is an invalid package so it will give error
