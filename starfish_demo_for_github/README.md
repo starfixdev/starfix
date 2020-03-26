@@ -1,5 +1,8 @@
-# starfish-demo
-Demonstrates open in IDE Option on Github
+# starfish_demo_for_github
+
+Webpage: https://fahad-israr.github.io/starfish-demo/
+
+Demonstrates open in IDE Option on Github for Starfish App at  https://fahad-israr.github.io/starfish-demo/
 
 
 _As a mockup we open `apt` instead of starfish(as it is not developed yet)_
