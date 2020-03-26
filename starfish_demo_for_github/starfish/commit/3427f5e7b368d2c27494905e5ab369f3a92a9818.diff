@@ -1,0 +1,12 @@
+diff --git a/README.md b/README.md
+index 656885f..e037e85 100644
+--- a/README.md
++++ b/README.md
+@@ -1,2 +1,6 @@
+-# starfish
++# Project Starfish
++
+ GSOC 2020 Starfish POC
++
++This repo is mainly to have conversations/discussions around the (Starfish GSOC idea under JBoss.org
++

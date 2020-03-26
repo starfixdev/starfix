@@ -1,0 +1,10 @@
+diff --git a/adding_url_handlers_to_operating_system/linux/README.md b/adding_url_handlers_to_operating_system/linux/README.md
+index dca3b53..ceac659 100644
+--- a/adding_url_handlers_to_operating_system/linux/README.md
++++ b/adding_url_handlers_to_operating_system/linux/README.md
+@@ -1,4 +1,4 @@
+-# Creating Custom URL Handlers on Linux:
++# creating custom url handlers on linux:
+ ### Note: Still Working to enhance
+ - To register a new URL scheme handler with XDG, first create a Desktop Entry which specifies the x-scheme-handler/... MIME type:
+ ```

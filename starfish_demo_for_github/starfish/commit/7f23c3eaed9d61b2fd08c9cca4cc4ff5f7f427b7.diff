@@ -1,0 +1,13 @@
+diff --git a/adding_url_handlers_to_operating_system/linux/install b/adding_url_handlers_to_operating_system/linux/install
+new file mode 100644
+index 0000000..8e2167a
+--- /dev/null
++++ b/adding_url_handlers_to_operating_system/linux/install
+@@ -0,0 +1,7 @@
++#!/usr/bin/env bash
++
++sudo cp ide-handler.desktop /usr/share/applications
++sudo update-desktop-database
++
++sudo cp ide-handler /usr/local/bin/
++sudo chmod +x /usr/local/bin/ide-handler

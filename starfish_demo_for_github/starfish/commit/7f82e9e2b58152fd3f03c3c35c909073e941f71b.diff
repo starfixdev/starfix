@@ -1,0 +1,37 @@
+diff --git a/Adding Custom Url handlers/Windows/Testing Windows URL Handler.cs b/Adding Custom Url handlers/Windows/Testing Windows URL Handler.cs
+new file mode 100644
+index 0000000..2a4722c
+--- /dev/null
++++ b/Adding Custom Url handlers/Windows/Testing Windows URL Handler.cs	
+@@ -0,0 +1,31 @@
++  /*Test File for Custom URL Handler Testing */
++  using System;
++  using System.Collections.Generic;
++using System.Text;
++
++  namespace Ide
++  {
++    class Program
++    {
++      static string ProcessInput(string s)
++      {
++         // TODO Verify and validate the input 
++         // string as appropriate for your application.
++         return s;
++      }
++
++      static void Main(string[] args)
++      {
++        Console.WriteLine("Ide.exe invoked with the following parameters.\r\n");
++        Console.WriteLine("Raw command-line: \n\t" + Environment.CommandLine);
++
++        Console.WriteLine("\n\nArguments:\n");
++        foreach (string s in args)
++        {
++          Console.WriteLine("\t" + ProcessInput(s));
++        }
++        Console.WriteLine("\nPress any key to continue...");
++        Console.ReadKey();
++      }
++    }
++  }

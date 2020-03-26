@@ -1,0 +1,38 @@
+From 11df2fecee29516af2d3be201e9d35226f844d4d Mon Sep 17 00:00:00 2001
+From: Fahad Israr <fahad00cms@gmail.com>
+Date: Thu, 5 Mar 2020 23:45:26 +0530
+Subject: [PATCH] Directory Nomenclature resolved
+
+---
+ .../linux}/README.md                                              | 0
+ .../windows}/README.md                                            | 0
+ .../windows/output.md                                             | 0
+ .../windows/testing_windows_url_handler.cs                        | 0
+ .../windows/windows_url_handler.md                                | 0
+ 5 files changed, 0 insertions(+), 0 deletions(-)
+ rename {Adding Url handlers to Operating System/Linux => adding_url_handlers_to_operating_system/linux}/README.md (100%)
+ rename {Adding Url handlers to Operating System/Windows => adding_url_handlers_to_operating_system/windows}/README.md (100%)
+ rename Adding Url handlers to Operating System/Windows/Output.md => adding_url_handlers_to_operating_system/windows/output.md (100%)
+ rename Adding Url handlers to Operating System/Windows/Testing Windows URL Handler.cs => adding_url_handlers_to_operating_system/windows/testing_windows_url_handler.cs (100%)
+ rename Adding Url handlers to Operating System/Windows/Windows Url handler.md => adding_url_handlers_to_operating_system/windows/windows_url_handler.md (100%)
+
+diff --git a/Adding Url handlers to Operating System/Linux/README.md b/adding_url_handlers_to_operating_system/linux/README.md
+similarity index 100%
+rename from Adding Url handlers to Operating System/Linux/README.md
+rename to adding_url_handlers_to_operating_system/linux/README.md
+diff --git a/Adding Url handlers to Operating System/Windows/README.md b/adding_url_handlers_to_operating_system/windows/README.md
+similarity index 100%
+rename from Adding Url handlers to Operating System/Windows/README.md
+rename to adding_url_handlers_to_operating_system/windows/README.md
+diff --git a/Adding Url handlers to Operating System/Windows/Output.md b/adding_url_handlers_to_operating_system/windows/output.md
+similarity index 100%
+rename from Adding Url handlers to Operating System/Windows/Output.md
+rename to adding_url_handlers_to_operating_system/windows/output.md
+diff --git a/Adding Url handlers to Operating System/Windows/Testing Windows URL Handler.cs b/adding_url_handlers_to_operating_system/windows/testing_windows_url_handler.cs
+similarity index 100%
+rename from Adding Url handlers to Operating System/Windows/Testing Windows URL Handler.cs
+rename to adding_url_handlers_to_operating_system/windows/testing_windows_url_handler.cs
+diff --git a/Adding Url handlers to Operating System/Windows/Windows Url handler.md b/adding_url_handlers_to_operating_system/windows/windows_url_handler.md
+similarity index 100%
+rename from Adding Url handlers to Operating System/Windows/Windows Url handler.md
+rename to adding_url_handlers_to_operating_system/windows/windows_url_handler.md

@@ -1,0 +1,54 @@
+
+<header class="SelectMenu-header">
+  <span class="SelectMenu-title">Switch branches/tags</span>
+  <button class="SelectMenu-closeButton" type="button" data-toggle-for="branch-select-menu"><svg aria-label="Close menu" class="octicon octicon-x" viewBox="0 0 12 16" version="1.1" width="12" height="16" role="img"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48L7.48 8z"/></svg></button>
+</header>
+
+<tab-container class="d-flex flex-column js-branches-tags-tabs" style="min-height: 0;">
+  <div class="SelectMenu-filter">
+    <filter-input aria-owns="ref-list-branches" data-controls-ref-menu-id="ref-list-branches">
+      <input
+        type="text"
+        id="context-commitish-filter-field"
+        class="SelectMenu-input form-control"
+        autofocus
+        autocomplete="off"
+        aria-label="Filter branches/tags"
+        placeholder="Filter branches/tags">
+    </filter-input>
+
+    <remote-input
+      src="../../refs-tags/master/READMEb1d3.html?source_action=show&amp;source_controller=blob&amp;tag_name=master"
+      aria-owns="tags-menu"
+      data-controls-ref-menu-id="tags-menu"
+      hidden>
+      <input type="text" class="SelectMenu-input form-control" aria-label="Find a tag" placeholder="Find a tag" autofocus>
+    </remote-input>
+  </div>
+
+  <div class="SelectMenu-tabs" role="tablist">
+    <button class="SelectMenu-tab" type="button" data-filter-placeholder="Filter branches/tags" role="tab" aria-selected="true">Branches</button>
+    <button class="SelectMenu-tab" type="button" data-filter-placeholder="Find a tag" role="tab">Tags</button>
+  </div>
+
+  <div class="SelectMenu-list" role="tabpanel" id="ref-list-branches">
+    <div data-filter-list>
+
+        <a class="SelectMenu-item"
+           href="../../blob/master/README.html"
+           role="menuitemradio"
+           aria-checked="true"
+           rel="nofollow">
+          <svg class="octicon octicon-check SelectMenu-icon SelectMenu-icon--check" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z"/></svg>
+            <span class="flex-1 break-word" data-menu-button-text data-filter-item-text>master</span>
+            <span class="Label Label--gray flex-self-start">default</span>
+        </a>
+
+        <div class="SelectMenu-message" data-filter-empty-state hidden>Nothing to show</div>
+    </div>
+  </div>
+
+  <div class="SelectMenu-list" role="tabpanel" id="tags-menu" hidden>
+    <div class="SelectMenu-message">Search for a tag</div>
+  </div>
+</tab-container>

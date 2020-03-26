@@ -1,0 +1,32 @@
+From 93520953abba705bde6d14755bf91d95615a9564 Mon Sep 17 00:00:00 2001
+From: Fahad Israr <fahad00cms@gmail.com>
+Date: Thu, 5 Mar 2020 17:22:24 +0530
+Subject: [PATCH] Comprehensive Directory Names
+
+---
+ .../Windows/Output.md                                             | 0
+ .../Windows/README.md                                             | 0
+ .../Windows/Testing Windows URL Handler.cs                        | 0
+ .../Windows/Windows Url handler.md                                | 0
+ 4 files changed, 0 insertions(+), 0 deletions(-)
+ rename {Adding Custom Url handlers => Adding Url handlers to Operating System}/Windows/Output.md (100%)
+ rename {Adding Custom Url handlers => Adding Url handlers to Operating System}/Windows/README.md (100%)
+ rename {Adding Custom Url handlers => Adding Url handlers to Operating System}/Windows/Testing Windows URL Handler.cs (100%)
+ rename {Adding Custom Url handlers => Adding Url handlers to Operating System}/Windows/Windows Url handler.md (100%)
+
+diff --git a/Adding Custom Url handlers/Windows/Output.md b/Adding Url handlers to Operating System/Windows/Output.md
+similarity index 100%
+rename from Adding Custom Url handlers/Windows/Output.md
+rename to Adding Url handlers to Operating System/Windows/Output.md
+diff --git a/Adding Custom Url handlers/Windows/README.md b/Adding Url handlers to Operating System/Windows/README.md
+similarity index 100%
+rename from Adding Custom Url handlers/Windows/README.md
+rename to Adding Url handlers to Operating System/Windows/README.md
+diff --git a/Adding Custom Url handlers/Windows/Testing Windows URL Handler.cs b/Adding Url handlers to Operating System/Windows/Testing Windows URL Handler.cs
+similarity index 100%
+rename from Adding Custom Url handlers/Windows/Testing Windows URL Handler.cs
+rename to Adding Url handlers to Operating System/Windows/Testing Windows URL Handler.cs
+diff --git a/Adding Custom Url handlers/Windows/Windows Url handler.md b/Adding Url handlers to Operating System/Windows/Windows Url handler.md
+similarity index 100%
+rename from Adding Custom Url handlers/Windows/Windows Url handler.md
+rename to Adding Url handlers to Operating System/Windows/Windows Url handler.md

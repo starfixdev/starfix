@@ -1,0 +1,29 @@
+From f7016d832a223fce20f6c3e676cb68902bce359f Mon Sep 17 00:00:00 2001
+From: Fahad Israr <fahad00cms@gmail.com>
+Date: Thu, 5 Mar 2020 08:54:45 +0530
+Subject: [PATCH] Create Output.md
+
+---
+ Adding Custom Url handlers/Windows/Output.md | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+ create mode 100644 Adding Custom Url handlers/Windows/Output.md
+
+diff --git a/Adding Custom Url handlers/Windows/Output.md b/Adding Custom Url handlers/Windows/Output.md
+new file mode 100644
+index 0000000..df598a7
+--- /dev/null
++++ b/Adding Custom Url handlers/Windows/Output.md	
+@@ -0,0 +1,13 @@
++Ide.exe invoked with the following parameters.
++
++Raw command-line:
++
++    "C:\Program Files\Ide\Ide.exe" "Ide:"Hello World""
++
++
++Arguments:
++
++        Ide:Hello
++        World
++
++Press any key to continue...

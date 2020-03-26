@@ -1,0 +1,26 @@
+From 6df7e3b6d1708ef4e2dd4df71be04e71004836bb Mon Sep 17 00:00:00 2001
+From: Fahad Israr <fahad00cms@gmail.com>
+Date: Thu, 5 Mar 2020 17:26:32 +0530
+Subject: [PATCH] Linux Url handlers
+
+---
+ .../Linux/README.md                                    | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+ create mode 100644 Adding Url handlers to Operating System/Linux/README.md
+
+diff --git a/Adding Url handlers to Operating System/Linux/README.md b/Adding Url handlers to Operating System/Linux/README.md
+new file mode 100644
+index 0000000..93381db
+--- /dev/null
++++ b/Adding Url handlers to Operating System/Linux/README.md	
+@@ -0,0 +1,10 @@
++# Creating Custom URL Handlers on Windows:
++
++- The `Windows Url handler.md` file contains instructions to create custom URL Handlers on Windows.
++
++
++- The `Testing Windows URL Handler.cs` file contains a test code to Test the created custom URL 
++
++- The `Output.md` describes the Out put on invoking `Ide:"Hello%20World"` from  the Browser.
++
++ References : https://docs.microsoft.com/

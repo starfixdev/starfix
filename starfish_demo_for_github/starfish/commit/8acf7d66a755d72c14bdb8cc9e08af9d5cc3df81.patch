@@ -1,0 +1,24 @@
+From 8acf7d66a755d72c14bdb8cc9e08af9d5cc3df81 Mon Sep 17 00:00:00 2001
+From: Max Rydahl Andersen <manderse@redhat.com>
+Date: Mon, 2 Mar 2020 16:39:33 +0100
+Subject: [PATCH] Update README.adoc
+
+---
+ README.adoc | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/README.adoc b/README.adoc
+index 4b5bdc5..68b270a 100644
+--- a/README.adoc
++++ b/README.adoc
+@@ -34,9 +34,7 @@ This project will need some level of research:
+ 
+ ### Github repo:
+ 
+-  Since this is a new idea there are no direct current github repo for it - for now created https://github.com/maxandersen/starfish for having a place of discussion/conversion. If you want to explore/work in this area and show your experience/interest you can look into contributing to projects like  https://github.com/maxandersen/jbang or any vscode-* repo under https://github.com/redhat-developer/  or for more advanced
+-
+-        https://github.com/quarkusio.  Basically any project that relates to developer tools, desktop tools, scripts or browser extensions will be useful experience. 
++Since this is a new idea there are no direct current github repo for it - for now created https://github.com/maxandersen/starfish for having a place of discussion/conversion. If you want to explore/work in this area and show your experience/interest you can look into contributing to projects like  https://github.com/maxandersen/jbang or any vscode-* repo under https://github.com/redhat-developer/  or for more advanced https://github.com/quarkusio.  Basically any project that relates to developer tools, desktop tools, scripts or browser extensions will be useful experience. 
+ 
+ ### Slides:
+ 

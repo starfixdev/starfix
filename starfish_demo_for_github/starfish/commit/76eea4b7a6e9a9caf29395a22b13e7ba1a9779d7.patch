@@ -1,0 +1,27 @@
+From 76eea4b7a6e9a9caf29395a22b13e7ba1a9779d7 Mon Sep 17 00:00:00 2001
+From: Fahad Israr <fahad00cms@gmail.com>
+Date: Tue, 10 Mar 2020 22:47:06 +0530
+Subject: [PATCH] Create ide-handler.desktop
+
+---
+ .../linux/ide-handler.desktop                         | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+ create mode 100644 adding_url_handlers_to_operating_system/linux/ide-handler.desktop
+
+diff --git a/adding_url_handlers_to_operating_system/linux/ide-handler.desktop b/adding_url_handlers_to_operating_system/linux/ide-handler.desktop
+new file mode 100644
+index 0000000..deb2973
+--- /dev/null
++++ b/adding_url_handlers_to_operating_system/linux/ide-handler.desktop
+@@ -0,0 +1,11 @@
++#!/usr/bin/env xdg-open
++[Desktop Entry]
++Version=1.0
++Terminal=false
++Type=Application
++Name=IDE URL Handler
++Comment=Handle URL Scheme ide://
++Icon=ide-handler
++NoDisplay=true
++Exec=ide-handler %u
++MimeType=x-scheme-handler/ide

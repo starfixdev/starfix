@@ -1,0 +1,14 @@
+From d07c9a7dbd374186d927ac8e342e4d483e40d321 Mon Sep 17 00:00:00 2001
+From: Fahad Israr <fahad00cms@gmail.com>
+Date: Thu, 5 Mar 2020 08:23:43 +0530
+Subject: [PATCH] Windows Url handlers
+
+---
+ Adding Custom Url handlers/{ => Windows}/Windows Url handler.md | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ rename Adding Custom Url handlers/{ => Windows}/Windows Url handler.md (100%)
+
+diff --git a/Adding Custom Url handlers/Windows Url handler.md b/Adding Custom Url handlers/Windows/Windows Url handler.md
+similarity index 100%
+rename from Adding Custom Url handlers/Windows Url handler.md
+rename to Adding Custom Url handlers/Windows/Windows Url handler.md

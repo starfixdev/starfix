@@ -1,0 +1,14 @@
+From 8770c7bc2e4e16f08310b0547f7f00ebb1b53de8 Mon Sep 17 00:00:00 2001
+From: Fahad Israr <fahad00cms@gmail.com>
+Date: Thu, 5 Mar 2020 08:17:43 +0530
+Subject: [PATCH] Rename Windows Url handler.adoc to Windows Url handler.md
+
+---
+ .../{Windows Url handler.adoc => Windows Url handler.md}          | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ rename Adding Custom Url handlers/{Windows Url handler.adoc => Windows Url handler.md} (100%)
+
+diff --git a/Adding Custom Url handlers/Windows Url handler.adoc b/Adding Custom Url handlers/Windows Url handler.md
+similarity index 100%
+rename from Adding Custom Url handlers/Windows Url handler.adoc
+rename to Adding Custom Url handlers/Windows Url handler.md

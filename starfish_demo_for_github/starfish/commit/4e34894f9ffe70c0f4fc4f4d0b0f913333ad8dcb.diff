@@ -1,0 +1,10 @@
+diff --git a/Adding Custom Url handlers/Windows/README.md b/Adding Custom Url handlers/Windows/README.md
+index b2a084f..93381db 100644
+--- a/Adding Custom Url handlers/Windows/README.md	
++++ b/Adding Custom Url handlers/Windows/README.md	
+@@ -7,4 +7,4 @@
+ 
+ - The `Output.md` describes the Out put on invoking `Ide:"Hello%20World"` from  the Browser.
+ 
+-References : https://docs.microsoft.com/
++ References : https://docs.microsoft.com/

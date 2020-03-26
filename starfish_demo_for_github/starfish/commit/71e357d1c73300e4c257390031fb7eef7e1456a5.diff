@@ -1,0 +1,85 @@
+diff --git a/Adding Custom Url handlers/README.adoc b/Adding Custom Url handlers/README.adoc
+deleted file mode 100644
+index 68b270a..0000000
+--- a/Adding Custom Url handlers/README.adoc	
++++ /dev/null
+@@ -1,46 +0,0 @@
+-# Project Starfish
+-
+-GSOC 2020 Starfish POC
+-
+-This repo is mainly to have conversations/discussions around the https://docs.jboss.org/display/GSOC/Google+Summer+of+Code+2020+ideas[Starfish GSOC idea under JBoss.org].
+-
+-Below is an update of the original outline of the idea:
+-
+-## Project Starfish - Open anything anywhere in any IDE/editor
+-
+-*Summary of idea*:
+-
+-- Implement a client side app that supports urlhandlers (i.e. `ide://clone-url?url=https://github` ... , `ide://open-file?`, `ide://open-debugger?port=..&project=url`, etc.)
+-- Then integrate these various actions to perform and setup in vscode, eclipse, intellij, emacs, vi, etc.
+-- Make it work across Linux, OSX and Windows so it can be used from anywhere.
+-- Possible make browser extensions to enable it on various websites like github, gitlab, etc.
+-
+-This project will need some level of research:
+-
+-- How to setup url handlers on all three major platforms
+-- Understand the basic functionallity of at least three IDEs/Editors open/clone features to show it will work
+-- Explore extendability of browers or IDE's as needed
+-- Possible tasks for this project:
+-  - Implement cross-platform app
+-  - Add tests
+-  - Write documentation
+-  - Prepare demos
+-
+-### Knowledge prerequisite: 
+-
+-- Open choice on language, but most likely Java, or Go based
+-- Basic understanding of IDE and/or Browser extensions
+-- Access to more than one of the Operating Systems, virtual machines okey.
+-
+-### Github repo:
+-
+-Since this is a new idea there are no direct current github repo for it - for now created https://github.com/maxandersen/starfish for having a place of discussion/conversion. If you want to explore/work in this area and show your experience/interest you can look into contributing to projects like  https://github.com/maxandersen/jbang or any vscode-* repo under https://github.com/redhat-developer/  or for more advanced https://github.com/quarkusio.  Basically any project that relates to developer tools, desktop tools, scripts or browser extensions will be useful experience. 
+-
+-### Slides:
+-
+-  An outline of the idea with some screenshots/overview can be found https://docs.google.com/presentation/d/1AwWtUVz04b5u2I3QB-fEevzpyAJLSE1PzdS0JjnVoO0/edit#slide=id.pp[here] - feel free to comment.
+-
+-- Skill level: Beginner/Intermediate
+-- Contact(s) / potential mentors(s): Max Rydahl Andersen (manderse@redhat.com)
+-- Associated JBoss community project(s): Quarkus, vscode extensions, JBoss Tools
+-
+diff --git a/Adding Custom Url handlers/Windows Url handler.adoc b/Adding Custom Url handlers/Windows Url handler.adoc
+new file mode 100644
+index 0000000..fb0425b
+--- /dev/null
++++ b/Adding Custom Url handlers/Windows Url handler.adoc	
+@@ -0,0 +1,27 @@
++# Adding Custom Url Handlers in Windows
++
++##### To register an application to handle a particular URI scheme, add a new key, along with the appropriate subkeys and values, to HKEY_CLASSES_ROOT.
++##### The root key must match the URI scheme that is being added. For instance, to add an "ide:" scheme, add an ide key to HKEY_CLASSES_ROOT, as follows:
++
++   HKEY_CLASSES_ROOT
++      alert
++          URL Protocol = "" 
++
++- Under this new key, the URL Protocol string value indicates that this key declares a custom pluggable protocol handler. Without this key, the handler application will not launch. The value should be an empty string.
++
++- Keys should also be added for DefaultIcon and shell. The Default string value of the DefaultIcon key must be the file name to use as an icon for this new URI scheme. The string takes the form "path, iconindex" with a maximum length of MAX_PATH. The name of the first key under the shell key should be an action verb, such as open. Under this key, a command key or a DDEEXEC key indicate how the handler should be invoked. The values under the command and DDEEXEC keys describe how to launch the application handling the new protocol.
++- Finally, the Default string value should contain the display name of the new URI scheme. 
++
++### The following code shows how to register an application, ide.exe in this case, to handle the ide scheme:
++  HKEY_CLASSES_ROOT
++     alert
++        (Default) = "URL:Ide Protocol"
++        URL Protocol = ""
++        DefaultIcon
++           (Default) = "ide.exe,1"
++        shell
++           open
++              command
++                 (Default) = "C:\Program Files\Ide\ide.exe" "%1"
++                 
++ 

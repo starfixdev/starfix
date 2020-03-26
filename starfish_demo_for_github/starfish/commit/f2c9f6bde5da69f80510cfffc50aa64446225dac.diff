@@ -1,0 +1,44 @@
+diff --git a/Adding Custom Url handlers/Windows Url handler.md b/Adding Custom Url handlers/Windows Url handler.md
+index fb0425b..7400d99 100644
+--- a/Adding Custom Url handlers/Windows Url handler.md	
++++ b/Adding Custom Url handlers/Windows Url handler.md	
+@@ -3,9 +3,9 @@
+ ##### To register an application to handle a particular URI scheme, add a new key, along with the appropriate subkeys and values, to HKEY_CLASSES_ROOT.
+ ##### The root key must match the URI scheme that is being added. For instance, to add an "ide:" scheme, add an ide key to HKEY_CLASSES_ROOT, as follows:
+ 
+-   HKEY_CLASSES_ROOT
+-      alert
+-          URL Protocol = "" 
++      HKEY_CLASSES_ROOT
++         alert
++             URL Protocol = "" 
+ 
+ - Under this new key, the URL Protocol string value indicates that this key declares a custom pluggable protocol handler. Without this key, the handler application will not launch. The value should be an empty string.
+ 
+@@ -13,15 +13,15 @@
+ - Finally, the Default string value should contain the display name of the new URI scheme. 
+ 
+ ### The following code shows how to register an application, ide.exe in this case, to handle the ide scheme:
+-  HKEY_CLASSES_ROOT
+-     alert
+-        (Default) = "URL:Ide Protocol"
+-        URL Protocol = ""
+-        DefaultIcon
+-           (Default) = "ide.exe,1"
+-        shell
+-           open
+-              command
+-                 (Default) = "C:\Program Files\Ide\ide.exe" "%1"
+-                 
++     HKEY_CLASSES_ROOT
++        alert
++           (Default) = "URL:Ide Protocol"
++           URL Protocol = ""
++           DefaultIcon
++              (Default) = "ide.exe,1"
++           shell
++              open
++                 command
++                    (Default) = "C:\Program Files\Ide\ide.exe" "%1"
++
+  

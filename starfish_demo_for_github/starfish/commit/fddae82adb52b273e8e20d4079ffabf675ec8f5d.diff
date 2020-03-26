@@ -1,0 +1,124 @@
+diff --git a/support_opening_files_through_url_handling_in_vscode/README.adoc b/support_opening_files_through_url_handling_in_vscode/README.adoc
+deleted file mode 100644
+index 68b270a..0000000
+--- a/support_opening_files_through_url_handling_in_vscode/README.adoc
++++ /dev/null
+@@ -1,46 +0,0 @@
+-# Project Starfish
+-
+-GSOC 2020 Starfish POC
+-
+-This repo is mainly to have conversations/discussions around the https://docs.jboss.org/display/GSOC/Google+Summer+of+Code+2020+ideas[Starfish GSOC idea under JBoss.org].
+-
+-Below is an update of the original outline of the idea:
+-
+-## Project Starfish - Open anything anywhere in any IDE/editor
+-
+-*Summary of idea*:
+-
+-- Implement a client side app that supports urlhandlers (i.e. `ide://clone-url?url=https://github` ... , `ide://open-file?`, `ide://open-debugger?port=..&project=url`, etc.)
+-- Then integrate these various actions to perform and setup in vscode, eclipse, intellij, emacs, vi, etc.
+-- Make it work across Linux, OSX and Windows so it can be used from anywhere.
+-- Possible make browser extensions to enable it on various websites like github, gitlab, etc.
+-
+-This project will need some level of research:
+-
+-- How to setup url handlers on all three major platforms
+-- Understand the basic functionallity of at least three IDEs/Editors open/clone features to show it will work
+-- Explore extendability of browers or IDE's as needed
+-- Possible tasks for this project:
+-  - Implement cross-platform app
+-  - Add tests
+-  - Write documentation
+-  - Prepare demos
+-
+-### Knowledge prerequisite: 
+-
+-- Open choice on language, but most likely Java, or Go based
+-- Basic understanding of IDE and/or Browser extensions
+-- Access to more than one of the Operating Systems, virtual machines okey.
+-
+-### Github repo:
+-
+-Since this is a new idea there are no direct current github repo for it - for now created https://github.com/maxandersen/starfish for having a place of discussion/conversion. If you want to explore/work in this area and show your experience/interest you can look into contributing to projects like  https://github.com/maxandersen/jbang or any vscode-* repo under https://github.com/redhat-developer/  or for more advanced https://github.com/quarkusio.  Basically any project that relates to developer tools, desktop tools, scripts or browser extensions will be useful experience. 
+-
+-### Slides:
+-
+-  An outline of the idea with some screenshots/overview can be found https://docs.google.com/presentation/d/1AwWtUVz04b5u2I3QB-fEevzpyAJLSE1PzdS0JjnVoO0/edit#slide=id.pp[here] - feel free to comment.
+-
+-- Skill level: Beginner/Intermediate
+-- Contact(s) / potential mentors(s): Max Rydahl Andersen (manderse@redhat.com)
+-- Associated JBoss community project(s): Quarkus, vscode extensions, JBoss Tools
+-
+diff --git a/support_opening_files_through_url_handling_in_vscode/README.md b/support_opening_files_through_url_handling_in_vscode/README.md
+new file mode 100644
+index 0000000..db6edab
+--- /dev/null
++++ b/support_opening_files_through_url_handling_in_vscode/README.md
+@@ -0,0 +1,66 @@
++# Support opening files through URL handling in Vscode
++
++## File Chages Required:
++
++### `src/vs/platform/windows/common/windows.ts`
++ `@@ export interface IWindowsService {`
++
++[+] `openFileForURI(filePath: String): TPromise<void>;`
++
++*****************************************************************
++### src/vs/platform/windows/common/windowsIpc.ts
++`@@ export interface IWindowsChannel extends IChannel {
++`
++
++[+] `call(command: 'openFileForURI', arg: string): TPromise<void>;`
++
++-----------------------------------------------------------------------
++
++`@@ export class WindowsChannel implements IWindowsChannel {`
++
++[+] `case 'openFileForURI': return this.service.openFileForURI(arg);`
++
++---------------------------------------------------------------------------
++`@@ export class WindowsChannelClient implements IWindowsService {`
++
++`openFileForURI(filePath: string): TPromise<void> {
++		return this.channel.call('openFileForURI', filePath);
++	}`
++  
++  --------------------------------------------------------------------------
++  
++  ### src/vs/platform/windows/electron-main/windowsService.ts
++  
++  `@@ import { TPromise } from 'vs/base/common/winjs.base';`
++  
++  [+] `import Event, { chain } from 'vs/base/common/event';`
++  
++  -----------------------------------------------------------------------------
++  `@@ export class WindowsService implements IWindowsService {`
++  
++  [+]
++  ```constructor(
++  @IWindowsMainService private windowsMainService: IWindowsMainService,
++  @IEnvironmentService private environmentService: IEnvironmentService,
++  @IURLService private urlService: IURLService
++	) {
++		chain(urlService.onOpenURL)
++			.filter(uri => uri.authority === 'file')
++			.on(uri => this.openFileForURI(uri.path), this);
++	}
++  
++  
++  
++  openFileForURI(filePath: string): TPromise<void> {
++		if (!filePath || !filePath.length) {
++			return TPromise.as(null);
++		}
++
++		var envServiceArgs = this.environmentService.args;
++		envServiceArgs.goto = true;
++
++		this.windowsMainService.open({ cli: envServiceArgs, pathsToOpen: [filePath] });
++		return TPromise.as(null);
++	}
++  
++  

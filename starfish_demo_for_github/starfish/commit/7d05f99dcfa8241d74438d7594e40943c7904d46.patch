@@ -1,0 +1,23 @@
+From 7d05f99dcfa8241d74438d7594e40943c7904d46 Mon Sep 17 00:00:00 2001
+From: Fahad Israr <fahad00cms@gmail.com>
+Date: Thu, 5 Mar 2020 08:49:54 +0530
+Subject: [PATCH] Update Testing Windows URL Handler.cs
+
+---
+ .../Windows/Testing Windows URL Handler.cs                  | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/Adding Custom Url handlers/Windows/Testing Windows URL Handler.cs b/Adding Custom Url handlers/Windows/Testing Windows URL Handler.cs
+index 2a4722c..0f86620 100644
+--- a/Adding Custom Url handlers/Windows/Testing Windows URL Handler.cs	
++++ b/Adding Custom Url handlers/Windows/Testing Windows URL Handler.cs	
+@@ -1,4 +1,8 @@
+-  /*Test File for Custom URL Handler Testing */
++  /*Test File for Custom URL Handler Testing
++  @Pluggable Protocol Handler .
++  @Author:Fahad Israr(github.com/fahad-israr)
++ The following sample code contains a simple C# console application demonstrating one way to implement a pluggable protocol handler for the Ide URI scheme.*/
++
+   using System;
+   using System.Collections.Generic;
+ using System.Text;

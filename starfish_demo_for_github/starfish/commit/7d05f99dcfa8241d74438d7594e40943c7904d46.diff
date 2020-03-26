@@ -1,0 +1,14 @@
+diff --git a/Adding Custom Url handlers/Windows/Testing Windows URL Handler.cs b/Adding Custom Url handlers/Windows/Testing Windows URL Handler.cs
+index 2a4722c..0f86620 100644
+--- a/Adding Custom Url handlers/Windows/Testing Windows URL Handler.cs	
++++ b/Adding Custom Url handlers/Windows/Testing Windows URL Handler.cs	
+@@ -1,4 +1,8 @@
+-  /*Test File for Custom URL Handler Testing */
++  /*Test File for Custom URL Handler Testing
++  @Pluggable Protocol Handler .
++  @Author:Fahad Israr(github.com/fahad-israr)
++ The following sample code contains a simple C# console application demonstrating one way to implement a pluggable protocol handler for the Ide URI scheme.*/
++
+   using System;
+   using System.Collections.Generic;
+ using System.Text;

@@ -1,0 +1,23 @@
+From 20ab277e64d35492c04fba9cb8e8a539b4c11227 Mon Sep 17 00:00:00 2001
+From: Fahad Israr <fahad00cms@gmail.com>
+Date: Wed, 11 Mar 2020 02:28:23 +0530
+Subject: [PATCH] Update ide-handler.desktop
+
+---
+ .../linux/ide-handler.desktop                                 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/adding_url_handlers_to_operating_system/linux/ide-handler.desktop b/adding_url_handlers_to_operating_system/linux/ide-handler.desktop
+index deb2973..5367f8e 100644
+--- a/adding_url_handlers_to_operating_system/linux/ide-handler.desktop
++++ b/adding_url_handlers_to_operating_system/linux/ide-handler.desktop
+@@ -5,7 +5,7 @@ Terminal=false
+ Type=Application
+ Name=IDE URL Handler
+ Comment=Handle URL Scheme ide://
+-Icon=ide-handler
++Icon=starfish
+ NoDisplay=true
+-Exec=ide-handler %u
++Exec=starfish %u
+ MimeType=x-scheme-handler/ide

@@ -1,0 +1,21 @@
+From 3427f5e7b368d2c27494905e5ab369f3a92a9818 Mon Sep 17 00:00:00 2001
+From: Max Rydahl Andersen <manderse@redhat.com>
+Date: Mon, 2 Mar 2020 16:28:34 +0100
+Subject: [PATCH] Update README.md
+
+---
+ README.md | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/README.md b/README.md
+index 656885f..e037e85 100644
+--- a/README.md
++++ b/README.md
+@@ -1,2 +1,6 @@
+-# starfish
++# Project Starfish
++
+ GSOC 2020 Starfish POC
++
++This repo is mainly to have conversations/discussions around the (Starfish GSOC idea under JBoss.org
++

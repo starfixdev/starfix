@@ -1,0 +1,23 @@
+From 7f23c3eaed9d61b2fd08c9cca4cc4ff5f7f427b7 Mon Sep 17 00:00:00 2001
+From: Fahad Israr <fahad00cms@gmail.com>
+Date: Tue, 10 Mar 2020 22:50:27 +0530
+Subject: [PATCH] Create install
+
+---
+ adding_url_handlers_to_operating_system/linux/install | 7 +++++++
+ 1 file changed, 7 insertions(+)
+ create mode 100644 adding_url_handlers_to_operating_system/linux/install
+
+diff --git a/adding_url_handlers_to_operating_system/linux/install b/adding_url_handlers_to_operating_system/linux/install
+new file mode 100644
+index 0000000..8e2167a
+--- /dev/null
++++ b/adding_url_handlers_to_operating_system/linux/install
+@@ -0,0 +1,7 @@
++#!/usr/bin/env bash
++
++sudo cp ide-handler.desktop /usr/share/applications
++sudo update-desktop-database
++
++sudo cp ide-handler /usr/local/bin/
++sudo chmod +x /usr/local/bin/ide-handler

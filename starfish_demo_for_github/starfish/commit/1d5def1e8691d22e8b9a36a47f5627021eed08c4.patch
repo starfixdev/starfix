@@ -1,0 +1,24 @@
+From 1d5def1e8691d22e8b9a36a47f5627021eed08c4 Mon Sep 17 00:00:00 2001
+From: Fahad Israr <fahad00cms@gmail.com>
+Date: Thu, 5 Mar 2020 08:47:02 +0530
+Subject: [PATCH] Create README.md
+
+---
+ Adding Custom Url handlers/Windows/README.md | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+ create mode 100644 Adding Custom Url handlers/Windows/README.md
+
+diff --git a/Adding Custom Url handlers/Windows/README.md b/Adding Custom Url handlers/Windows/README.md
+new file mode 100644
+index 0000000..36d2a2f
+--- /dev/null
++++ b/Adding Custom Url handlers/Windows/README.md	
+@@ -0,0 +1,8 @@
++# Creating Custom URL Handlers on Windows:
++
++- The `Windows Url handler.md` file contains instructions to create custom URL Handlers on Windows.
++
++
++- The `Testing Windows URL Handler.cs` file contains a test code to Test the created custom URL 
++
++References : https://docs.microsoft.com/

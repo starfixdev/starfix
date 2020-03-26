@@ -1,0 +1,62 @@
+From 49378e539c7e9a57fce1ecf0515c4bea8395a700 Mon Sep 17 00:00:00 2001
+From: Fahad Israr <fahad00cms@gmail.com>
+Date: Sat, 7 Mar 2020 13:56:29 +0530
+Subject: [PATCH] Vscode URL Handling support
+
+---
+ .../README.adoc                               | 46 +++++++++++++++++++
+ 1 file changed, 46 insertions(+)
+ create mode 100644 support_opening_files_through_url_handling_in_vscode/README.adoc
+
+diff --git a/support_opening_files_through_url_handling_in_vscode/README.adoc b/support_opening_files_through_url_handling_in_vscode/README.adoc
+new file mode 100644
+index 0000000..68b270a
+--- /dev/null
++++ b/support_opening_files_through_url_handling_in_vscode/README.adoc
+@@ -0,0 +1,46 @@
++# Project Starfish
++
++GSOC 2020 Starfish POC
++
++This repo is mainly to have conversations/discussions around the https://docs.jboss.org/display/GSOC/Google+Summer+of+Code+2020+ideas[Starfish GSOC idea under JBoss.org].
++
++Below is an update of the original outline of the idea:
++
++## Project Starfish - Open anything anywhere in any IDE/editor
++
++*Summary of idea*:
++
++- Implement a client side app that supports urlhandlers (i.e. `ide://clone-url?url=https://github` ... , `ide://open-file?`, `ide://open-debugger?port=..&project=url`, etc.)
++- Then integrate these various actions to perform and setup in vscode, eclipse, intellij, emacs, vi, etc.
++- Make it work across Linux, OSX and Windows so it can be used from anywhere.
++- Possible make browser extensions to enable it on various websites like github, gitlab, etc.
++
++This project will need some level of research:
++
++- How to setup url handlers on all three major platforms
++- Understand the basic functionallity of at least three IDEs/Editors open/clone features to show it will work
++- Explore extendability of browers or IDE's as needed
++- Possible tasks for this project:
++  - Implement cross-platform app
++  - Add tests
++  - Write documentation
++  - Prepare demos
++
++### Knowledge prerequisite: 
++
++- Open choice on language, but most likely Java, or Go based
++- Basic understanding of IDE and/or Browser extensions
++- Access to more than one of the Operating Systems, virtual machines okey.
++
++### Github repo:
++
++Since this is a new idea there are no direct current github repo for it - for now created https://github.com/maxandersen/starfish for having a place of discussion/conversion. If you want to explore/work in this area and show your experience/interest you can look into contributing to projects like  https://github.com/maxandersen/jbang or any vscode-* repo under https://github.com/redhat-developer/  or for more advanced https://github.com/quarkusio.  Basically any project that relates to developer tools, desktop tools, scripts or browser extensions will be useful experience. 
++
++### Slides:
++
++  An outline of the idea with some screenshots/overview can be found https://docs.google.com/presentation/d/1AwWtUVz04b5u2I3QB-fEevzpyAJLSE1PzdS0JjnVoO0/edit#slide=id.pp[here] - feel free to comment.
++
++- Skill level: Beginner/Intermediate
++- Contact(s) / potential mentors(s): Max Rydahl Andersen (manderse@redhat.com)
++- Associated JBoss community project(s): Quarkus, vscode extensions, JBoss Tools
++

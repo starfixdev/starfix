@@ -1,0 +1,14 @@
+diff --git a/Adding Custom Url handlers/Windows/README.md b/Adding Custom Url handlers/Windows/README.md
+new file mode 100644
+index 0000000..36d2a2f
+--- /dev/null
++++ b/Adding Custom Url handlers/Windows/README.md	
+@@ -0,0 +1,8 @@
++# Creating Custom URL Handlers on Windows:
++
++- The `Windows Url handler.md` file contains instructions to create custom URL Handlers on Windows.
++
++
++- The `Testing Windows URL Handler.cs` file contains a test code to Test the created custom URL 
++
++References : https://docs.microsoft.com/

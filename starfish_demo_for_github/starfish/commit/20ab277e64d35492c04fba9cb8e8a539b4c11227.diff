@@ -1,0 +1,14 @@
+diff --git a/adding_url_handlers_to_operating_system/linux/ide-handler.desktop b/adding_url_handlers_to_operating_system/linux/ide-handler.desktop
+index deb2973..5367f8e 100644
+--- a/adding_url_handlers_to_operating_system/linux/ide-handler.desktop
++++ b/adding_url_handlers_to_operating_system/linux/ide-handler.desktop
+@@ -5,7 +5,7 @@ Terminal=false
+ Type=Application
+ Name=IDE URL Handler
+ Comment=Handle URL Scheme ide://
+-Icon=ide-handler
++Icon=starfish
+ NoDisplay=true
+-Exec=ide-handler %u
++Exec=starfish %u
+ MimeType=x-scheme-handler/ide

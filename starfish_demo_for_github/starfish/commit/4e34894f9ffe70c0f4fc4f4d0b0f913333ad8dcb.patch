@@ -1,0 +1,19 @@
+From 4e34894f9ffe70c0f4fc4f4d0b0f913333ad8dcb Mon Sep 17 00:00:00 2001
+From: Fahad Israr <fahad00cms@gmail.com>
+Date: Thu, 5 Mar 2020 08:55:03 +0530
+Subject: [PATCH] Update README.md
+
+---
+ Adding Custom Url handlers/Windows/README.md | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Adding Custom Url handlers/Windows/README.md b/Adding Custom Url handlers/Windows/README.md
+index b2a084f..93381db 100644
+--- a/Adding Custom Url handlers/Windows/README.md	
++++ b/Adding Custom Url handlers/Windows/README.md	
+@@ -7,4 +7,4 @@
+ 
+ - The `Output.md` describes the Out put on invoking `Ide:"Hello%20World"` from  the Browser.
+ 
+-References : https://docs.microsoft.com/
++ References : https://docs.microsoft.com/

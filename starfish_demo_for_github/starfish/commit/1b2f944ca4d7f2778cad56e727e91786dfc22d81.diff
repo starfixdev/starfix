@@ -1,0 +1,8 @@
+diff --git a/README.md b/README.md
+new file mode 100644
+index 0000000..656885f
+--- /dev/null
++++ b/README.md
+@@ -0,0 +1,2 @@
++# starfish
++GSOC 2020 Starfish POC

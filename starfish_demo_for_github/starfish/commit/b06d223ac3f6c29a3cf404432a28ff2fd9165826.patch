@@ -1,0 +1,19 @@
+From b06d223ac3f6c29a3cf404432a28ff2fd9165826 Mon Sep 17 00:00:00 2001
+From: Fahad Israr <fahad00cms@gmail.com>
+Date: Thu, 5 Mar 2020 23:46:43 +0530
+Subject: [PATCH] Update README.md
+
+---
+ adding_url_handlers_to_operating_system/linux/README.md | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/adding_url_handlers_to_operating_system/linux/README.md b/adding_url_handlers_to_operating_system/linux/README.md
+index dca3b53..ceac659 100644
+--- a/adding_url_handlers_to_operating_system/linux/README.md
++++ b/adding_url_handlers_to_operating_system/linux/README.md
+@@ -1,4 +1,4 @@
+-# Creating Custom URL Handlers on Linux:
++# creating custom url handlers on linux:
+ ### Note: Still Working to enhance
+ - To register a new URL scheme handler with XDG, first create a Desktop Entry which specifies the x-scheme-handler/... MIME type:
+ ```

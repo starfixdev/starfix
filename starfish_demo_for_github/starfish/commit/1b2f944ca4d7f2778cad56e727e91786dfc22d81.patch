@@ -1,0 +1,18 @@
+From 1b2f944ca4d7f2778cad56e727e91786dfc22d81 Mon Sep 17 00:00:00 2001
+From: Max Rydahl Andersen <max.andersen@gmail.com>
+Date: Mon, 2 Mar 2020 16:27:03 +0100
+Subject: [PATCH] Initial commit
+
+---
+ README.md | 2 ++
+ 1 file changed, 2 insertions(+)
+ create mode 100644 README.md
+
+diff --git a/README.md b/README.md
+new file mode 100644
+index 0000000..656885f
+--- /dev/null
++++ b/README.md
+@@ -0,0 +1,2 @@
++# starfish
++GSOC 2020 Starfish POC

@@ -1,0 +1,43 @@
+diff --git a/adding_url_handlers_to_operating_system/linux/README.md b/adding_url_handlers_to_operating_system/linux/README.md
+index ceac659..300e868 100644
+--- a/adding_url_handlers_to_operating_system/linux/README.md
++++ b/adding_url_handlers_to_operating_system/linux/README.md
+@@ -1,35 +1,5 @@
+ # creating custom url handlers on linux:
+-### Note: Still Working to enhance
+-- To register a new URL scheme handler with XDG, first create a Desktop Entry which specifies the x-scheme-handler/... MIME type:
+-```
+-[Desktop Entry]
+-Type=Application
+-Name=IDE Scheme Handler
+-Exec=open-ide.sh %u
+-StartupNotify=false
+-MimeType=x-scheme-handler/ide;
+-```
+-- Note that %u passes the URL (e.g. ide://query%20terms) as a single parameter, according to the [Desktop Entry Specification](https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#exec-variables) .
+ 
+-- Once we have created this Desktop Entry and installed it (i.e. put it in the local or system applications directory for XDG, like ~/.local/share/applications/ or /usr/share/applications/), then we must register the application with the MIME type (assuming we had named your Desktop Entry ide-opener.desktop):
+-
+-`xdg-mime default ide-opener.desktop x-scheme-handler/ide`
+-
+-A reference implementation of the `ide-open.sh` handler:
+-
+-```
+-#!/bin/bash
+-
+-# bash and not just sh because we are using some bash-specific syntax
+-
+-if [[ "$1" == "ide:"* ]]; then
+-    ref=${1#ide://}
+-    #ref=$(python -c "import sys, urllib as ul; print ul.unquote_plus(sys.argv[1])" "$ref") # If we want decoding
+-    xdg-open "https://github.com/?q=$ref"
+-else
+-    xdg-open "$1" # Just open with the default handler
+-fi
+-
+-  
+-```
+-References :https://unix.stackexchange.com/
++- Clone the files you see above  (`ide-handler, ide-handler.desktop, install`)
++- run `sudo bash install` in console
++- That's it!!

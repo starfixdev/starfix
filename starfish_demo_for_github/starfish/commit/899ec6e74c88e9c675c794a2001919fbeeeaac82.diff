@@ -1,0 +1,45 @@
+diff --git a/Adding Url handlers to Operating System/Linux/README.md b/Adding Url handlers to Operating System/Linux/README.md
+index 93381db..ef970d5 100644
+--- a/Adding Url handlers to Operating System/Linux/README.md	
++++ b/Adding Url handlers to Operating System/Linux/README.md	
+@@ -1,10 +1,35 @@
+-# Creating Custom URL Handlers on Windows:
++# Creating Custom URL Handlers on Linux:
+ 
+-- The `Windows Url handler.md` file contains instructions to create custom URL Handlers on Windows.
++- To register a new URL scheme handler with XDG, first create a Desktop Entry which specifies the x-scheme-handler/... MIME type:
++```
++[Desktop Entry]
++Type=Application
++Name=IDE Scheme Handler
++Exec=open-ide.sh %u
++StartupNotify=false
++MimeType=x-scheme-handler/ide;
++```
++- Note that %u passes the URL (e.g. ide://query%20terms) as a single parameter, according to the [Desktop Entry Specification](https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#exec-variables) .
+ 
++- Once we have created this Desktop Entry and installed it (i.e. put it in the local or system applications directory for XDG, like ~/.local/share/applications/ or /usr/share/applications/), then we must register the application with the MIME type (assuming we had named your Desktop Entry ide-opener.desktop):
+ 
+-- The `Testing Windows URL Handler.cs` file contains a test code to Test the created custom URL 
++`xdg-mime default ide-opener.desktop x-scheme-handler/ide`
+ 
+-- The `Output.md` describes the Out put on invoking `Ide:"Hello%20World"` from  the Browser.
++A reference implementation of the `ide-open.sh` handler:
+ 
+- References : https://docs.microsoft.com/
++```
++#!/bin/bash
++
++# bash and not just sh because we are using some bash-specific syntax
++
++if [[ "$1" == "ide:"* ]]; then
++    ref=${1#ide://}
++    #ref=$(python -c "import sys, urllib as ul; print ul.unquote_plus(sys.argv[1])" "$ref") # If we want decoding
++    xdg-open "https://github.com/?q=$ref"
++else
++    xdg-open "$1" # Just open with the default handler
++fi
++
++  
++```
++References :https://unix.stackexchange.com/
