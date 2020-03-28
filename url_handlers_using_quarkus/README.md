@@ -1,4 +1,4 @@
-# getting-started project
+# Starfish
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
@@ -27,4 +27,27 @@ Or, if you don't have GraalVM installed, you can run the native executable build
 
 You can then execute your native executable with: `./target/getting-started-1.0-SNAPSHOT-runner`
 
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/building-native-image-guide.
+
+## Creating a container
+
+By default, the native executable is tailored for your operating system (Linux, macOS, Windows etc). Because the container may not use the same executable format as the one produced by your operating system,
+- we will instruct the Maven build to produce an executable from inside a container:
+
+`./mvnw package -Pnative -Dquarkus.native.container-build=true`
+
+- You can also select the container runtime to use with:
+
+    ``` 
+    # Docker
+    ./mvnw package -Pnative -Dquarkus.native.container-runtime=docker
+    # Podman
+    ./mvnw package -Pnative -Dquarkus.native.container-runtime=podman
+    ```
+
+These are normal Quarkus config properties, so if you always want to build in a container it is recommended you add these to your `application.properties` so you do not need to specify them every time.
+
+- you can build the docker image with:
+`docker build -f src/main/docker/Dockerfile.native -t quarkus-quickstart/getting-started`
+
+- And finally, run it with:
+`docker run -i --rm -p 8080:8080 quarkus-quickstart/getting-started`
