@@ -1,4 +1,6 @@
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.NoSuchFileException;
 import java.util.ArrayList;
 
@@ -10,10 +12,9 @@ public class StarfishMain {
     private static OS os = null;
 
 
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException, InterruptedException{
         ArrayList<String> commandsToExecute = new ArrayList<>();
         try {
-            // String test = "ide://clone-url?path=d:/working/java/&ide=vscode&url=https://github.com/DhyanCoder/starfish";
             URIData uriData = new URIData(args[0]);
             if (uriData.getCommand().equals("clone-url") ) {
                 commandsToExecute.add(getCloneCommand(uriData) );
@@ -39,13 +40,18 @@ public class StarfishMain {
         try {
             Process proc = null;
             Runtime rt = Runtime.getRuntime();
+
             if (os == OS.WINDOWS) {
                 for (String cmd : commandsToExecute) {
                     proc = rt.exec("cmd /c " + cmd);
+                    proc.waitFor();
+                    readAndPrintOutput(proc);
                 }
             }
         } catch (IOException e) {
             throw new IOException("Cannot execute command successfully");
+        } catch (InterruptedException e) {
+            throw new InterruptedException("cannot execute command successfully");
         }
         System.out.println("Successfully run");
     }
@@ -56,15 +62,40 @@ public class StarfishMain {
      * @return
      */
     private static String getCloneCommand(final URIData uriData) {
-        return "git clone " + uriData.getUrl() + ".git" + " " + uriData.getPath();
+        return "git clone " + uriData.getUrl() + ".git" + " " + uriData.getPath() + "\\" + uriData.getRepoName();
     }
 
     //TODO: add support for other ide
-    private static String getCommandToOpen(final URIData uriData) {
-        if (uriData.getIde().equalsIgnoreCase("vscode") ) {
+    private static String getCommandToOpen(final URIData uriData) throws NullPointerException{
+
+        if (uriData.getIde().equalsIgnoreCase("vscode")) {
             return "code " + uriData.getPath() + "\\" + uriData.getRepoName();
         }
-        else throw new IllegalArgumentException("Unsupported ide");
         //TODO: Move this to class URIData
+        throw new IllegalArgumentException("Unknown IDE");
+    }
+
+    /**
+     *
+     * @param process to read output to console
+     * @throws IOException
+     */
+    private static void readAndPrintOutput(final Process process) throws IOException{
+        // int taskSuccess = 0; // 0 for success | 1 for failure
+
+        BufferedReader stdInput = new BufferedReader(new
+                InputStreamReader(process.getInputStream()) );
+
+        BufferedReader stdError = new BufferedReader(new
+                InputStreamReader(process.getErrorStream()) );
+
+        //output from command execution
+        String s = null;
+        while ((s = stdInput.readLine()) != null) {
+            System.out.println(s);
+        }
+        while ((s = stdError.readLine()) != null) {
+            System.out.println(s);
+        }
     }
 }

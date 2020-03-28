@@ -12,8 +12,8 @@ public class URIData {
     private String command;
     private File path;
     private URL url;
-    private String ide;
-    private String repoName;
+    private String ide = "vscode";
+    private String repoName = "";
 
     public URIData(String str) throws NoSuchFileException{
         if (str == null) throw new NullPointerException("Cannot Create URICommand object.");
@@ -87,9 +87,12 @@ public class URIData {
                 throw new IllegalArgumentException("Cannot identify command");
         }
 
+        String[] parts_of_str;
         // breakFileIn & sign
-        String[] parts_of_str = command_and_rest[1].split("[&]");
-
+        if (command_and_rest[1].contains("&") )
+            parts_of_str = command_and_rest[1].split("[&]");
+        else
+            parts_of_str = new String[] { command_and_rest[1] };
         // break it into variable=value
         for (String s : parts_of_str) {
             String[] tmp = s.split("=");
