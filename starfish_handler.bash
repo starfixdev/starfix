@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
 
-echo $1
-java -classpath /usr/bin/ FileOpener $1
+java -jar -classpath /usr/bin/ starfish.jar $1
