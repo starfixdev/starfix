@@ -9,7 +9,7 @@ and run `install_win.bat` to setup URI handler in windows and `bash install_linu
 
 ## Usage
 
-### 1. To clone and open any repository in VSCode `ide://clone-url?` in front of link
+### 1. To clone and open any repository in VSCode `ide://clone-url?url=` in front of link
 
 Example to clone
 >`https://github.com/DhyanCoder/starfish`
