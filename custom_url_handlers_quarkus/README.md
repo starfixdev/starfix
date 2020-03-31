@@ -9,7 +9,12 @@ If you want to learn more about Quarkus, please visit its website: https://quark
 You can run your application in dev mode that enables live coding using:
 ```
 ./mvnw quarkus:dev
+
 ```
+## Running the installation:
+
+After running application using `./mvnw quarkus:dev` you can either browse to http://localhost:8080/install or you may use the command `curl -w "\n" http://localhost:8080/install`
+
 
 ## Packaging and running the application
 
