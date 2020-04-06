@@ -1,0 +1,32 @@
+{
+	"manifest_version": 2,
+	"name": "starfish",
+	"version": "1.0",
+	"description": "Browser extension for starfish app",
+
+	"icons": {
+		"128": "starfish(128).png",
+		"48": "starfish(48).png",
+		"16": "starfish(16).png"
+	},
+
+	"page_action": {
+		"default_icon": "starfish(16).png",
+		"default_popup": "popup.html",
+		"default_title": "Starfish"
+	},
+
+	"background": {
+		"scripts": ["eventPage.js"],
+		"persistent": true
+	},
+
+	"content_scripts": [
+		{
+			"matches": ["https://github.com/*"],
+			"js": ["content.js", "jquery-3.4.1.min.js"]
+		}
+	],
+
+	"permissions": ["tabs", "https://github.com/*"]
+}
