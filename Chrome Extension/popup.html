@@ -7,14 +7,17 @@
 		<title>Starfish</title>
 	</head>
 	<body>
-		<button class="button">Clone this repository</button>
-		<br />
-		<div class="dropdown">
-			<button class="dropbtn">Dropdown</button>
-			<div class="dropdown-content">
-				<a href="#">Link 1</a>
-				<a href="#">Link 2</a>
-				<a href="#">Link 3</a>
+		<h2 id="fallback">Open a repository to activate features</h2>
+		<div id="mainContent">
+			<button class="button" id="cloneRepo">Clone this repository</button>
+			<div class="dropdown">
+				<button class="dropbtn">Select an IDE</button>
+				<div class="dropdown-content" id="dropdownMenu">
+					<a id="code">VSCode</a>
+					<a id="eclipse">Eclipse</a>
+					<a id="intelliJ">IntelliJ</a>
+				</div>
+				<p id="displayUrl"></p>
 			</div>
 		</div>
 	</body>

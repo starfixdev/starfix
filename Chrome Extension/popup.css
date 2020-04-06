@@ -1,6 +1,6 @@
 body {
-	min-width: 250px;
-	min-height: 150px;
+	min-width: 300px;
+	min-height: 250px;
 }
 
 .dropbtn {
@@ -13,6 +13,7 @@ body {
 }
 
 .dropdown {
+	padding-top: 5px;
 	position: relative;
 	display: inline-block;
 }
@@ -35,6 +36,7 @@ body {
 
 .dropdown-content a:hover {
 	background-color: #f1f1f1;
+	cursor: pointer;
 }
 
 .dropdown:hover .dropdown-content {
