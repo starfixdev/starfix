@@ -30,5 +30,5 @@
 		}
 	],
 
-	"permissions": ["tabs", "https://github.com/*"]
+	"permissions": ["tabs", "https://github.com/*", "storage"]
 }

@@ -1,14 +1,14 @@
 $(() => {
-	let tabUrl;
+	let tabUrl = 'https://';
 	// Checks if user is on an url which represents a repository on github
 	chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 		let url = tabs[0].url;
-		urlArray = url.split('/');
+		let urlArray = url.split('/');
 		if (urlArray[4] === undefined) {
 			$('#mainContent').hide();
-			tabUrl = tabs[0].url;
 		} else {
 			$('#fallback').hide();
+			for (let i = 2; i < 5; ++i) tabUrl += urlArray[i] + '/';
 		}
 	});
 	$('#displayUrl').text('Select a feature');
@@ -25,34 +25,31 @@ $(() => {
 	$('#dropdownMenu a').click(function () {
 		ide = $(this).attr('id');
 		let url = `${ide}://${feature}?url=${tabUrl}`;
+		$('#dropdownMenu').slideUp('fast');
 		$('#displayUrl').text(url);
 	});
 
-	// Storing all the data in localstorage for future references
-	let allUrl = JSON.parse(localStorage.getItem('allUrl'));
-	if(ide !== undefined && feature != undefined) {
-		let val 
-		if(allUrl) {
-			val = Object.keys(allUrl).length + 1;
-			let newKey = `url-${val}`;
-			const obj = {
-				[newKey]: {
-					url: tabUrl,
-					feature: feature
+	$('#addData').click(() => {
+		// Storing all the data in localstorage for future references
+		chrome.storage.sync.get('allUrl', (value) => {
+			if (ide !== undefined && feature != undefined) {
+				let val,
+					obj = {},
+					allUrl = value.allUrl ? value.allUrl : [];
+				if (allUrl.length > 0) {
+					val = allUrl.length + 1;
+				} else {
+					val = 1;
 				}
-			}
-			Object.assign(allUrl, obj);
-		} else {
-			val = 1;
-			let newKey = `url-${val}`;
-			const obj = {
-				[newKey]: {
+				let newKey = `url${val}`;
+				obj = {
 					url: tabUrl,
-					feature: feature
-				}
+					feature: feature,
+				};
+				allUrl.push(obj);
+				chrome.storage.sync.set({ allUrl: allUrl });
 			}
-			Object.assign(allUrl, obj);
-		}
-		localStorage.setItem(JSON.stringify(allUrl));
-	}
+		});
+		window.close();
+	});
 });
