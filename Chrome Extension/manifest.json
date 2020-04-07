@@ -5,28 +5,28 @@
 	"description": "Browser extension for starfish app",
 
 	"icons": {
-		"128": "starfish(128).png",
-		"48": "starfish(48).png",
-		"16": "starfish(16).png"
+		"128": "icons/starfish(128).png",
+		"48": "icons/starfish(48).png",
+		"16": "icons/starfish(16).png"
 	},
 
 	"page_action": {
-		"default_icon": "starfish(16).png",
-		"default_popup": "popup.html",
+		"default_icon": "icons/starfish(16).png",
+		"default_popup": "src/html/popup.html",
 		"default_title": "Starfish"
 	},
 
 	"background": {
-		"scripts": ["eventPage.js"],
+		"scripts": ["src/scripts/eventPage.js"],
 		"persistent": true
 	},
 
-	"options_page": "options.html",
+	"options_page": "src/html/options.html",
 
 	"content_scripts": [
 		{
 			"matches": ["https://github.com/*"],
-			"js": ["content.js", "jquery-3.4.1.min.js"]
+			"js": ["src/scripts/content.js", "src/scripts/jquery-3.4.1.min.js"]
 		}
 	],
 
