@@ -21,7 +21,7 @@ Note: It will not open up starfish as currently the application does not exists.
 
 ![Screenshot for Demo](https://user-images.githubusercontent.com/31308705/78819496-f6a14780-79f3-11ea-8c4b-52e8a3f28931.png)
 
---------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
 
 ## Supported Browsers
 * Google Chrome 
