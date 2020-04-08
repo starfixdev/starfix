@@ -1,0 +1,22 @@
+
+
+/* GitHub */
+/* CSS selects by ID to override default style (loaded earlier: higher priority) */
+.repository-content > div #gitpod-btn-container.gitpod-file-btn,
+.file-navigation #gitpod-btn-container {
+    margin-left: 6px;
+}
+
+.no-container {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+.dev{
+    background-color: #643ab0;
+    background-image: linear-gradient(-180deg, #7e55c7 0%, #643ab0 90%);
+}
+.dev:hover{
+    background-color: #643ab0 !important;
+    background-image: linear-gradient(-180deg, #7e55c7 0%, #643ab0 90%) !important;
+}
