@@ -1,9 +1,8 @@
-# Gitpod Browser extension
-[![Setup Automated](https://img.shields.io/badge/setup-automated-blue?logo=gitpod)](https://gitpod.io/#https://github.com/gitpod-io/browser-extension)
+# Starfish Browser extension
 
-This is the browser extension for Gitpod, supporting Chrome and Firefox. It adds a **Gitpod** button to the configured GitHub and GitLab installations (defaults to domains containing `github.com` or `gitlab.com`) which directly creates a workspace for that context:
 
- ![Gitpodify](./docs/github-injected.png "Gitpodify")
+This is the browser extension for Starfish, supporting Chrome and Firefox. It adds a **Open in IDE** button to the configured GitHub and GitLab installations (defaults to domains containing `github.com` or `gitlab.com`) which directly creates a workspace for that context:
+
 
 ## Build
 
