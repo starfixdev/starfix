@@ -5,7 +5,9 @@ This is the browser extension for Starfish, supporting Chrome and Firefox. It ad
 
 Note: It will not open up starfish as currently the application does not exists.You'll get the `open xdg-open` option.
 
-
+## Supported Browsers
+* Google Chrome 
+* Mozilla Firefox.
 ## Build
 
 ```
