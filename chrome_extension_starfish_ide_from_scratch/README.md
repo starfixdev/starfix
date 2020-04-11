@@ -1,3 +1,3 @@
-# Intended to Add "Open in IDE" Button
+# Intended to Inject "Open in IDE" Button
 
 - Currently supports Github
