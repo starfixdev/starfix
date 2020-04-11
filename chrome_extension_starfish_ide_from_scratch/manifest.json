@@ -1,0 +1,14 @@
+{
+  "manifest_version": 2,
+
+  "name": "Starfish",
+  "version": "2",
+  "description": "Open in IDE",
+
+  "content_scripts": [{
+    "css": ["styles.css"],
+    "js": ["content.js"],
+    "matches": ["https://github.com/*/*"]
+  }]
+
+}
