@@ -49,6 +49,30 @@ if (current_url.indexOf("https://gitlab.com") != -1) { //Code for Gitlab begins 
 
 
 }
+else
+if (current_url.indexOf("https://gist.github.com/") != -1) { //Code for Gitlab begins here
+    if (!localStorage.getItem("starfish")) {
+        navigator.registerProtocolHandler("web+ide",
+            "https://gist.github.com/?ide=%s",
+            "ide");
+        localStorage.setItem("starfish", "true");
+    }
+    var link = document.createElement('a');
+    link.setAttribute("title", "Open In IDE");
+
+    link.setAttribute("href", page_uri);
+    link.setAttribute("class", "btn btn-sm")
+    link.innerHTML = "Open in IDE";
+
+    var starfish = document.createElement('div');
+    //starfish.setAttribute("class","empty-icon position-relative gitpod-nav-btn float-right");
+    starfish.setAttribute("class", "file-navigation-option margin-left-5")
+    starfish.appendChild(link);
+    var el = document.getElementsByClassName("file-navigation-options")[0];
+    el.appendChild(starfish);
+
+
+}
 
 
 
