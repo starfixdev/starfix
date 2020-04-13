@@ -1,0 +1,23 @@
+{
+	"name": "Starfish",
+	"version": "1.0",
+	"manifest_version": 2,
+	"browser_action": {
+		"default_icon": "icons/starfish(16).png"
+	},
+	"icons": {
+		"128": "icons/starfish(128).png",
+		"48": "icons/starfish(48).png",
+		"16": "icons/starfish(16).png"
+	},
+	"content_scripts": [
+		{
+			"matches": ["https://github.com/*"],
+			"css": ["/static/css/content.css"],
+			"js": ["/static/js/content.js"]
+		}
+	],
+	"author": "Atharva Thorve",
+	"permissions": ["tabs", "storage"],
+	"content_security_policy": "script-src 'self' 'sha256-cuOiByOXE3mhS3cd0s+8Uxd3EGjTCKtxBBXSaMO0Ya0='; object-src 'self'"
+}

@@ -1,0 +1,11 @@
+/* src/content.css */
+.dropdownDiv {
+	justify-content: end;
+	width: 300px;
+	height: 250px;
+	align-items: center;
+}
+
+.starfishContainer {
+	padding-left: 3px;
+}
