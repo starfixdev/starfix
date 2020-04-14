@@ -11,11 +11,6 @@ window.browser = (function () {
 
 class StarfishContainer extends Component {
 	state = {
-		ide: {
-			vscode: 'code',
-			eclipse: 'eclipse',
-			intellij: 'intellij',
-		},
 		url: '',
 		selectedIde: '',
 		pageUrl: window.location,
@@ -53,30 +48,43 @@ class StarfishContainer extends Component {
 		let dropdown = null;
 		if (this.state.showDropDown) {
 			dropdown = (
-				<div className={classes.dropdownDiv}>
-					<StarfishBtn
-						size='sm'
-						text='Clone this repository'
-						clicked={
-							this.cloneRepositoryClickedHandler
-						}></StarfishBtn>
-					<StarfishDropdown
-						ide={this.state.ide}
-						size='sm'
-						clicked={
-							this.dropdownSelectedHandler
-						}></StarfishDropdown>
+				<div className='position-relative'>
+					<div className='get-repo-modal dropdown-menu dropdown-menu-sw pb-0 js-toggler-container js-get-repo-modal'>
+						<div className='get-repo-model-options'>
+							<StarfishBtn
+								text='Clone Repository using IDE'
+								size='sm'
+								clicked={this.cloneRepositoryClickedHandler}
+							/>
+							<br></br>
+							<StarfishDropdown
+								size='sm'
+								clicked={this.dropdownSelectedHandler}
+							/>
+							<p>{this.state.url}</p>
+						</div>
+					</div>
 				</div>
 			);
 		}
 		return (
 			<div>
-				<StarfishBtn
+				{/* <StarfishBtn
 					size='sm'
 					text='Starfish'
 					clicked={this.dropdownDisplayHandler}></StarfishBtn>
 				{dropdown}
-				<p>{this.state.url}</p>
+				<p>{this.state.url}</p> */}
+				<span className='d-flex'>
+					<details className='get-repo-select-menu js-get-repo-select-menu position-relative details-overlay details-reset'>
+						<summary
+							className='btn btn-sm ml-2 btn-primary'
+							onClick={this.dropdownDisplayHandler}>
+							Starfish <span className='dropdown-caret'></span>
+						</summary>
+						{dropdown}
+					</details>
+				</span>
 			</div>
 		);
 	}
@@ -84,7 +92,8 @@ class StarfishContainer extends Component {
 
 const app = document.createElement('div');
 app.id = 'myExtensionRoot';
-app.classList.add('starfishContainer');
-const navigation = document.getElementsByClassName('file-navigation');
+const navigation = document.getElementsByClassName(
+	'file-navigation in-mid-page mb-2 d-flex flex-items-start'
+);
 navigation[0].appendChild(app);
 ReactDOM.render(<StarfishContainer />, app);
