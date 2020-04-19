@@ -53,8 +53,8 @@ class starfish{
 				.command(command)
 				.directory(directory.toFile());
 		Process p = pb.start();
-		StreamGobbler errorGobbler = new StreamGobbler(p.getErrorStream(), "ERROR");
-		StreamGobbler outputGobbler = new StreamGobbler(p.getInputStream(), "OUTPUT");
+		StreamGobbler errorGobbler = new StreamGobbler(p.getErrorStream(), "E");
+		StreamGobbler outputGobbler = new StreamGobbler(p.getInputStream(), "O");
 		outputGobbler.start();
 		errorGobbler.start();
 		int exit = p.waitFor();
