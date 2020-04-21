@@ -6,18 +6,41 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
+import java.util.Properties;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 
 class starfish{
     public static void main(String[]args)throws Exception{
         for(String s:args)
-        System.out.println(s);//Printing Received Arguements for Debugging
+		System.out.println(s);//Printing Received Arguements for Debugging
+		
+
+		String clone_path="";//Holds path to  destination Where the Repository Must Be Clonned
+		String ide="";  //Holds command for IDE to open upon
 
 
+		//Fetching Configurations from Config File
+		try{
+		File propertiesFile = new File("config.properties");
+        FileReader reader = new FileReader(propertiesFile);
+        Properties props = new Properties();
+        props.load(reader);
+		String test = props.getProperty("test");
+		System.out.println(test);
+		clone_path= props.getProperty("clonning_dir");//Place Where the Repository Must Be Clonned
+		ide=props.getProperty("ide"); //IDE to open upon
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
 
         //Clonnning Git Repo
         //Expected parameter: https://github.com/user-name/repo-name.git
         String repo_name=args[0].substring(args[0].lastIndexOf("/"),args[0].lastIndexOf(".")); //Extracts the Name of Repository
-        String clone_path= "/home/fahad/MyProjects/starfish_clonned/"; //Place Where the Repository Must Be Clonned
+        //String clone_path= "/home/fahad/MyProjects/starfish_clonned/"; 
         String cmd = "git clone "+args[0];
         String originUrl = args[0];
 		Path directory = Paths.get(clone_path+repo_name);
@@ -28,7 +51,7 @@ class starfish{
 
         //Launching Vscode on the Cloned Directory 
         System.out.println("Launching Vscode Now");
-        runCommand(directory.getParent(), "code",clone_path+repo_name);
+        runCommand(directory.getParent(), ide,clone_path+repo_name);
         
     }
 

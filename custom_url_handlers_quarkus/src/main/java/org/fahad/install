@@ -8,3 +8,6 @@ sudo chmod +x /usr/bin/ide-handler
 
 sudo cp starfish /usr/bin
 sudo chmod +x /usr/bin/starfish
+
+sudo cp config.properties /usr/bin
+sudo chmod -R 777 /usr/bin/config.properties
