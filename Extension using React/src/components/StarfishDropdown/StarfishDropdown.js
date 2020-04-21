@@ -1,24 +1,17 @@
 import React from 'react';
-import { Dropdown } from 'react-bootstrap';
+
+import './StarfishDropdown.css';
 
 const starfishDropdown = (props) => {
 	return (
-		<Dropdown>
-			<Dropdown.Toggle variant='primary' size={props.size}>
-				Select an IDE
-			</Dropdown.Toggle>
-			<Dropdown.Menu>
-				<Dropdown.Item id='code' onClick={props.clicked}>
-					VSCode
-				</Dropdown.Item>
-				<Dropdown.Item id='eclipse' onClick={props.clicked}>
-					Eclipse
-				</Dropdown.Item>
-				<Dropdown.Item id='intellij' onClick={props.clicked}>
-					IntelliJ
-				</Dropdown.Item>
-			</Dropdown.Menu>
-		</Dropdown>
+		<div className="Dropdown">
+			<button className="Dropbtn">Choose an ide</button>
+			<div className="DropdownContent">
+				<a onClick={props.clicked} id="code">VSCode</a>
+				<a onClick={props.clicked} id="eclipse">Eclipse</a>
+				<a onClick={props.clicked} id="intellij">IntelliJ</a>
+			</div>
+		</div>
 	);
 };
 

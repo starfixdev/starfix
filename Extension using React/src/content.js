@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import StarfishBtn from './components/StarfishBtn/StarfishBtn';
-import StarfishDropdown from './components/StarfishDropdown/StarfishDropdown';
-
-import classes from './content.css';
 
 window.browser = (function () {
 	return window.msBrowser || window.browser || window.chrome;
@@ -38,12 +35,6 @@ class StarfishContainer extends Component {
 		}
 	};
 
-	dropdownSelectedHandler = (event) => {
-		let ide = event.target.id;
-		console.log(ide);
-		this.setState({ selectedIde: ide });
-	};
-
 	render() {
 		let dropdown = null;
 		if (this.state.showDropDown) {
@@ -57,11 +48,6 @@ class StarfishContainer extends Component {
 								clicked={this.cloneRepositoryClickedHandler}
 							/>
 							<br></br>
-							<StarfishDropdown
-								size='sm'
-								clicked={this.dropdownSelectedHandler}
-							/>
-							<p>{this.state.url}</p>
 						</div>
 					</div>
 				</div>
@@ -80,7 +66,7 @@ class StarfishContainer extends Component {
 						<summary
 							className='btn btn-sm ml-2 btn-primary'
 							onClick={this.dropdownDisplayHandler}>
-							Starfish <span className='dropdown-caret'></span>
+							Starfish
 						</summary>
 						{dropdown}
 					</details>

@@ -3,7 +3,8 @@
 	"version": "1.0",
 	"manifest_version": 2,
 	"browser_action": {
-		"default_icon": "icons/starfish(16).png"
+		"default_icon": "icons/starfish(16).png",
+		"default_popup": "index.html"
 	},
 	"icons": {
 		"128": "icons/starfish(128).png",
@@ -18,6 +19,6 @@
 		}
 	],
 	"author": "Atharva Thorve",
-	"permissions": ["tabs", "storage"],
+	"permissions": ["tabs", "storage", "notifications"],
 	"content_security_policy": "script-src 'self' 'sha256-cuOiByOXE3mhS3cd0s+8Uxd3EGjTCKtxBBXSaMO0Ya0='; object-src 'self'"
 }

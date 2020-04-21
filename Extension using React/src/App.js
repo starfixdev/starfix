@@ -1,25 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import StarfishDropdown from './components/StarfishDropdown/StarfishDropdown';
 
-function App() {
-	return (
-		<div className='App'>
-			<header className='App-header'>
-				<img src={logo} className='App-logo' alt='logo' />
+class App extends Component {
+	state = {
+		currentIde: 'VSCode',
+	};
+
+	componentDidMount() {
+		const currentIde = localStorage.getItem('currentIde');
+		if (currentIde) {
+			this.setState({ selectedIde: currentIde });
+		}
+	}
+
+	ideSelectedHandler = (event) => {
+		const val = event.target.id;
+		let selectedIde = '';
+		if (val === 'code') selectedIde = 'VSCode';
+		else if (val === 'eclipse') selectedIde = 'Eclipse';
+		else if (val === 'intellij') selectedIde = 'IntelliJ';
+		this.setState({ currentIde: selectedIde });
+		localStorage.setItem('currentIde', selectedIde);
+	};
+
+	render() {
+		return (
+			<div className='App'>
 				<p>
-					Edit <code>src/App.js</code> and save to reload.
+					Current ide: <b>{this.state.currentIde}</b>
 				</p>
-				<a
-					className='App-link'
-					href='https://reactjs.org'
-					target='_blank'
-					rel='noopener noreferrer'>
-					Learn React
-				</a>
-			</header>
-		</div>
-	);
+				<StarfishDropdown clicked={this.ideSelectedHandler} />
+			</div>
+		);
+	}
 }
 
 export default App;
