@@ -15,6 +15,11 @@ class starfish{
     public static void main(String[]args)throws Exception{
         for(String s:args)
 		System.out.println(s);//Printing Received Arguements for Debugging
+
+		//Calling function for Fetching installed Packages 
+		fetch_installed_packages(); //This function will print all installed packages
+
+		
 		
 
 		String clone_path="";//Holds path to  destination Where the Repository Must Be Clonned
@@ -111,7 +116,35 @@ class starfish{
 				ioe.printStackTrace();
 			}
 		}
-    }
+	}
+	
+
+	//Function to fetch all installed packages on System
+	public static void fetch_installed_packages()throws Exception{
+		
+		String [] extCmdArgs = new String[]{"dpkg-query", "-W", "-f=${Package} ${Version}\n"};// Fetches installed Packages on System
+		//String [] extCmdArgs = new String[]{"sudo apt list --installed};
+		
+		Process fetchInstalledPackagesProcess = Runtime.getRuntime().exec(extCmdArgs);
+		BufferedReader reader = null;
+				try {
+					reader = new BufferedReader(new InputStreamReader(fetchInstalledPackagesProcess.getInputStream()));
+					String line;
+					while(true){
+						line = reader.readLine();
+						if (line == null)
+							break;
+						System.out.println(line);
+				}
+			} catch (Exception e) {
+					e.printStackTrace();
+			}
+			finally {
+				reader.close();
+			}
+
+
+	}
     
 
  
