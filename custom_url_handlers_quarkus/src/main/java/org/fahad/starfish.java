@@ -10,6 +10,8 @@ import java.util.Properties;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import org.simpleyaml.configuration.ConfigurationSection;
+import org.simpleyaml.configuration.file.YamlFile;
 
 class starfish{
     public static void main(String[]args)throws Exception{
@@ -25,8 +27,30 @@ class starfish{
 		String clone_path="";//Holds path to  destination Where the Repository Must Be Clonned
 		String ide="";  //Holds command for IDE to open upon
 
+		//Fetching Configurations from Config File: starfish.yaml
+		YamlFile yamlFile = new YamlFile("starfish-config.yml");
+		
+		// Load the YAML file if is already created or create new one otherwise
+		try {
+			if (!yamlFile.exists()) {
+				System.out.println("New file has been created: " + yamlFile.getFilePath() + "\n");
+				yamlFile.createNewFile(true);
+			}
+			else {
+				System.out.println("File already exists, loading configurations...\n");
+			}
+			yamlFile.load(); // Loads the entire file
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-		//Fetching Configurations from Config File
+		ide=yamlFile.getString("ide");
+		clone_path=yamlFile.getString("clonning_dir");
+
+
+
+
+		/*Fetching Configurations from Config.properties File
 		try{
 		File propertiesFile = new File("config.properties");
         FileReader reader = new FileReader(propertiesFile);
@@ -40,7 +64,12 @@ class starfish{
 		catch(Exception e){
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-		}
+		}*/
+
+
+
+
+
 
         //Clonnning Git Repo
         //Expected parameter: https://github.com/user-name/repo-name.git
