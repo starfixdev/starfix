@@ -1,50 +1,31 @@
-# Project Starfish
+# Project Starfish 
 
-GSOC 2020 Starfish POC
+A  cross platform client side application that would let you open a file in IDE of your choice (vscode, eclipse, intellij, emacs, vi, etc.) and  other cammands locally directly from the browser or file system.This will enable an option to “Open in IDE” through browser extension on various websites like github, gitlab,gitbucket etc similar to one you see in this demo below.
 
-This repo is mainly to have conversations/discussions around the https://docs.jboss.org/display/GSOC/Google+Summer+of+Code+2020+ideas[Starfish GSOC idea under JBoss.org].
+image::https://user-images.githubusercontent.com/31308705/79685056-61078280-8253-11ea-8ac1-aab1531ca0ab.gif[Starfish Demo]
 
-It should be used as the first and *primary* place to communicate around starfish - if it is not in an issue or a PR in this repo it does not exist.
+## Workflow
+- Click on "Open in IDE" on Repository page.
+- Repository is cloned
+- The cloned Repository is opened in the preferred IDE.
 
-*secondary* place is Zulip chat - we've setup a room for Google Summer of code at https://quarkusio.zulipchat.com/#narrow/stream/225201-gsoc - you should get an account and login and say hi!
+## Necessary Utilities 
+- A browser extension that injects "Open In IDE" button 
+- Custom URI Handler to handle `ide://` scheme.
+- A native application that clones the repository and opens up the IDE.
+- A configuration file (.yaml) to hold the Preferred IDE and Clone Path.
+- Command line support for application.
 
-Below is an update of the original outline of the idea:
+## Targeted Websites:
+- Primary: [github.com](https://github.com/)
+- Secondary: [gitlab.com](https://gitlab.com/)
+- Additional: [bitbucket](https://bitbucket.org/)
+..more can be added
 
-## Project Starfish - Open anything anywhere in any IDE/editor
+## Targeted Platforms:
+- Linux
+- Windows
+- Mac OS X
 
-*Summary of idea*:
-
-- Implement a client side app that supports urlhandlers (i.e. `ide://clone-url?url=https://github` ... , `ide://open-file?`, `ide://open-debugger?port=..&project=url`, etc.)
-- Then integrate these various actions to perform and setup in vscode, eclipse, intellij, emacs, vi, etc.
-- Make it work across Linux, OSX and Windows so it can be used from anywhere.
-- Possible make browser extensions to enable it on various websites like github, gitlab, etc.
-
-This project will need some level of research:
-
-- How to setup url handlers on all three major platforms
-- Understand the basic functionallity of at least three IDEs/Editors open/clone features to show it will work
-- Explore extendability of browers or IDE's as needed
-- Possible tasks for this project:
-  - Implement cross-platform app
-  - Add tests
-  - Write documentation
-  - Prepare demos
-
-### Knowledge prerequisite: 
-
-- Open choice on language, but most likely Java, or Go based
-- Basic understanding of IDE and/or Browser extensions
-- Access to more than one of the Operating Systems, virtual machines okey.
-
-### Github repo:
-
-Since this is a new idea there are no direct current github repo for it - for now created https://github.com/maxandersen/starfish for having a place of discussion/conversion. If you want to explore/work in this area and show your experience/interest you can look into contributing to projects like  https://github.com/maxandersen/jbang or any vscode-* repo under https://github.com/redhat-developer/  or for more advanced https://github.com/quarkusio.  Basically any project that relates to developer tools, desktop tools, scripts or browser extensions will be useful experience. 
-
-### Slides:
-
-An outline of the idea with some screenshots/overview can be found https://docs.google.com/presentation/d/1AwWtUVz04b5u2I3QB-fEevzpyAJLSE1PzdS0JjnVoO0/edit#slide=id.pp[here] - feel free to comment.
-
-- Skill level: Beginner/Intermediate
-- Contact(s) / potential mentors(s): Max Rydahl Andersen (manderse@redhat.com)
-- Associated JBoss community project(s): Quarkus, vscode extensions, JBoss Tools
-
+## Technology for Development
+- https://quarkus.io/[Quarkus]
