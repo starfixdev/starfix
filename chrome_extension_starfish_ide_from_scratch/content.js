@@ -1,5 +1,5 @@
 current_url = window.location.href;
-var page_uri = "ide://#" + window.location.href;
+var page_uri = "ide://" + window.location.href;
 
 if (current_url.indexOf("https://github.com/") != -1)
 
