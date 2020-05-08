@@ -17,7 +17,7 @@ import org.simpleyaml.configuration.file.YamlFile;
 class starfish{
     public static void main(String[]args)throws Exception{
         for(String s:args)
-		System.out.println(s);//Printing Received Arguements for Debugging
+		System.out.println("\n"+s);//Printing Received Arguements for Debugging
 
 		//Calling function for Fetching installed Packages 
 		//fetch_installed_packages(); //This function will print all installed packages
@@ -25,109 +25,75 @@ class starfish{
 		//Configuration identifiers
 		String clone_path="";//Holds path to  destination Where the Repository Must Be Clonned
 		String ide="";  //Holds command for IDE to open upon
+		String userHome = System.getProperty( "user.home" ); //Get User Home Directory: /home/user_name
 
-		YamlFile yamlFile = new YamlFile("starfish-config.yml"); //Loading YAML
+		YamlFile yamlFile = new YamlFile(userHome + "/starfish-config.yml"); //Loading YAML
 
 
 		//Reading input from user
 		//java.io.Console cnsl=System.console();
 		BufferedReader reader= new BufferedReader(new InputStreamReader(System.in));
 		
-		System.out.println("Do you wish to continue with previous config(Y/N) ?");
-		char ch=(char)reader.read();
-		reader.readLine();
-		if(ch=='Y'||ch=='y'){
-		//If user wants to go with previous config then
-		//We'll read YAML File
 		
-		
-		// Load the YAML file if is already created or create new one otherwise
+		//Reading Configuration File
 		try {
 			if (!yamlFile.exists()) {
 				//Incase no config file exists
-				System.out.println("New  config file has been created: " + yamlFile.getFilePath() + "\n");
+				System.out.println("\n--------This is the first time you're using starfish...You'll need to  configure it------");
+				System.out.println("\n--------New  configuration file will be created at: " + yamlFile.getFilePath() + "\n");
 				yamlFile.createNewFile(true);
+				//----Configuration file doesn't exist first time user opens starfish so we'll ask user to enter configuration-------
+				
+				//--------------------------First we'll input IDE from user------------------------------
+
+				int id=0;
+				while(id!=1||id!=2||id!=3){
+				System.out.println("\n--------Chose the preferred IDE --------\n 1.for vscode \n 2.for eclipse \n 3.for IntelliJ_IDEA ");
+				
+				id=Integer.parseInt(reader.readLine());
+				
+				if(id==1){ide="code";System.out.println("Selected IDE:VsCode");break;}
+				else
+				if(id==2){ide="eclipse";System.out.println("Selected IDE:Eclipse");break;}
+				else
+				if(id==3){ide="idea";System.out.println("Selected IDE:IntelliJ_IDEA");break;}
+				else
+				System.out.println("Invalid Input Try Again");
+				}
+
+				//-----------Now we'll get preferred clone path on local file system from user--------------
+				System.out.println("Enter preferred Clonning path");
+				clone_path=reader.readLine();
+
+				//---------Save the received configurations in /home/user_name/starfish-config.yml
+				yamlFile.set("ide",ide);                 //Storing IDE configuration in YAML file
+				yamlFile.set("clonning_dir",clone_path ); //Storing  Clone Path configuration  in YAML
+				//--------Save the New Config in YML file-------
+				try{
+					yamlFile.save();
+					System.out.println("Configuration updated and saved successfully");
+				}
+				catch(Exception e){
+					e.printStackTrace();
+					System.out.println("Couldn't save the configurations :(");
+					System.out.print("Press any key to continue . . . ");
+					reader.readLine();
+				}
 			}
 			else {
-				System.out.println(" loading configurations...\n");
+				System.out.println("\nLoading configurations.....\n");
+				yamlFile.load(); // Loads the entire file
+				ide=yamlFile.getString("ide");
+				clone_path=yamlFile.getString("clonning_dir");
 			}
-			yamlFile.load(); // Loads the entire file
-		} catch (Exception e) {
-			e.printStackTrace();
+			
 		}
-		ide=yamlFile.getString("ide");
-		clone_path=yamlFile.getString("clonning_dir");
-
-		}
-		else
-		{
-		// we need to get configurations from user
-		
-		//First we'll input IDE from user
-		int id=0;
-		while(id!=1||id!=2||id!=3){
-		System.out.println("Chose the preferred IDE \n 1.for vscode \n 2.for eclipse \n 3.for IntelliJ_IDEA ");
-		
-		id=Integer.parseInt(reader.readLine());
-		
-		if(id==1){ide="code";System.out.println("Selected IDE:VsCode");break;}
-		else
-		if(id==2){ide="eclipse";System.out.println("Selected IDE:Eclipse");break;}
-		else
-		if(id==3){ide="idea";System.out.println("Selected IDE:IntelliJ_IDEA");break;}
-		else
-		System.out.println("Invalid Input Try Again");
-		}
-		
-		//Now we'll input clonning path from user
-		System.out.println("Enter Clonning path or leave blank to continue with previous config");
-		String temp_dir=reader.readLine();
-		//System.out.println(temp_dir.equals(""));
-		if(temp_dir.equals("")){
-		//If user leaves the cloning path blank we'll read the previous config from YML File
-		System.out.println("Blank path entered-will load from config file instead" );
-		
-		
-		// Load the YAML file if is already created or create new one otherwise
-		try {
-			if (!yamlFile.exists()) {
-				//Incase no config file exists
-				System.out.println("New  config file has been created: " + yamlFile.getFilePath() + "\n");
-				yamlFile.createNewFile(true);
-			}
-			else {
-				System.out.println(" loading configurations...\n");
-			}
-			yamlFile.load(); // Loads the entire file
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		clone_path=yamlFile.getString("clonning_dir");
-		}
-
-		else
-		clone_path=temp_dir;
-
-		//Now we will store the configurations in starfish-config.yml file
-
-		yamlFile.set("ide",ide);                 //Storing IDE configuration in YAML file
-		yamlFile.set("clonning_dir",clone_path ); //Storing  Clone Path configuration  in YAML
-		//Save the New Config in YML file
-		try{
-			yamlFile.save();
-			System.out.println("Configuration updated and saved successfully");
-		}
-		catch(Exception e){
+		catch (Exception e) {
 			e.printStackTrace();
 			System.out.print("Press any key to continue . . . ");
-			reader.readLine();
-		}
-
-
 		}
 		
 
-		reader.readLine();
 
         //Clonnning Git Repo
         //Expected parameter: https://github.com/user-name/repo-name.git
@@ -142,9 +108,9 @@ class starfish{
 
 
         //Launching Vscode on the Cloned Directory 
-        System.out.println("Launching Vscode Now");
+        System.out.println("Launching  IDE Now");
 		runCommand(directory.getParent(), ide,clone_path+repo_name);
-		reader.readLine();
+		
         
     }
 
