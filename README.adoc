@@ -1,6 +1,6 @@
 # Project Starfish 
 
-A  cross platform client side application that would let you open a file in IDE of your choice (vscode, eclipse, intellij, emacs, vi, etc.) or start a debugger locally directly from the browser or file system.This will enable an option to “Open in IDE” through browser extension on various websites like github, gitlab,gitbucket etc similar to one you see in this demo below.
+A  cross platform client side application that would let you open a file in IDE of your choice (vscode, eclipse, intellij, emacs, vi, etc.) and  other cammands locally directly from the browser or file system.This will enable an option to “Open in IDE” through browser extension on various websites like github, gitlab,gitbucket etc similar to one you see in this demo below.
 
 image::https://user-images.githubusercontent.com/31308705/79685056-61078280-8253-11ea-8ac1-aab1531ca0ab.gif[Starfish Demo]
 
@@ -25,7 +25,7 @@ image::https://user-images.githubusercontent.com/31308705/79685056-61078280-8253
 ## Targeted Platforms:
 - Linux
 - Windows
-- MAC OSX
+- Mac OS X
 
 ## Technology for Development
 - https://quarkus.io/[Quarkus]
