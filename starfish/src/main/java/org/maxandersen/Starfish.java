@@ -71,7 +71,6 @@ public class Starfish implements QuarkusApplication {
     //Expected parameter: https://github.com/user-name/repo-name.git
     String repo_name=args[0].substring(args[0].lastIndexOf("/"),args[0].lastIndexOf(".")); //Extracts the Name of Repository
     //String clone_path= "/home/fahad/MyProjects/starfish_clonned/"; 
-    String cmd = "git clone "+args[0];
     String originUrl = args[0];
     Path directory = Paths.get(clone_path+repo_name);
     gitClone(directory, originUrl);

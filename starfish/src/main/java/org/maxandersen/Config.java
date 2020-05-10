@@ -1,6 +1,6 @@
 package org.maxandersen;
-
-
+import io.quarkus.runtime.annotations.RegisterForReflection;
+@RegisterForReflection
 public class Config {
     public String ide;
     public String clone_path;
