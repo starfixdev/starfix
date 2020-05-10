@@ -1,0 +1,15 @@
+.dev{
+  margin-left: 5px !important;
+  background-color: #643ab0 !important;
+  background-image: linear-gradient(-180deg, #7e55c7 0%, #643ab0 90%) !important;
+}
+.dev:hover{
+  background-color: #643ab0 !important;
+  background-image: linear-gradient(-180deg, #7e55c7 0%, #643ab0 90%) !important;
+}
+.tree-controls{
+  display:flex !important;
+}
+.margin-left-5{
+  margin-left: 5px !important;
+}
