@@ -1,4 +1,4 @@
-package org.maxandersen;
+package org.maxandersen.starfish;
 
 import io.quarkus.runtime.QuarkusApplication;
 import java.io.BufferedReader;
