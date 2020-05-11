@@ -129,13 +129,19 @@ public static void editConfig()throws Exception{
             else
             if(id==3){ide="idea";System.out.println("Selected IDE:IntelliJ_IDEA");break;}
             else
-            System.out.println("--------Invalid Input Try Again--------");
+            System.out.println("--------Invalid Input!! Try Again--------");
             }
 
             //-----------Now we'll get preferred clone path on local file system from user--------------
+            while(true){
             System.out.println("--------Enter preferred Clonning path--------");
             clone_path=reader.readLine();
-
+            //We'll check if the path enterd by user is a valid path or not
+            File tmp=new File(clone_path);
+            if(tmp.exists())break;
+            //Incase of Invalid path he'll be shown an error and directed to try again
+            System.out.println("--------Invalid Path!! Try Again--------");
+            }
             //----------Now we'll write configurations to the YAML FILE------------
             ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
             Config configuration=new Config(ide,clone_path);
