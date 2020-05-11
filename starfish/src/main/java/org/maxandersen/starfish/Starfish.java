@@ -19,7 +19,7 @@ public class Starfish implements QuarkusApplication {
     
     
     for(String s:args)
-    System.out.println("\nTarget : "+s);//Printing Received Arguements for Debugging
+    System.out.println("\nTarget : "+s);//Printing Received Arguements 
 
     if(args[0].equalsIgnoreCase("config")){
     //Incase user wants to configure starfish
@@ -33,14 +33,9 @@ public class Starfish implements QuarkusApplication {
     //Configuration identifiers
     String clone_path="";//Holds path to  destination Where the Repository Must Be Clonned
     String ide="";  //Holds command for IDE to open upon
-    String userHome = System.getProperty( "user.home" ); //Get User Home Directory: /home/user_name
-
-    File configFile = new File(userHome + "/starfish-config.yml"); //Loading YAML
-
-
   
-    
-    
+    File configFile= getConfigFile();//Calling functiono to fetch config file 
+
     //Reading Configuration File
     try {
         if (!configFile.exists()) {
@@ -62,7 +57,7 @@ public class Starfish implements QuarkusApplication {
     }
     catch (Exception e) {
         e.printStackTrace();
-        System.out.print("Press any key to continue . . . ");
+        
     }
     
 
@@ -79,21 +74,33 @@ public class Starfish implements QuarkusApplication {
 
 
     //Launching Vscode on the Cloned Directory 
-    System.out.println("Launching  IDE Now");
+    System.out.println("Launching  Editor Now...");
     runCommand(directory.getParent(), ide,clone_path+repo_name);
     return 10;
     
 }
 
-
-//Function to edit configuration and serves for command line starfish config
-public static void editConfig()throws Exception{
-System.out.println("\n------Starfish Configuration Editor------");
-String clone_path="";//Holds path to  destination Where the Repository Must Be Clonned
-    String ide="";  //Holds command for IDE to open upon
+//Function to fetch config file
+public static File getConfigFile(){
     String userHome = System.getProperty( "user.home" ); //Get User Home Directory: /home/user_name
 
-    File configFile = new File(userHome + "/starfish-config.yml"); //Loading YAML
+    File configFile = new File(userHome + "/.config/starfish.yaml"); //Loading YAML
+
+    return configFile;
+
+}
+
+
+//Function to edit configuration and serves for command line starfish config editor
+public static void editConfig()throws Exception{
+    System.out.println("\n-------------------------------------------------------");
+    System.out.println("\t\tStarfish Configuration Editor");
+    System.out.println("-------------------------------------------------------\n");
+    String clone_path="";//Holds path to  destination Where the Repository Must Be Clonned
+    String ide="";  //Holds command for IDE to open upon
+   
+
+    File configFile = getConfigFile();
     
     BufferedReader reader= new BufferedReader(new InputStreamReader(System.in));
     
@@ -139,8 +146,7 @@ String clone_path="";//Holds path to  destination Where the Repository Must Be C
     }
     catch (Exception e) {
         e.printStackTrace();
-        System.out.print("Press any key to continue . . . ");
-        reader.readLine();
+     
     }
 
 }
@@ -204,31 +210,7 @@ private static class StreamGobbler extends Thread {
 
 
 //Function to fetch all installed packages on System
-public static void fetch_installed_packages()throws Exception{
-    
-    String [] extCmdArgs = new String[]{"dpkg-query", "-W", "-f=${Package} ${Version}\n"};// Fetches installed Packages on System
-    //String [] extCmdArgs = new String[]{"sudo apt list --installed};
-    
-    Process fetchInstalledPackagesProcess = Runtime.getRuntime().exec(extCmdArgs);
-    BufferedReader reader = null;
-            try {
-                reader = new BufferedReader(new InputStreamReader(fetchInstalledPackagesProcess.getInputStream()));
-                String line;
-                while(true){
-                    line = reader.readLine();
-                    if (line == null)
-                        break;
-                    System.out.println(line);
-            }
-        } catch (Exception e) {
-                e.printStackTrace();
-        }
-        finally {
-            reader.close();
-        }
 
-
-}
 
 
 
