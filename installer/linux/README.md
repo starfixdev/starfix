@@ -10,8 +10,10 @@
 ## Usage
 - From Browser: Click on the "Open In IDE" button that you see when you navigate to the  Repository Page.
 - To use Starfish from  Command Line Interface(CLI):
-     Syntax : `starfish clone_url`
-     Example: `starfish https://github.com/user_name/repository.git`
+
+     **Syntax** : `starfish clone_url`
+     
+     **Example** : `starfish https://github.com/user_name/repository.git`
      
 - To configure Starfish from Command Line Interface(CLI): run `starfish config`
      
