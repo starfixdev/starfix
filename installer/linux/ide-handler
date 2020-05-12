@@ -11,4 +11,4 @@ request=$(echo $request | echo -e "$(sed 's/+/ /g; s/%/\\x/g')")
 request=${request/&line=/:}
 request="https://github.c"$request
 echo $request
-gnome-terminal  -- /usr/bin/starfish-1.0.0-SNAPSHOT-runner  $request
+gnome-terminal  -- /usr/bin/starfish  $request
