@@ -6,9 +6,14 @@ If you want to learn more about Quarkus, please visit its website: https://quark
 
 ## Running the application in dev mode
 
-You can run your application in dev mode that enables live coding using:
+- You can run your application in dev mode that enables live coding using:
 ```
 ./mvnw quarkus:dev
+```
+
+- Incase you want to pass arguements you may use:
+```
+mvn compile quarkus:dev -Dquarkus.args='your_arguement_here'
 ```
 
 ## Packaging and running the application

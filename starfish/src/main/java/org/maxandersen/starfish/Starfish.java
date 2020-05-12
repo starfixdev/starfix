@@ -40,7 +40,6 @@ public class Starfish implements QuarkusApplication {
     try {
         if (!configFile.exists()) {
             //Incase no config file exists
-            System.out.println("\nThis is the first time you're using starfish...You'll need to  configure it");
             editConfig(); //Calling function that lets user to configure 
         }
         
@@ -68,8 +67,9 @@ public class Starfish implements QuarkusApplication {
     //String clone_path= "/home/fahad/MyProjects/starfish_clonned/"; 
     String originUrl = args[0];
     Path directory = Paths.get(clone_path+repo_name);
+    if(!Files.exists(directory)) //Check if the user cloned the repo previously and in that case no cloning is needed
     gitClone(directory, originUrl);
-    
+   
 
 
 
@@ -123,24 +123,24 @@ public static void editConfig()throws Exception{
             
             id=Integer.parseInt(reader.readLine());
             
-            if(id==1){ide="code";System.out.println("Selected IDE:VsCode");break;}
+            if(id==1){ide="code";System.out.println("\n--------Selected IDE:VsCode--------");break;}
             else
-            if(id==2){ide="eclipse";System.out.println("Selected IDE:Eclipse");break;}
+            if(id==2){ide="eclipse";System.out.println("\n--------Selected IDE:Eclipse--------");break;}
             else
-            if(id==3){ide="idea";System.out.println("Selected IDE:IntelliJ_IDEA");break;}
+            if(id==3){ide="idea";System.out.println("\n--------Selected IDE:IntelliJ_IDEA--------");break;}
             else
-            System.out.println("--------Invalid Input!! Try Again--------");
+            System.out.println("\n--------Invalid Input!! Try Again--------");
             }
 
             //-----------Now we'll get preferred clone path on local file system from user--------------
             while(true){
-            System.out.println("--------Enter preferred Clonning path--------");
+            System.out.println("\n--------Enter preferred Clonning path--------");
             clone_path=reader.readLine();
             //We'll check if the path enterd by user is a valid path or not
             File tmp=new File(clone_path);
             if(tmp.exists())break;
             //Incase of Invalid path he'll be shown an error and directed to try again
-            System.out.println("--------Invalid Path!! Try Again--------");
+            System.out.println("\n--------Invalid Path!! Try Again--------");
             }
             //----------Now we'll write configurations to the YAML FILE------------
             ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
