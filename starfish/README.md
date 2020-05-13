@@ -1,8 +1,10 @@
 # starfish project
-This apps receives a git repository URI,clones the repository and opens an editor(vscode,eclipse,idea etc) on it 
+This apps receives a git repository URI,clones the repository and opens an editor(vscode,eclipse,idea etc) on it.
+
 ![Starfish](https://github.com/fahad-israr/Images-for-Readme/raw/master/starfish.png)
 
 #### This sub-directory contains the source files for the starfish application. Insatallation and Usage are elaborated in the `../install/os_name` directory as some instructions are platform specific.
+
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
