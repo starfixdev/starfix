@@ -18,8 +18,8 @@ public class Starfish implements QuarkusApplication {
   public int run(String... args) throws Exception {   
     
     
-    for(String s:args)
-    System.out.println("\nTarget : "+s);//Printing Received Arguements 
+    /*for(String s:args)
+    System.out.println("\nTarget : "+s);//Printing Received Arguements */
 
     if(args[0].equalsIgnoreCase("config")){
     //Incase user wants to configure starfish
@@ -43,7 +43,7 @@ public class Starfish implements QuarkusApplication {
             editConfig(); //Calling function that lets user to configure 
         }
         
-        System.out.println("\nLoading configurations.....\n");
+        //System.out.println("\nLoading configurations.....\n");
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
     
         Config config = mapper.readValue(configFile, Config.class);
