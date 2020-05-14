@@ -10,6 +10,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
@@ -27,8 +29,17 @@ public class Starfish implements QuarkusApplication {
     return 10; //Incase user typed "starfish config" we only want to edit configuration
     }
 
-    //Calling function for Fetching installed Packages 
-    //fetch_installed_packages(); //This function will print all installed packages
+    //URL Validation to check a valid git repository
+    String pattern="((git|ssh|http(s)?)|(git@[\\w\\.]+))(:(//)?)([\\w\\.@\\:/\\-~]+)(\\.git)(/)?";
+    Pattern r = Pattern.compile(pattern);
+    // Now create matcher object.
+    Matcher m = r.matcher(args[0]);
+    if (!m.matches()){ //Incase URI doesn't  macth our scheme we'll terminate
+        System.out.println("Not a valid URI for git repository");
+        return 10;
+    }
+
+    
 
     //Configuration identifiers
     String clone_path="";//Holds path to  destination Where the Repository Must Be Clonned
