@@ -37,8 +37,7 @@ jobs:
       with:
         upload_url: ${{ github.event.release.upload_url }}
         asset_path: ./target/starfish-${{ github.event.release.tag_name }}-runner
-        asset_name: starfish
-        tag: ${{ github.ref }}-macos
+        asset_name: starfish-macos
         asset_content_type: application/octet-stream
 
 # Trigger this job only on Push or Pull-Request
@@ -59,25 +58,7 @@ jobs:
       - name: Build native executable
         run: ./mvnw package -Dnative 
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: commit-${{ github.sha}}-${{ github.run_id }}
-          release_name: Release commit-${{ github.sha }}-${{ github.run_id }}
-          draft: false
-          prerelease: false
-
-      - name: Upload native executable
-        uses: shogo82148/actions-upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./target/starfish-1.0.0-runner
-          asset_name: starfish-macos
-          asset_content_type: application/octet-stream
-
+   
 
 
 
