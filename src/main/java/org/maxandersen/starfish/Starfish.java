@@ -72,25 +72,24 @@ public class Starfish implements QuarkusApplication {
     
 
 
-    
+    //Clonnning Git Repo
+    //Expected parameter: https://github.com/user-name/repo-name.git
     String repo_name=args[0].substring(args[0].lastIndexOf("/"),args[0].lastIndexOf(".")); //Extracts the Name of Repository
-   
+    //String clone_path= "/home/fahad/MyProjects/starfish_clonned/"; 
     String originUrl = args[0];
     Path directory = Paths.get(clone_path+repo_name);
-
     if(!Files.exists(directory)) //Check if the user cloned the repo previously and in that case no cloning is needed
-    gitClone(directory, originUrl);//Calling function to clone the repository
+    gitClone(directory, originUrl);
    
 
 
 
-    //Launching Editor on the Cloned Directory 
+    //Launching Vscode on the Cloned Directory 
     System.out.println("Launching  Editor Now...");
-    launch_editor(directory.getParent(), ide,clone_path+repo_name);//Calling Function to launch Editor
+    runCommand(directory.getParent(), ide,clone_path+repo_name);
     return 10;
     
 }
-
 
 //Function to fetch config file
 public static File getConfigFile(){
@@ -168,15 +167,6 @@ public static void editConfig()throws Exception{
     }
 
 }
-
-//Function to Launch the Editor
-public static void launch_editor(Path directory,String ide,String final_clone_path)throws IOException, InterruptedException{
-//If OS is windows then we add .exe after the command    
-ide=System.getProperty("os.name").toLowerCase().indexOf("windows")>=0?ide+".exe":ide;
-runCommand(directory.getParent(), ide,final_clone_path);//Launching the editor now
-
-}
-
 
 public static void gitClone(Path directory, String originUrl) throws IOException, InterruptedException {
     //Function for git clonning
