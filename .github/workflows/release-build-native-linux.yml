@@ -57,7 +57,13 @@ jobs:
         run: ./mvnw versions:set -DnewVersion="1.0.0" 
       - name: Build native executable
         run: ./mvnw package -Dnative 
-
+      - name: Upload native executable
+        id: upload-native-executable
+        uses: actions/upload-artifact@v2
+        with:
+          name: starfish-linux
+          path: ./target/starfish-1.0.0-runner
+          
 
 
 

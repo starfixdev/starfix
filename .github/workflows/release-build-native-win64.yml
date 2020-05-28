@@ -77,3 +77,9 @@ jobs:
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64
           mvnw package -Dnative"
         shell: cmd
+      - name: Upload native executable
+        id: upload-native-executable
+        uses: actions/upload-artifact@v2
+        with:
+          name: starfish-win64.exe
+          path: ./target/starfish-1.0.0-runner
