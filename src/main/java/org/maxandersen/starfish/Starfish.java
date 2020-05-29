@@ -172,7 +172,8 @@ public static void editConfig()throws Exception{
 //Function to Launch the Editor
 public static void launch_editor(Path directory,String ide,String final_clone_path)throws IOException, InterruptedException{
 //If OS is windows then we add .exe after the command    
-ide=System.getProperty("os.name").toLowerCase().indexOf("windows")>=0?ide+".exe":ide;
+boolean isWindows =System.getProperty("os.name").toLowerCase().indexOf("windows")>=0;
+ide=isWindows?ide+".exe":ide;
 runCommand(directory.getParent(), ide,final_clone_path);//Launching the editor now
 
 }
