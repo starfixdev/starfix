@@ -69,7 +69,7 @@ jobs:
         # For details see https://github.com/actions/virtual-environments/issues/785
         uses: al-cheb/configure-pagefile-action@v1.2
       - name: Set version
-        run: ./mvnw versions:set -DnewVersion="1.0.0" 
+        run: ./mvnw versions:set -DnewVersion="${{github.sha}}" 
         shell: cmd
       - name: Build native executable
         # Invoke the native-image build with the necessary Visual Studio tooling/environment intialized
@@ -81,5 +81,5 @@ jobs:
         id: upload-native-executable
         uses: actions/upload-artifact@v2
         with:
-          name: starfish-win64.exe
-          path: ./target/starfish-1.0.0-runner
+          name: starfish-win64-${{github.sha}}.exe
+          path: ./target/starfish-${{github.sha}}-runner.exe

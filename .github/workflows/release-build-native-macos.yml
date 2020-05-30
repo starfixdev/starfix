@@ -54,15 +54,15 @@ jobs:
       - name: Install native-image
         run: gu install native-image
       - name: Set version
-        run: ./mvnw versions:set -DnewVersion="1.0.0" 
+        run: ./mvnw versions:set -DnewVersion="${{github.sha}}" 
       - name: Build native executable
         run: ./mvnw package -Dnative 
       - name: Upload native executable
         id: upload-native-executable
         uses: actions/upload-artifact@v2
         with:
-          name: starfish-macos
-          path: ./target/starfish-1.0.0-runner
+          name: starfish-macos-${{github.sha}}
+          path: ./target/starfish-${{github.sha}}-runner
    
 
 
