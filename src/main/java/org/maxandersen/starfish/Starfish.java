@@ -86,7 +86,7 @@ public class Starfish implements QuarkusApplication {
 
     //Launching Editor on the Cloned Directory 
     System.out.println("Launching  Editor Now...");
-    launch_editor(directory.getParent(), ide,clone_path+repo_name);//Calling Function to launch Editor
+    launch_editor(directory.getParent(), ide,clone_path+repo_name);
     return 10;
     
 }
