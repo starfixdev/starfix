@@ -79,7 +79,7 @@ public class Starfish implements QuarkusApplication {
     Path directory = Paths.get(clone_path+repo_name);
 
     if(!Files.exists(directory)) //Check if the user cloned the repo previously and in that case no cloning is needed
-    gitClone(directory, originUrl);//Calling function to clone the repository
+    gitClone(directory, originUrl);
    
 
 
