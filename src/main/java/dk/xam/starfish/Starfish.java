@@ -91,6 +91,10 @@ public class Starfish implements QuarkusApplication {
     
 }
 
+//Function yo determine if the current OS is Windows
+boolean isWindows(){
+return  System.getProperty("os.name").toLowerCase().indexOf("windows")>=0;
+}
 
 //Function to fetch config file
 public static File getConfigFile(){
@@ -135,7 +139,7 @@ public static void editConfig()throws Exception{
             
             id=Integer.parseInt(reader.readLine());
             
-            if(id==1){ide="code";System.out.println("\n--------Selected IDE:VsCode--------");break;}
+            if(id==1){ide=isWindows?"code.cmd":"code";System.out.println("\n--------Selected IDE:VsCode--------");break;}
             else
             if(id==2){ide="eclipse";System.out.println("\n--------Selected IDE:Eclipse--------");break;}
             else
@@ -170,10 +174,7 @@ public static void editConfig()throws Exception{
 }
 
 //Function to Launch the Editor
-public static void launch_editor(Path directory,String ide,String final_clone_path)throws IOException, InterruptedException{
-//If OS is windows then we add .exe after the command    
-boolean isWindows =System.getProperty("os.name").toLowerCase().indexOf("windows")>=0;
-ide=isWindows?ide+".exe":ide;
+public static void launch_editor(Path directory,String ide,String final_clone_path)throws IOException, InterruptedException{    
 runCommand(directory.getParent(), ide,final_clone_path);//Launching the editor now
 
 }
