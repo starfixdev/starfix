@@ -92,7 +92,7 @@ public class Starfish implements QuarkusApplication {
 }
 
 //Function yo determine if the current OS is Windows
-boolean isWindows(){
+public static boolean isWindows(){
 return  System.getProperty("os.name").toLowerCase().indexOf("windows")>=0;
 }
 
@@ -139,7 +139,7 @@ public static void editConfig()throws Exception{
             
             id=Integer.parseInt(reader.readLine());
             
-            if(id==1){ide=isWindows?"code.cmd":"code";System.out.println("\n--------Selected IDE:VsCode--------");break;}
+            if(id==1){ide=isWindows()?"code.cmd":"code";System.out.println("\n--------Selected IDE:VsCode--------");break;}
             else
             if(id==2){ide="eclipse";System.out.println("\n--------Selected IDE:Eclipse--------");break;}
             else
