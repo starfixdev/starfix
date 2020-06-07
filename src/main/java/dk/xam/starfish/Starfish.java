@@ -30,11 +30,7 @@ public class Starfish implements QuarkusApplication {
     }
 
     //URL Validation to check a valid git repository
-    String pattern="((git|ssh|http(s)?)|(git@[\\w\\.]+))(:(//)?)([\\w\\.@\\:/\\-~]+)(\\.git)(/)?";
-    Pattern r = Pattern.compile(pattern);
-    // Now create matcher object.
-    Matcher m = r.matcher(args[0]);
-    if (!m.matches()){ //Incase URI doesn't  macth our scheme we'll terminate
+    if (!validate_url(args[0])){ //Incase URI doesn't  macth our scheme we'll terminate
         System.out.println("Not a valid URI for git repository");
         return 10;
     }
@@ -89,6 +85,17 @@ public class Starfish implements QuarkusApplication {
     launch_editor(directory.getParent(), ide,clone_path+repo_name);
     return 10;
     
+}//Main ends here
+
+
+//Function to validate URL using with Regex
+public static boolean validate_url(String url){
+    //URL Validation to check a valid git repository
+    String pattern="((git|ssh|http(s)?)|(git@[\\w\\.]+))(:(//)?)([\\w\\.@\\:/\\-~]+)(\\.git)(/)?";
+    Pattern r = Pattern.compile(pattern);
+    // Now create matcher object.
+    Matcher m = r.matcher(url);
+    return m.matches();
 }
 
 //Function yo determine if the current OS is Windows
@@ -174,8 +181,9 @@ public static void editConfig()throws Exception{
 }
 
 //Function to Launch the Editor
-public static void launch_editor(Path directory,String ide,String final_clone_path)throws IOException, InterruptedException{    
+public static String launch_editor(Path directory,String ide,String final_clone_path)throws IOException, InterruptedException{    
 runCommand(directory.getParent(), ide,final_clone_path);//Launching the editor now
+return "";
 
 }
 
