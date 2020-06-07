@@ -19,6 +19,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Install dependencies for vscode
+      run: sudo apt install software-properties-common apt-transport-https wget
+    - name: import the Microsoft GPG key
+      run: wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+    - name: enable the Visual Studio Code repository
+      run: sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+    - name: update apt
+      run: sudo apt update
+    - name: Install vscode
+      run: sudo apt install code
     - name: Install graalvm
       uses: DeLaGuardo/setup-graalvm@3
       with:
@@ -47,6 +57,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Install dependencies for vscode
+        run: sudo apt install software-properties-common apt-transport-https wget
+      - name: import the Microsoft GPG key
+        run: wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+      - name: enable the Visual Studio Code repository
+        run: sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+      - name: update apt
+        run: sudo apt update
+      - name: Install vscode
+        run: sudo apt install code
       - name: Install graalvm
         uses: DeLaGuardo/setup-graalvm@3
         with:
