@@ -4,12 +4,15 @@ import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.io.IOException;
 
 
 
 import static dk.xam.starfish.Starfish.validate_url;
 import static dk.xam.starfish.Starfish.launch_editor;
 import static dk.xam.starfish.Starfish.isWindows;
+import static dk.xam.starfish.Starfish.echo;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -18,6 +21,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
+/*import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Matchers.anyString;
+import org.mockito.stubbing.Answer;
+import static org.mockito.AdditionalAnswers.returnsFirstArg;*/
 
 
 @QuarkusTest
@@ -38,6 +46,15 @@ public class StarfishTest {
     }
 
     @Test
+    public void testEcho()throws Exception {
+        String test_string="This is some random String that I want to Echo ";
+        assertEquals(test_string,echo(test_string),"Echo Random String");
+
+       
+        
+    }
+
+   /* @Test
     public void testLaunchEditor()throws Exception {
     //To test launch_editor(dir,ide,dir) function
         String userHome = System.getProperty( "user.home" ); 
@@ -67,6 +84,6 @@ public class StarfishTest {
        
 
 
-    }
+    }*/
 
 }

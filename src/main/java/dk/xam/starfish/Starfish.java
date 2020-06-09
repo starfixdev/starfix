@@ -181,9 +181,9 @@ public static void editConfig()throws Exception{
 }
 
 //Function to Launch the Editor
-public static String launch_editor(Path directory,String ide,String final_clone_path)throws IOException, InterruptedException{    
+public static void launch_editor(Path directory,String ide,String final_clone_path)throws IOException, InterruptedException{    
 runCommand(directory.getParent(), ide,final_clone_path);//Launching the editor now
-return "";
+
 
 }
 
@@ -246,8 +246,12 @@ private static class StreamGobbler extends Thread {
 }
 
 
-//Function to fetch all installed packages on System
 
+public static String echo(String word)throws IOException, InterruptedException{
+Path directory = Paths.get(System.getProperty( "user.home" ));
+runCommand(directory,"echo",word);
+return word;
+}
 
 
 

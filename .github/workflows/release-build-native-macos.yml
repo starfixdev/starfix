@@ -19,8 +19,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Install vscode using Homebrew
-      run: brew cask install visual-studio-code
     - name: Install graalvm
       uses: DeLaGuardo/setup-graalvm@3
       with:
@@ -49,8 +47,6 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Install vscode using Homebrew
-        run: brew cask install visual-studio-code
       - name: Install graalvm
         uses: DeLaGuardo/setup-graalvm@3
         with:
