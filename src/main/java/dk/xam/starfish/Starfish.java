@@ -16,7 +16,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 public class Starfish implements QuarkusApplication {
-public static String exec_result=""; //Global variable to hold results of runCommand() function
   @Override
   public int run(String... args) throws Exception {   
     
@@ -197,9 +196,15 @@ public static void gitClone(Path directory, String originUrl) throws IOException
 
 
 
-public static void runCommand(Path directory, String... command) throws IOException, InterruptedException {
+public static String runCommand(Path directory, String... command) throws IOException, InterruptedException {
     //Function to Run Commands using Process Builder
+    Process p=process_runner(directory,command);
+    return gobbleStream(p);
     
+
+}
+
+public static Process process_runner(Path directory, String... command)throws IOException, InterruptedException{
     Objects.requireNonNull(directory, "directory");
     if (!Files.exists(directory)) {
         throw new RuntimeException("can't run command in non-existing directory '" + directory + "'");
@@ -208,23 +213,30 @@ public static void runCommand(Path directory, String... command) throws IOExcept
             .command(command)
             .directory(directory.toFile());
     Process p = pb.start();
+
+    int exit = p.waitFor();
+
+    if (exit != 0) {
+        throw new AssertionError(String.format("runCommand returned %d", exit));
+    }
+    return p;
+}
+
+
+public static String gobbleStream(Process p)throws IOException, InterruptedException{
     StreamGobbler errorGobbler = new StreamGobbler(p.getErrorStream(), "E");
     StreamGobbler outputGobbler = new StreamGobbler(p.getInputStream(), "O");
     outputGobbler.start();
     errorGobbler.start();
-    int exit = p.waitFor();
     errorGobbler.join();
     outputGobbler.join();
-    if (exit != 0) {
-        throw new AssertionError(String.format("runCommand returned %d", exit));
-    }
-
+    return outputGobbler.getExecResult()+errorGobbler.getExecResult();
 }
 
 
 
 private static class StreamGobbler extends Thread {
-
+    private volatile String exec_result;
     private final InputStream is;
     private final String type;
 
@@ -248,15 +260,18 @@ private static class StreamGobbler extends Thread {
             
         }
     }
+
+    public String getExecResult(){
+        return exec_result;
+    }
 }
 
 
 
 public static String echo(String word)throws IOException, InterruptedException{
 Path directory = Paths.get(System.getProperty( "user.home" ));
-runCommand(directory,"echo",word);
 
-return exec_result;
+return runCommand(directory,"echo",word);
 }
 
 
