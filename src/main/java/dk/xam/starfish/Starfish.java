@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 public class Starfish implements QuarkusApplication {
+public static String exec_result=""; //Global variable to hold results of runCommand() function
   @Override
   public int run(String... args) throws Exception {   
     
@@ -217,6 +218,7 @@ public static void runCommand(Path directory, String... command) throws IOExcept
     if (exit != 0) {
         throw new AssertionError(String.format("runCommand returned %d", exit));
     }
+
 }
 
 
@@ -233,10 +235,13 @@ private static class StreamGobbler extends Thread {
 
     @Override
     public void run() {
+        exec_result=""; //Resets result variable
         try (BufferedReader br = new BufferedReader(new InputStreamReader(is));) {
             String line;
+
             while ((line = br.readLine()) != null) {
                 System.out.println(type + "> " + line);
+                exec_result+=" "+line;
             }
         } catch (IOException ioe) {
             ioe.printStackTrace();
@@ -250,7 +255,8 @@ private static class StreamGobbler extends Thread {
 public static String echo(String word)throws IOException, InterruptedException{
 Path directory = Paths.get(System.getProperty( "user.home" ));
 runCommand(directory,"echo",word);
-return word;
+
+return exec_result.trim();
 }
 
 
