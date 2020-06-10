@@ -235,13 +235,13 @@ private static class StreamGobbler extends Thread {
 
     @Override
     public void run() {
-        exec_result=""; //Resets result variable
+        exec_result=""; //Resets result variable for every new process execution 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(is));) {
             String line;
 
             while ((line = br.readLine()) != null) {
                 System.out.println(type + "> " + line);
-                exec_result+=" "+line;
+                exec_result+=line;
             }
         } catch (IOException ioe) {
             ioe.printStackTrace();
@@ -256,7 +256,7 @@ public static String echo(String word)throws IOException, InterruptedException{
 Path directory = Paths.get(System.getProperty( "user.home" ));
 runCommand(directory,"echo",word);
 
-return exec_result.trim();
+return exec_result;
 }
 
 
