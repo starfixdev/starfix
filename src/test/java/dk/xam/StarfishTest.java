@@ -11,7 +11,7 @@ import java.io.IOException;
 import static dk.xam.starfish.Starfish.validate_url;
 import static dk.xam.starfish.Starfish.launch_editor;
 import static dk.xam.starfish.Starfish.isWindows;
-import static dk.xam.starfish.Starfish.echo;
+import static dk.xam.starfish.Starfish.runCommand;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -43,8 +43,9 @@ public class StarfishTest {
 
     @Test
     public void testEcho()throws Exception {
+        Path directory = Paths.get(System.getProperty( "user.home" ));
         String test_string="This is some random String that I want to Echo";
-        assertEquals(test_string,echo(test_string),"Echo Random String");
+        assertEquals(test_string,runCommand(directory,"echo",test_string),"Echo Random String");
     }
 
   

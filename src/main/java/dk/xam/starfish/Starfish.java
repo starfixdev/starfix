@@ -228,6 +228,10 @@ public static String gobbleStream(Process p)throws IOException, InterruptedExcep
     StreamGobbler outputGobbler = new StreamGobbler(p.getInputStream(), "O");
     outputGobbler.start();
     errorGobbler.start();
+    int exit = p.waitFor();
+    if (exit != 0) {
+        throw new AssertionError(String.format("runCommand returned %d", exit));
+    }
     errorGobbler.join();
     outputGobbler.join();
     return outputGobbler.getExecResult()+errorGobbler.getExecResult();
@@ -268,11 +272,6 @@ private static class StreamGobbler extends Thread {
 
 
 
-public static String echo(String word)throws IOException, InterruptedException{
-Path directory = Paths.get(System.getProperty( "user.home" ));
-
-return runCommand(directory,"echo",word);
-}
 
 
 
