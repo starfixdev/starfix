@@ -223,7 +223,7 @@ public static Process process_runner(Path directory, String... command)throws IO
 }
 
 
-public static String gobbleStream(Process p)throws IOException, InterruptedException{
+public static String gobbleStream(Process p) throws IOException, InterruptedException{
     StreamGobbler errorGobbler = new StreamGobbler(p.getErrorStream(), "E");
     StreamGobbler outputGobbler = new StreamGobbler(p.getInputStream(), "O");
     outputGobbler.start();
