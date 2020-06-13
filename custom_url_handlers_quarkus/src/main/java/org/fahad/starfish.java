@@ -166,9 +166,20 @@ class starfish{
 		if (!Files.exists(directory)) {
 			throw new RuntimeException("can't run command in non-existing directory '" + directory + "'");
 		}
+		//String[] env = System.getenv("Path");
+
 		ProcessBuilder pb = new ProcessBuilder()
 				.command(command)
 				.directory(directory.toFile());
+		Map<String, String> env = pb.environment();
+		for(String envName : env.keySet())
+		System.out.println(envName +" "+ env.get(envName));
+		System.out.println("------------------------------------------\n\n\n");
+		Map<String, String> systemEnv = System.getenv();
+		for(String envName : systemEnv.keySet()){
+			System.out.println(envName +" "+ systemEnv.get(envName));
+			env.put(envName, systemEnv.get(envName));
+		}
 		Process p = pb.start();
 		StreamGobbler errorGobbler = new StreamGobbler(p.getErrorStream(), "E");
 		StreamGobbler outputGobbler = new StreamGobbler(p.getInputStream(), "O");
