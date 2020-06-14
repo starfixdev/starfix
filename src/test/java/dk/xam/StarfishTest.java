@@ -30,12 +30,12 @@ public class StarfishTest {
     @Test
     public void testURLValidator() {
         
-        assertEquals(true,validate_url("https://github.com/user-name/repo-name.git"),"URL Validation test failes");
-        assertEquals(true,validate_url("http://github.com/user-name/repo-name.git"),"URL Validation test failes");
-        assertEquals(true,validate_url("git@github.com:user-name/repo-name.git"),"URL Validation test failes");
+        assertEquals(true,validate_url("https://github.com/user-name/repo-name.git"),"Plain github url with https");
+        assertEquals(true,validate_url("http://github.com/user-name/repo-name.git"),"Plain github url with http");
+        assertEquals(true,validate_url("git@github.com:user-name/repo-name.git"),"Github URL with SSH");
 
-        assertEquals(false,validate_url("git@github.com:user-name/repo-name"),"URL Validation test failes");
-        assertEquals(false,validate_url("https://github.com/repo-name"),"URL Validation test failes");
+        assertEquals(false,validate_url("git@github.com:user-name/repo-name"),"Invalid Github URL with SSH");
+        assertEquals(false,validate_url("https://github.com/repo-name"),"Invalid Plain github url");
 
 
         
