@@ -30,11 +30,7 @@ public class Starfish implements QuarkusApplication {
     }
 
     //URL Validation to check a valid git repository
-    String pattern="((git|ssh|http(s)?)|(git@[\\w\\.]+))(:(//)?)([\\w\\.@\\:/\\-~]+)(\\.git)(/)?";
-    Pattern r = Pattern.compile(pattern);
-    // Now create matcher object.
-    Matcher m = r.matcher(args[0]);
-    if (!m.matches()){ //Incase URI doesn't  macth our scheme we'll terminate
+    if (!validate_url(args[0])){ //Incase URI doesn't  macth our scheme we'll terminate
         System.out.println("Not a valid URI for git repository");
         return 10;
     }
@@ -72,23 +68,39 @@ public class Starfish implements QuarkusApplication {
     
 
 
-    //Clonnning Git Repo
-    //Expected parameter: https://github.com/user-name/repo-name.git
+    
     String repo_name=args[0].substring(args[0].lastIndexOf("/"),args[0].lastIndexOf(".")); //Extracts the Name of Repository
-    //String clone_path= "/home/fahad/MyProjects/starfish_clonned/"; 
+   
     String originUrl = args[0];
     Path directory = Paths.get(clone_path+repo_name);
+
     if(!Files.exists(directory)) //Check if the user cloned the repo previously and in that case no cloning is needed
     gitClone(directory, originUrl);
    
 
 
 
-    //Launching Vscode on the Cloned Directory 
+    //Launching Editor on the Cloned Directory 
     System.out.println("Launching  Editor Now...");
-    runCommand(directory.getParent(), ide,clone_path+repo_name);
+    launch_editor(directory.getParent(), ide,clone_path+repo_name);
     return 10;
     
+}//Main ends here
+
+
+//Function to validate URL using with Regex
+public static boolean validate_url(String url){
+    //URL Validation to check a valid git repository
+    String pattern="((git|ssh|http(s)?)|(git@[\\w\\.]+))(:(//)?)([\\w\\.@\\:/\\-~]+)(\\.git)(/)?";
+    Pattern r = Pattern.compile(pattern);
+    // Now create matcher object.
+    Matcher m = r.matcher(url);
+    return m.matches();
+}
+
+//Function yo determine if the current OS is Windows
+public static boolean isWindows(){
+return  System.getProperty("os.name").toLowerCase().indexOf("windows")>=0;
 }
 
 //Function to fetch config file
@@ -134,7 +146,7 @@ public static void editConfig()throws Exception{
             
             id=Integer.parseInt(reader.readLine());
             
-            if(id==1){ide="code";System.out.println("\n--------Selected IDE:VsCode--------");break;}
+            if(id==1){ide=isWindows()?"code.cmd":"code";System.out.println("\n--------Selected IDE:VsCode--------");break;}
             else
             if(id==2){ide="eclipse";System.out.println("\n--------Selected IDE:Eclipse--------");break;}
             else
@@ -168,6 +180,14 @@ public static void editConfig()throws Exception{
 
 }
 
+//Function to Launch the Editor
+public static void launch_editor(Path directory,String ide,String final_clone_path)throws IOException, InterruptedException{    
+runCommand(directory.getParent(), ide,final_clone_path);//Launching the editor now
+
+
+}
+
+
 public static void gitClone(Path directory, String originUrl) throws IOException, InterruptedException {
     //Function for git clonning
     runCommand(directory.getParent(), "git", "clone", originUrl, directory.getFileName().toString());
@@ -176,9 +196,15 @@ public static void gitClone(Path directory, String originUrl) throws IOException
 
 
 
-public static void runCommand(Path directory, String... command) throws IOException, InterruptedException {
+public static String runCommand(Path directory, String... command) throws IOException, InterruptedException {
     //Function to Run Commands using Process Builder
+    Process p=process_runner(directory,command);
+    return gobbleStream(p);
     
+
+}
+
+public static Process process_runner(Path directory, String... command)throws IOException, InterruptedException{
     Objects.requireNonNull(directory, "directory");
     if (!Files.exists(directory)) {
         throw new RuntimeException("can't run command in non-existing directory '" + directory + "'");
@@ -187,22 +213,34 @@ public static void runCommand(Path directory, String... command) throws IOExcept
             .command(command)
             .directory(directory.toFile());
     Process p = pb.start();
+
+    int exit = p.waitFor();
+
+    if (exit != 0) {
+        throw new AssertionError(String.format("runCommand returned %d", exit));
+    }
+    return p;
+}
+
+
+public static String gobbleStream(Process p) throws IOException, InterruptedException{
     StreamGobbler errorGobbler = new StreamGobbler(p.getErrorStream(), "E");
     StreamGobbler outputGobbler = new StreamGobbler(p.getInputStream(), "O");
     outputGobbler.start();
     errorGobbler.start();
     int exit = p.waitFor();
-    errorGobbler.join();
-    outputGobbler.join();
     if (exit != 0) {
         throw new AssertionError(String.format("runCommand returned %d", exit));
     }
+    errorGobbler.join();
+    outputGobbler.join();
+    return outputGobbler.getExecResult()+errorGobbler.getExecResult();
 }
 
 
 
 private static class StreamGobbler extends Thread {
-
+    private volatile String exec_result;
     private final InputStream is;
     private final String type;
 
@@ -213,20 +251,26 @@ private static class StreamGobbler extends Thread {
 
     @Override
     public void run() {
+        exec_result=""; //Resets result variable for every new process execution 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(is));) {
             String line;
+
             while ((line = br.readLine()) != null) {
                 System.out.println(type + "> " + line);
+                exec_result+=line;
             }
         } catch (IOException ioe) {
             ioe.printStackTrace();
             
         }
     }
+
+    public String getExecResult(){
+        return exec_result;
+    }
 }
 
 
-//Function to fetch all installed packages on System
 
 
 
