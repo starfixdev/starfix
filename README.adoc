@@ -35,8 +35,9 @@ image::https://user-images.githubusercontent.com/31308705/79685056-61078280-8253
 
 ## Useful resources:
 As Starfish uses Command Mode in Quarkus refer these links to learn more about it:
-- https://quarkus.io/blog/introducing-command-mode/[Introducing Command Mode by @maxandersen]
-- https://quarkus.io/guides/command-mode-reference [QUARKUS - COMMAND MODE APPLICATIONS]
+
+- https://quarkus.io/blog/introducing-command-mode/[Introducing Command Mode ] written by https://github.com/maxandersen[@maxandersen]
+- https://quarkus.io/guides/command-mode-reference[QUARKUS - COMMAND MODE APPLICATIONS]
 
 ## Contributing to Starfish
 - Issues: Start by looking at the existing issues at https://github.com/maxandersen/starfish/issues[starfish/issues] and create a Pull Request with appropriate description/comment.
