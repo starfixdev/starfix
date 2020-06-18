@@ -27,5 +27,22 @@ image::https://user-images.githubusercontent.com/31308705/79685056-61078280-8253
 - Windows
 - Mac OS X
 
+## Quick Command reference:
+- Starting in Development mode : `mvn quarkus:dev`
+- Passing arguements: When you run with `mvn quarkus:dev` you can add `-Dquarkus.args=yourvalue` as arguments you want to pass into the command line.
+  Example `mvn quarkus:dev -Dquarkus.args="https://github.com/user/repo.git"`
+- Building native executable: `mvnw package -Dnative`
+
+## Useful resources:
+As Starfish uses Command Mode in Quarkus refer these links to learn more about it:
+
+- https://quarkus.io/blog/introducing-command-mode/[Introducing Command Mode ] written by https://github.com/maxandersen[@maxandersen]
+- https://quarkus.io/guides/command-mode-reference[QUARKUS - COMMAND MODE APPLICATIONS]
+
+## Contributing to Starfish
+- Issues: Start by looking at the existing issues at https://github.com/maxandersen/starfish/issues[starfish/issues] and create a Pull Request with appropriate description/comment.
+- Bugs: Run the starfish application and if you find unexpected behaviour then open a new issue with label `bug` and include a proper description/comment.
+- Feature request: Brainstorm ideas and bring them to surface on the features that can be implemented in starfish and then create an issue with label as `enahancement`.Always include as exhaustive description as possible to help understand better.
+
 ## Technology for Development
 - https://quarkus.io/[Quarkus]
