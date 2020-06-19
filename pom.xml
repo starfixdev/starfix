@@ -131,7 +131,7 @@
                       <configuration>
                           <appendAssemblyId>false</appendAssemblyId>
                           <descriptors>
-                              <descriptor>src/main/assembly/zip-unix.xml</descriptor>
+                              <descriptor>src/main/assembly/zip-linux.xml</descriptor>
                           </descriptors>
                       </configuration>
                   </execution>
@@ -161,7 +161,7 @@
                       <configuration>
                           <appendAssemblyId>false</appendAssemblyId>
                           <descriptors>
-                              <descriptor>src/main/assembly/zip-mac.xml</descriptor>
+                              <descriptor>src/main/assembly/zip-macos.xml</descriptor>
                           </descriptors>
                       </configuration>
                   </execution>
