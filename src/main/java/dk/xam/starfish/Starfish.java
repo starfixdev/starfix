@@ -22,6 +22,11 @@ public class Starfish implements QuarkusApplication {
     
     /*for(String s:args)
     System.out.println("\nTarget : "+s);//Printing Received Arguements */
+    if(args.length == 0){
+        System.out.println("No input provided!!");
+        
+        return -1;
+    }
 
     if(args[0].equalsIgnoreCase("config")){
     //Incase user wants to configure starfish
@@ -240,7 +245,7 @@ public static String gobbleStream(Process p) throws IOException, InterruptedExce
 
 
 private static class StreamGobbler extends Thread {
-    private volatile String exec_result;
+    private  String exec_result;
     private final InputStream is;
     private final String type;
 
