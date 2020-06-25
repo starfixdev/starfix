@@ -45,8 +45,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: target/starfish-${{ github.event.release.tag_name }}-runner.exe
-        asset_name: starfish-win64.exe
+        asset_path: target/starfish-${{ github.event.release.tag_name }}.zip
+        asset_name: starfish-win64.zip
         asset_content_type: application/octet-stream
 
 # Trigger this job only on Push or Pull-Request
@@ -81,5 +81,5 @@ jobs:
         id: upload-native-executable
         uses: actions/upload-artifact@v2
         with:
-          name: starfish-win64-${{github.sha}}.exe
-          path: ./target/starfish-${{github.sha}}-runner.exe
+          name: starfish-win64-${{github.sha}}.zip
+          path: ./target/starfish-${{github.sha}}.zip

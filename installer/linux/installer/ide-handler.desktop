@@ -1,0 +1,11 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Terminal=false
+Type=Application
+Name=IDE URL Handler
+Comment=Handle URL Scheme ide://
+Icon=ide-handler
+NoDisplay=true
+Exec=ide-handler %u
+MimeType=x-scheme-handler/ide
