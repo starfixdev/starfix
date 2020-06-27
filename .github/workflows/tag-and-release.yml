@@ -1,0 +1,112 @@
+# This creates release on pushing with tag
+
+name: tag-and-release
+
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+defaults:
+  run:
+    working-directory: cli
+
+jobs:
+ 
+  build:
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+        matrix:
+            os: [ubuntu-latest, windows-2019, macos-latest ]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Get the version
+      id: get_version
+      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      shell: bash
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+      with:
+        tag_name: ${{ steps.get_version.outputs.VERSION }}
+        release_name: Release ${{steps.get_version.outputs.VERSION}}
+        draft: true
+
+    - name: Install graalvm
+      uses: DeLaGuardo/setup-graalvm@3
+      with:
+        graalvm-version: '20.0.0.java11'
+    
+    # Install Native Image,Set Version and Build from Linux and MACOS
+    - if: matrix.os != 'windows-2019' 
+      name: Install native-image
+      run: gu install native-image
+    - if: matrix.os != 'windows-2019' 
+      name: Set version
+      run: ./mvnw versions:set -DnewVersion="${{steps.get_version.outputs.VERSION}}" 
+    - if: matrix.os != 'windows-2019' 
+      name: Build native executable
+      run: ./mvnw package -Dnative 
+      
+     # Install Native Image,Set Version and Build from Windows
+    - if: matrix.os == 'windows-2019'
+      name: Install native-image
+      run: |
+        %JAVA_HOME%/bin/gu.cmd install native-image
+      shell: cmd
+    - if: matrix.os == 'windows-2019'
+      name: Configure Pagefile
+      # Increased the page-file size due to memory-consumption of native-image command
+      # For details see https://github.com/actions/virtual-environments/issues/785
+      uses: al-cheb/configure-pagefile-action@v1.2
+    - if: matrix.os == 'windows-2019'
+      name: Set version
+      run: mvnw versions:set -DnewVersion="${{ steps.get_version.outputs.VERSION }}"
+      shell: cmd
+    - if: matrix.os == 'windows-2019'
+      name: Build native executable
+      # Invoke the native-image build with the necessary Visual Studio tooling/environment intialized
+      run: |
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64
+        mvnw package -Dnative"
+      shell: cmd
+    
+    - if: matrix.os == 'ubuntu-latest' 
+      name: Upload native executable Linux
+      id: upload-native-executable-linux
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./cli/target/starfish-${{steps.get_version.outputs.VERSION}}.zip 
+        asset_name: starfish-linux.zip
+        asset_content_type: application/octet-stream
+
+    - if: matrix.os == 'windows-2019' 
+      name: Upload native executable Windows
+      id: upload-native-executable-windows
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./cli/target/starfish-${{steps.get_version.outputs.VERSION}}.zip 
+        asset_name: starfish-win64.zip
+        asset_content_type: application/octet-stream
+
+    - if: matrix.os == 'macos-latest' 
+      name: Upload native executable macos
+      id: upload-native-executable-macos
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./cli/target/starfish-${{steps.get_version.outputs.VERSION}}.zip 
+        asset_name: starfish-macos.zip
+        asset_content_type: application/octet-stream
