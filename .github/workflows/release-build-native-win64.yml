@@ -9,6 +9,11 @@ on:
   pull_request:
     branches:
       - master
+
+defaults:
+  run:
+    working-directory: cli
+
 jobs:
 # Trigger this job only on release
   build-on-release:
@@ -45,7 +50,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: target/starfish-${{ github.event.release.tag_name }}.zip
+        asset_path: ./cli/target/starfish-${{ github.event.release.tag_name }}.zip
         asset_name: starfish-win64.zip
         asset_content_type: application/octet-stream
 
@@ -82,4 +87,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: starfish-win64-${{github.sha}}.zip
-          path: ./target/starfish-${{github.sha}}.zip
+          path: ./cli/target/starfish-${{github.sha}}.zip
