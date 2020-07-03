@@ -13,29 +13,40 @@ defaults:
     working-directory: cli
 
 jobs:
+  createrelease:
+    name: createrelease
+    runs-on: [ubuntu-latest]
+    outputs:
+      release_url: ${{ steps.create_release.outputs.upload_url }}
+      version: ${{ steps.get_version.outputs.VERSION }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+        shell: bash
+      - name: create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.get_version.outputs.VERSION  }}
+          release_name: Release ${{ steps.get_version.outputs.VERSION  }}
+          prerelease: false
+          draft: true
+   
  
   build:
-
-    runs-on: ${{ matrix.os }}
+    needs: [createrelease]
+    name: build
     strategy:
         matrix:
             os: [ubuntu-latest, windows-2019, macos-latest ]
+    runs-on: ${{ matrix.os }}
+    
     steps:
     - uses: actions/checkout@v2
-    - name: Get the version
-      id: get_version
-      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-      shell: bash
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-      with:
-        tag_name: ${{ steps.get_version.outputs.VERSION }}
-        release_name: Release ${{steps.get_version.outputs.VERSION}}
-        draft: true
-
     - name: Install graalvm
       uses: DeLaGuardo/setup-graalvm@3
       with:
@@ -47,7 +58,7 @@ jobs:
       run: gu install native-image
     - if: matrix.os != 'windows-2019' 
       name: Set version
-      run: ./mvnw versions:set -DnewVersion="${{steps.get_version.outputs.VERSION}}" 
+      run: ./mvnw versions:set -DnewVersion="${{needs.createrelease.outputs.version}}" 
     - if: matrix.os != 'windows-2019' 
       name: Build native executable
       run: ./mvnw package -Dnative 
@@ -65,7 +76,7 @@ jobs:
       uses: al-cheb/configure-pagefile-action@v1.2
     - if: matrix.os == 'windows-2019'
       name: Set version
-      run: mvnw versions:set -DnewVersion="${{ steps.get_version.outputs.VERSION }}"
+      run: mvnw versions:set -DnewVersion="${{ needs.createrelease.outputs.version }}"
       shell: cmd
     - if: matrix.os == 'windows-2019'
       name: Build native executable
@@ -74,6 +85,7 @@ jobs:
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64
         mvnw package -Dnative"
       shell: cmd
+      
     
     - if: matrix.os == 'ubuntu-latest' 
       name: Upload native executable Linux
@@ -82,8 +94,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./cli/target/starfish-${{steps.get_version.outputs.VERSION}}.zip 
+        upload_url: ${{ needs.createrelease.outputs.release_url }}
+        asset_path: ./cli/target/starfish-${{needs.createrelease.outputs.version}}.zip 
         asset_name: starfish-linux.zip
         asset_content_type: application/octet-stream
 
@@ -94,8 +106,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./cli/target/starfish-${{steps.get_version.outputs.VERSION}}.zip 
+        upload_url: ${{ needs.createrelease.outputs.release_url }}
+        asset_path: ./cli/target/starfish-${{needs.createrelease.outputs.version}}.zip 
         asset_name: starfish-win64.zip
         asset_content_type: application/octet-stream
 
@@ -106,7 +118,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./cli/target/starfish-${{steps.get_version.outputs.VERSION}}.zip 
+        upload_url: ${{ needs.createrelease.outputs.release_url}}
+        asset_path: ./cli/target/starfish-${{needs.createrelease.outputs.version}}.zip 
         asset_name: starfish-macos.zip
         asset_content_type: application/octet-stream
