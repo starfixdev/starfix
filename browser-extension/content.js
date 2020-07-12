@@ -13,9 +13,27 @@ if (current_url.indexOf("https://github.com/") != -1)
     }
     var link = document.createElement('a');
     link.setAttribute("title", "Open In IDE");
-    //var page_uri ="ide://#"+window.location.href;
-    page_uri+=".git";
-    link.setAttribute("href", page_uri);
+
+    
+
+    var clone_method="https"; //Initializing with default value
+
+    chrome.storage.sync.get({
+        method: 'https'
+      }, function(items) {
+        clone_method=items.method;  
+        if(clone_method=="ssh"){
+            var repo_link=current_url.substring(current_url.indexOf("github.com/")+"github.com/".length);
+            page_uri="ide://git@github.com:"+repo_link;
+            console.log(page_uri);
+        }
+        page_uri+=".git";
+
+        link.setAttribute("href", page_uri);  
+        console.log(clone_method); 
+      });
+   
+  
 
     link.setAttribute("class", "btn btn-sm btn-primary dev")
     link.innerHTML = "Open in IDE";
@@ -52,7 +70,7 @@ if (current_url.indexOf("https://gitlab.com") != -1) { //Code for Gitlab begins 
 
 }
 else
-if (current_url.indexOf("https://gist.github.com/") != -1) { //Code for Gitlab begins here
+if (current_url.indexOf("https://gist.github.com/") != -1) { //Code for gist.github.com Begins here
     if (!localStorage.getItem("starfish")) {
         navigator.registerProtocolHandler("web+ide",
             "https://gist.github.com/?ide=%s",
