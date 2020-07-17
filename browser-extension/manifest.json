@@ -3,7 +3,7 @@
 
   "name": "Starfish",
   "version": "1.0",
-  "description": "Utility  Extension for Starfish.It Intends to  add an \"Open in IDE\" button on Github and Gitlab.Easily Configurable to chose between cloning Protocols viz HTTPS and SSH",
+  "description": "Utility  Extension for Starfish.It Intends to  add an \"Open in IDE\" button on Github.Easily Configurable to chose between cloning Protocols viz HTTPS and SSH",
   "author": "Fahad Israr",
   "icons": { "16": "starfish_icon.png",
     "32": "starfish_icon.png",
