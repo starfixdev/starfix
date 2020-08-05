@@ -95,8 +95,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ needs.createrelease.outputs.release_url }}
-        asset_path: ./cli/target/starfish-${{needs.createrelease.outputs.version}}.zip 
-        asset_name: starfish-${{needs.createrelease.outputs.version}}-linux.zip
+        asset_path: ./cli/target/starfix-${{needs.createrelease.outputs.version}}.zip 
+        asset_name: starfix-${{needs.createrelease.outputs.version}}-linux.zip
         asset_content_type: application/octet-stream
 
     - if: matrix.os == 'windows-2019' 
@@ -107,8 +107,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ needs.createrelease.outputs.release_url }}
-        asset_path: ./cli/target/starfish-${{needs.createrelease.outputs.version}}.zip 
-        asset_name: starfish-${{needs.createrelease.outputs.version}}-win64.zip
+        asset_path: ./cli/target/starfix-${{needs.createrelease.outputs.version}}.zip 
+        asset_name: starfix-${{needs.createrelease.outputs.version}}-win64.zip
         asset_content_type: application/octet-stream
 
     - if: matrix.os == 'macos-latest' 
@@ -119,6 +119,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ needs.createrelease.outputs.release_url}}
-        asset_path: ./cli/target/starfish-${{needs.createrelease.outputs.version}}.zip 
-        asset_name: starfish-${{needs.createrelease.outputs.version}}-macos.zip
+        asset_path: ./cli/target/starfix-${{needs.createrelease.outputs.version}}.zip 
+        asset_name: starfix-${{needs.createrelease.outputs.version}}-macos.zip
         asset_content_type: application/octet-stream

@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 request="${1#*://}"   # Remove schema from url (ide://)
 echo $request
-gnome-terminal  -- /usr/bin/starfish  $request
+gnome-terminal  -- /usr/bin/starfix  $request

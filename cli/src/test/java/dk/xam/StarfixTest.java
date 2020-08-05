@@ -1,4 +1,4 @@
-package dk.xam;
+package dev.starfix;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
@@ -8,10 +8,10 @@ import java.io.IOException;
 
 
 
-import static dk.xam.starfish.Starfish.validate_url;
-import static dk.xam.starfish.Starfish.launch_editor;
-import static dk.xam.starfish.Starfish.isWindows;
-import static dk.xam.starfish.Starfish.runCommand;
+import static dev.starfix.starfix.Starfix.validate_url;
+import static dev.starfix.starfix.Starfix.launch_editor;
+import static dev.starfix.starfix.Starfix.isWindows;
+import static dev.starfix.starfix.Starfix.runCommand;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,7 +25,7 @@ import static org.hamcrest.CoreMatchers.is;
 
 
 @QuarkusTest
-public class StarfishTest {
+public class StarfixTest {
 
     @Test
     public void testURLValidator() {

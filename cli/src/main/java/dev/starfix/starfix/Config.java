@@ -1,4 +1,4 @@
-package dk.xam.starfish;
+package dev.starfix.starfix;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 @RegisterForReflection
 public class Config {

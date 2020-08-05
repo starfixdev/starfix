@@ -6,6 +6,6 @@ sudo update-desktop-database
 sudo cp ide-handler /usr/bin/
 sudo chmod +x /usr/bin/ide-handler
 
-sudo cp starfish /usr/bin
-sudo chmod +x /usr/bin/starfish
+sudo cp starfix /usr/bin
+sudo chmod +x /usr/bin/starfix
 

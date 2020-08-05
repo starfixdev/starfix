@@ -17,7 +17,7 @@
         <file>
             <source> ${project.build.directory}/${project.build.finalName}-runner</source>
             <outputDirectory>/installer</outputDirectory>
-            <destName>starfish</destName>
+            <destName>starfix</destName>
         </file>
     </files>
 </assembly>
