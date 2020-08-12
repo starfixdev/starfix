@@ -156,11 +156,11 @@ As Starfix uses Command Mode in Quarkus refer these links to learn more about it
 - Feature request: Brainstorm ideas and bring them to surface on the features that can be implemented in starfix and then create an issue with label as `enahancement`.Always include as exhaustive description as possible to help understand better.
 
 == FAQS
-1) __Why we call it STARFIX ? __
 
-The following image  is good enough to explain ...
+[qanda]
+Why we call it STARFIX ? ::
+  The following image  is good enough to explain ...
 image:https://github.com/fahad-israr/Images-for-Readme/blob/master/starfix_illustration.png[Starfix Illustration,title="starfix illustration"]
 
-2) __Why are we using Quarkus?__
-
-The reason for going with this is that **anything other** than this(like node or python bound) would **require additional setup** .On other hand **Java or Native** is something that can be **shipped fairly lightweight**.Furthermore we need a **cross-platform** application(Linux,Windows and MacOS).Thus Quarkus would be the best choice.
+Why are we using Quarkus? ::
+  The reason for going with this is that **anything other** than this(like node or python bound) would **require additional setup** .On other hand **Java or Native** is something that can be **shipped fairly lightweight**.Furthermore we need a **cross-platform** application(Linux,Windows and MacOS).Thus Quarkus would be the best choice.
