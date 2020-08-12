@@ -1,13 +1,6 @@
 = STARFIX : Simplifying The Devflow
 :toc:
 :toc-placement!:
-ifndef::env-github[:icons: font]
-ifdef::env-github[]
-:caution-caption: :fire:
-:important-caption: :exclamation:
-:note-caption: :paperclip:
-:tip-caption: :bulb:
-:warning-caption: :warning:
 endif::[]
 
 image:https://github.com/fahad-israr/Images-for-Readme/blob/master/starfix.png[Starfix Logo,title="Starfix Logo"]
@@ -35,6 +28,28 @@ image:https://user-images.githubusercontent.com/31308705/79685056-61078280-8253-
 # INDEX
 
 toc::[]
+
+== Features
+**Starfix** is not a **monolithic** application instead its made up of several __sub-features__ :
+
+=== CLI Tool
+On entering `starfix` on the terminal the Application Launches.This  is basically done by using a `native executable` placed in appropriate directory along with symbolic links.
+
+=== Configurable
+Starfix uses a YAML file to hold the user's preferred choice i.e Editor and clone path which is configurable by the user.
+
+=== Custom Protocol Handler
+Starfix includes a custom URL Handler to handle `ide://` on the users machine.We have achieved this  by executing Registry in Windows and by .desktop file in Linux.Whenever a URI with scheme `ide://` is encountered Starfix app is launched with the arguement as the  URI.
+
+=== Browser Extension
+To be able to add a "Open In IDE" button on Web Pages and launching the protocol handler we need a browser extension .The extension also acts as the __integration between web and desktop__ . It swritten with  __plain HTML/CSS/JS__.
+
+
+== Supported Platforms:
+- Linux
+- Windows
+- Mac OS X
+
 == Installation
 === LINUX
 - Download the `starfix-linux.zip` file from the Latest Release.
@@ -113,54 +128,39 @@ image:https://user-images.githubusercontent.com/31308705/79685056-61078280-8253-
 - You'll then be prompted to choose the preferred Editor and cloning path as shown in Demo below.
 image:https://user-images.githubusercontent.com/31308705/81454370-b4f9ed00-91a9-11ea-8eef-6f668a66e724.gif[Starfix Configurations,title="Starfix Configurations"]
 
-== Components
-**Starfix** is not a **monolithic** application instead its made up of several __sub-components__ :
+== Useful resources:
 
-=== CLI Tool
-On entering `starfix` on the terminal the Application Launches.This  is basically done by using a `native executable` placed in appropriate directory along with symbolic links.
-
-=== Configuration file
-Starfix uses a YAML file to hold the user's preferred choice i.e Editor and clone path.
-
-=== Custom Protocol Handler
-We need a custom URL Handler to handle `ide://` on the users machine.We have achieved this   by executing Registry in Windows and by .desktop file in Linux.Whenever a URI with scheme `ide://` is encountered Starfix app is launched with the arguement as the  URI.
-
-=== Browser Extension
-To be able to add a "Open In IDE" button on Web Pages and launching the protocol handler we need a browser extension .The extension also acts as the __integration between web and desktop__ . Its __written with plain HTML/CSS/JS__.
-
-
-## Targeted Websites:
-- Primary: [github.com](https://github.com/)
-- Secondary: [gitlab.com](https://gitlab.com/)
-- Additional: [bitbucket](https://bitbucket.org/)
-..more can be added
-
-## Supported Platforms:
-- Linux
-- Windows
-- Mac OS X
-
-## Quick Command reference:
-- Starting in Development mode : `mvn quarkus:dev`
-- Passing arguements: When you run with `mvn quarkus:dev` you can add `-Dquarkus.args=yourvalue` as arguments you want to pass into the command line.
+=== Quick Command reference:
+- **Starting in Development mode** : `mvn quarkus:dev`
+- **Passing arguements** : When you run with `mvn quarkus:dev` you can add `-Dquarkus.args=yourvalue` as arguments you want to pass into the command line.
   Example `mvn quarkus:dev -Dquarkus.args="https://github.com/user/repo.git"`
-- Building native executable: `mvnw package -Dnative`
+- **Building native executable** : `mvnw package -Dnative`
 
-## Useful resources:
-As Starfisx uses Command Mode in Quarkus refer these links to learn more about it:
+=== Links/Resources:
+As Starfix uses Command Mode in Quarkus refer these links to learn more about it:
 
 - https://quarkus.io/blog/introducing-command-mode/[Introducing Command Mode ] written by https://github.com/maxandersen[@maxandersen]
 - https://quarkus.io/guides/command-mode-reference[QUARKUS - COMMAND MODE APPLICATIONS]
 
-## Contributing to Starfix
+
+
+== Technology for Development
+- https://quarkus.io/[Quarkus] : The Starfish CLI is built as a native executable with Quarkus.Specifically,we are using the **command mode** of Quarkus.
+- https://junit.org/junit5/[JUNIT5]:  As Quarkus supports JUNIT5, it has been used for Unit Testing.
+- https://maven.apache.org/plugins/maven-assembly-plugin/[Maven Assembly] : As we needed to combine project output(native exectable) into a single distributable archive that along with installer scripts  we are using Maven Assembly.
+- https://github.com/features/actions[Github Actions] : Github actions makes our CI/CD very easy.We are using it build,test and generate artifacts and distributable packages.Currently we are using it  on Pull Request(Builds and generates artifacts), Push(Builds and generates artifacts) and  Releases(generates distributable packages as zip file).We have also set-up a release mechanism on pushing with tags v* .
+
+== Contributing to Starfix
 - Issues: Start by looking at the existing issues at https://github.com/maxandersen/starfish/issues[starfix/issues] and create a Pull Request with appropriate description/comment.
 - Bugs: Run the starfix application and if you find unexpected behaviour then open a new issue with label `bug` and include a proper description/comment.
 - Feature request: Brainstorm ideas and bring them to surface on the features that can be implemented in starfix and then create an issue with label as `enahancement`.Always include as exhaustive description as possible to help understand better.
 
-## Technology for Development
-- https://quarkus.io/[Quarkus]
-- JUNIT5: 
-- Maven Assembly 
-- Github Actions
-
 == FAQS
+1) __Why we call it STARFIX ? __
+
+The following image  is good enough to explain ...
+image:https://github.com/fahad-israr/Images-for-Readme/blob/master/starfix_illustration.png[Starfix Illustration,title="starfix illustration"]
+
+2) __Why are we using Quarkus?__
+
+The reason for going with this is that **anything other** than this(like node or python bound) would **require additional setup** .On other hand **Java or Native** is something that can be **shipped fairly lightweight**.Furthermore we need a **cross-platform** application(Linux,Windows and MacOS).Thus Quarkus would be the best choice.
