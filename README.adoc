@@ -3,7 +3,7 @@
 :toc-placement!:
 endif::[]
 
-image:https://github.com/fahad-israr/Images-for-Readme/blob/master/starfix.png[Starfix Logo,title="Starfix Logo"]
+image:https://github.com/starfixdev/starfix/blob/master/starfix.png[Starfix Logo,title="Starfix Logo"]
 
 == Intro
 Would it not be nice if..
@@ -22,7 +22,7 @@ Start a debugger locally from your web browser ?
 
 == Demo
 
-image:https://user-images.githubusercontent.com/31308705/79685056-61078280-8253-11ea-8ac1-aab1531ca0ab.gif[Starfish Demo]
+image:https://github.com/starfixdev/starfix/blob/master/demo.gif[Starfish Demo]
 
 [discrete]
 # INDEX
@@ -63,7 +63,7 @@ To be able to add a "Open In IDE" button on Web Pages and launching the protocol
 
 - Once you execute the above command you'll  be prompted for password (for sudo )
 - Test your installation by going to terminal and typing `starfix`
-- To set-up the Browser Extension navigate to this section: https://github.com/fahad-israr/starfish/blob/doc/README.adoc#browser-extension[Broswer Extension]
+- To set-up the Browser Extension navigate to this section: https://github.com/starfixdev/starfish/blob/doc/README.adoc#browser-extension[Broswer Extension]
 
 === WINDOWS
 - Download the `starfix-win64.zip` file from the Latest Realease
@@ -73,7 +73,7 @@ To be able to add a "Open In IDE" button on Web Pages and launching the protocol
 - You may click on `More info` and the choose `Run anyway`
 - You will then be **prompted** with a series of **dialog boxes** asking **permission** for the operatons(modifying the registry). Please **Select Yes** in all those prompts to allow the installation.
 - Test your installation by typing `starfix` on the Terminal(Command Prompt or Windows PowerShell)
-- To set-up the Browser Extension navigate to this section: https://github.com/fahad-israr/starfish/blob/doc/README.adoc#browser-extension[Broswer Extension]
+- To set-up the Browser Extension navigate to this section: https://github.com/starfixdev/starfish/blob/doc/README.adoc#browser-extension[Broswer Extension]
 
 === MACOS
 - Download the `starfix-macos.zip` file from the Latest Realease
@@ -87,7 +87,7 @@ To be able to add a "Open In IDE" button on Web Pages and launching the protocol
 
 - Once you execute the above command you'll  be prompted for password (for sudo )
 - Test your installation by going to terminal and typing `starfix`
-- To set-up the Browser Extension navigate to this section: https://github.com/fahad-israr/starfish/blob/doc/README.adoc#browser-extension[Broswer Extension]
+- To set-up the Browser Extension navigate to this section: https://github.com/starfixdev/starfish/blob/doc/README.adoc#browser-extension[Broswer Extension]
 
 === BROWSER EXTENSION
 -  Clone This Repository.
@@ -113,20 +113,20 @@ __**P.S: Browser Extensions will soon be published on Browser's App Store to sim
 === As a CLI Tool
 - Launch the terminal and type `starfix https://github.com/user_name/repo_name.git` (You can also use ssh)
 - The repository will be cloned in preferred directory and launched in preferred Editor.See the Demo below:
-image:https://user-images.githubusercontent.com/31308705/81454321-8aa82f80-91a9-11ea-9aa2-101c21ced321.gif[Starfix CLI,title="Starfix CLI"]
+image:https://github.com/starfixdev/starfix/blob/master/cli_demo.gif[Starfix CLI,title="Starfix CLI"]
 
 === Fully Integrated
 - Navigate to the repository (on github.com/user/repo)
 - Click on "Open in IDE" button on Repository page.
 - Repository is cloned in the preferred directory.
 - The cloned Repository is opened in the preferred IDE.
-image:https://user-images.githubusercontent.com/31308705/79685056-61078280-8253-11ea-8ac1-aab1531ca0ab.gif[Starfix Demo]
+image:https://github.com/starfixdev/starfix/blob/master/demo.gif[Starfix Demo]
 
 === Configuration Editor
 - The first time you launch up starfix you'll be prompted to choose preferred Editor and cloning directory.
 - To change the configurations you can launch up terminal and  type `starfix config`
 - You'll then be prompted to choose the preferred Editor and cloning path as shown in Demo below.
-image:https://user-images.githubusercontent.com/31308705/81454370-b4f9ed00-91a9-11ea-8eef-6f668a66e724.gif[Starfix Configurations,title="Starfix Configurations"]
+image:https://github.com/starfixdev/starfix/blob/master/config_demo.gif[Starfix Configurations,title="Starfix Configurations"]
 
 == Useful resources:
 
@@ -160,7 +160,7 @@ As Starfix uses Command Mode in Quarkus refer these links to learn more about it
 [qanda]
 Why we call it STARFIX ? ::
   The following image  is good enough to explain ...
-image:https://github.com/fahad-israr/Images-for-Readme/blob/master/starfix_illustration.png[Starfix Illustration,title="starfix illustration"]
+image:https://github.com/starfixdev/starfix/blob/master/starfix_illustration.png[Starfix Illustration,title="starfix illustration"]
 
 Why are we using Quarkus? ::
   The reason for going with this is that **anything other** than this(like node or python bound) would **require additional setup** .On other hand **Java or Native** is something that can be **shipped fairly lightweight**.Furthermore we need a **cross-platform** application(Linux,Windows and MacOS).Thus Quarkus would be the best choice.
