@@ -1,4 +1,4 @@
-# Project Starfish 
+# Project Starfix
 
 A  cross platform client side application that would let you open a file in IDE of your choice (vscode, eclipse, intellij, emacs, vi, etc.) and  other cammands locally directly from the browser or file system.This will enable an option to “Open in IDE” through browser extension on various websites like github, gitlab,gitbucket etc similar to one you see in this demo below.
 
@@ -40,7 +40,7 @@ As Starfish uses Command Mode in Quarkus refer these links to learn more about i
 - https://quarkus.io/guides/command-mode-reference[QUARKUS - COMMAND MODE APPLICATIONS]
 
 ## Contributing to Starfish
-- Issues: Start by looking at the existing issues at https://github.com/maxandersen/starfish/issues[starfish/issues] and create a Pull Request with appropriate description/comment.
+- Issues: Start by looking at the existing issues at https://github.com/maxandersen/starfix/issues[starfish/issues] and create a Pull Request with appropriate description/comment.
 - Bugs: Run the starfish application and if you find unexpected behaviour then open a new issue with label `bug` and include a proper description/comment.
 - Feature request: Brainstorm ideas and bring them to surface on the features that can be implemented in starfish and then create an issue with label as `enahancement`.Always include as exhaustive description as possible to help understand better.
 
