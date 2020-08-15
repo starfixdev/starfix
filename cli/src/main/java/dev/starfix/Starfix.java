@@ -1,4 +1,4 @@
-package dev.starfix.starfix;
+package dev.starfix;
 
 import io.quarkus.runtime.QuarkusApplication;
 import java.io.BufferedReader;

@@ -4,14 +4,10 @@ import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.io.IOException;
 
 
-
-import static dev.starfix.starfix.Starfix.validate_url;
-import static dev.starfix.starfix.Starfix.launch_editor;
-import static dev.starfix.starfix.Starfix.isWindows;
-import static dev.starfix.starfix.Starfix.runCommand;
+import static dev.starfix.Starfix.validate_url;
+import static dev.starfix.Starfix.runCommand;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
