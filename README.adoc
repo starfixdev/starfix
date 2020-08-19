@@ -8,17 +8,17 @@ image:https://github.com/starfixdev/starfix/blob/master/images/starfix.png[StarF
 == Intro
 Would it not be nice if..
 
-You could open your IDE on any file from any app ? 
+You could open your IDE on any file from any app? 
 
 OR
 
-Open a repository/file from a browser in your editor of choice ? 
+Open a repository/file from a browser in your editor of choice? 
 
 OR
 
-Start a debugger locally from your web browser ? 
+Start a debugger locally from your web browser? 
 
-**StarFix** is a **cross platform client side application** that would let you **open a file in Editor** of your choice (__vscode, eclipse, intellij, emacs, vi, etc.__) and  other cammands locally **directly from the browser or file system** .This will enable an option to “Open in IDE” through browser extension __on various websites like **github, gitlab,gitbucket** etc__ similar to one you see in this demo below.
+**StarFix** is a **cross-platform client-side application** that would let you **open a file in Editor** of your choice (__vscode, eclipse, intellij, emacs, vi, etc.__) and  other commands locally **directly from the browser or file system**. This will enable an option to “Open in IDE” through browser extension __on various websites like **Github, Gitlab**, etc__ similar to the one you see in this demo below.
 
 == Demo
 
@@ -30,10 +30,10 @@ image:https://github.com/starfixdev/starfix/blob/master/images/demo.gif[Starfish
 toc::[]
 
 == Features
-**StarFix** is comprises of  __amazing__ features :
+**StarFix**  comprises of  __amazing__ features :
 
 === CLI Tool
-StarFix can be used as a CLI tool as well where the repo is cloned and then the preferred Editor is launched.It also supports modifying the configurations.
+StarFix can be used as a CLI tool as well where the repo is cloned and then the preferred Editor is launched. It also supports modifying the configurations.
 
 === Configurable
 StarFix has two configurable properties:
@@ -42,10 +42,10 @@ StarFix has two configurable properties:
 These can be configured easily through the CLI.
 
 === Custom Protocol Handler
-StarFix includes a custom URL Handler to handle `ide://` on the users machine.Whenever a URI with scheme `ide://` is encountered StarFix app is launched with the arguement as the  URI.
+StarFix includes a custom URL Handler to handle `ide://` on the user's machine. Whenever a URI with scheme `ide://` is encountered StarFix app is launched with the arguement as the  URI.
 
 === Browser Extension
-To be able to add a "Open In IDE" button on Web Pages and launching the protocol handler we need a browser extension .The extension also acts as the __integration between web and desktop__ .
+To be able to add an "Open In IDE" button on Web Pages and launching the protocol handler we need a browser extension. The extension also acts as the __integration between web and desktop__.
 
 
 == Supported Platforms:
@@ -64,22 +64,22 @@ To be able to add a "Open In IDE" button on Web Pages and launching the protocol
 ./install
 ----
 
-- Once you execute the above command you'll  be prompted for password (for sudo ).
+- Once you execute the above command you'll  be prompted for the password (for sudo ).
 - Test your installation by going to terminal and typing `starfix`.
-- To set-up the Browser Extension navigate to this section: link:#browser-extension-1[Broswer Extension]
+- To set-up the Browser Extension, navigate to this section: link:#browser-extension-1[Broswer Extension]
 
 === WINDOWS
-- Download the `starfix-win64.zip` file from the Latest Realease
+- Download the `starfix-win64.zip` file from the Latest Release
 - Extract and Navigate to `installer` directory
 - Now execute the file `install.cmd` (You can simply double click)
 - As the app is unrecognized, Windows may launch up a new Dialog titled as `Windows protected your PC` with description `Microsoft Defender SmartScreen prevented an unrecognised app from starting. Running this app might put your PC at risk.`
 - You may click on `More info` and the choose `Run anyway`
-- You will then be **prompted** with a series of **dialog boxes** asking **permission** for the operatons(modifying the registry). Please **Select Yes** in all those prompts to allow the installation.
+- You will then be **prompted** with a series of **dialog boxes** asking **permission** for the operations(modifying the registry). Please **Select Yes** in all those prompts to allow the installation.
 - Test your installation by typing `starfix` on the Terminal(Command Prompt or Windows PowerShell)
-- To set-up the Browser Extension navigate to this section: link:#browser-extension-1[Broswer Extension]
+- To set-up the Browser Extension, navigate to this section: link:#browser-extension-1[Broswer Extension]
 
 === MACOS
-- Download the `starfix-macos.zip` file from the Latest Realease
+- Download the `starfix-macos.zip` file from the Latest Release
 - Extract and Navigate to `installer` directory
 - On the terminal execute the following(ensure the current directory is `installer` ) 
 
@@ -88,17 +88,17 @@ To be able to add a "Open In IDE" button on Web Pages and launching the protocol
 ./install
 ----
 
-- Once you execute the above command you'll  be prompted for password (for sudo )
+- Once you execute the above command you'll  be prompted for the password (for sudo )
 - Test your installation by going to terminal and typing `starfix`
-- To set-up the Browser Extension navigate to this section: link:#browser-extension-1[Broswer Extension]
+- To set-up the Browser Extension, navigate to this section: link:#browser-extension-1[Broswer Extension]
 
 === BROWSER EXTENSION
 -  Clone This Repository.
-- Now **Load Unpacked Extension** in the `browser-extension` directory.The method for Loading Unpacked extension generally varies  across **browsers** . We'll guide you with loading up on **Google Chrome** and **Mozilla Firefox**.
+- Now **Load Unpacked Extension** in the `browser-extension` directory.The method for Loading Unpacked extension generally varies  across **browsers**. We'll guide you with loading up on **Google Chrome** and **Mozilla Firefox**.
 
 ==== Loading unpacked on Google Chrome
 - Open the Extension Management page by navigating to chrome://extensions.
-- The Extension Management page can also be opened by clicking on the Chrome menu, hovering over More Tools then selecting Extensions.
+- The Extension Management page can also be opened by clicking on the Chrome menu, hovering over More Tools then selecting the Extensions.
 - Enable Developer Mode by clicking the toggle switch next to Developer mode.
 - Click the LOAD UNPACKED button and select the extension directory(`browser-extension`).
 Ta-da! The extension has been successfully installed
@@ -109,24 +109,24 @@ Ta-da! The extension has been successfully installed
 - Click "Load Temporary Add-on"
 - Select any file(like `manifest.json`) in the extension's directory(`browser-extension`).
 
-__**P.S: Browser Extensions will soon be published on Browser's App Store to simplify installation**__ .
+__**P.S: Browser Extensions will soon be published on Browser's App Store to simplify installation**__.
 
 == Usage
  
 === As a CLI Tool
 - Launch the terminal and type `starfix https://github.com/user_name/repo_name.git` (You can also use ssh)
-- The repository will be cloned in preferred directory and launched in preferred Editor.See the Demo below:
+- The repository will be cloned in the preferred directory and launched in the preferred Editor. See the Demo below:
 image:https://github.com/starfixdev/starfix/blob/master/images/cli_demo.gif[StarFix CLI,title="StarFix CLI"]
 
 === Fully Integrated
 - Navigate to the repository (on github.com/user/repo)
-- Click on "Open in IDE" button on Repository page.
-- Repository is cloned in the preferred directory.
-- The cloned Repository is opened in the preferred IDE.
+- Click on the "Open in IDE" button on the repository page.
+- The repository is cloned in the preferred directory.
+- The cloned repository is opened in the preferred IDE.
 image:https://github.com/starfixdev/starfix/blob/master/images/demo.gif[StarFix Demo]
 
 === Configuration Editor
-- The first time you launch up starfix you'll be prompted to choose preferred Editor and cloning directory.
+- The first time you launch up StarFix you'll be prompted to choose the preferred Editor and cloning directory.
 - To change the configurations you can launch up terminal and  type `starfix config`
 - You'll then be prompted to choose the preferred Editor and cloning path as shown in Demo below.
 image:https://github.com/starfixdev/starfix/blob/master/images/config_demo.gif[StarFix Configurations,title="StarFix Configurations"]
@@ -140,9 +140,9 @@ image:https://github.com/starfixdev/starfix/blob/master/images/config_demo.gif[S
 === Creating Issues
 Start by looking at the existing issues at https://github.com/starfixdev/starfish/issues[starfix/issues] to **ensure** that the issue you intend to create **doesn't exist already**.
 
-- **Bugs:** Run the starfix application and if you find unexpected behaviour then open a new issue with label `bug` and include a proper description/comment.
+- **Bugs:** Run the StarFix application and if you find unexpected behavior  then open a new issue with the label `bug` and include a proper description/comment.
 
-- **Feature request:** Brainstorm ideas and bring them to surface on the features that can be implemented in starfix and then create an issue with label as `enahancement`. Always include as exhaustive description as possible to help understand better.
+- **Feature request:** Brainstorm ideas and bring them to surface on the features that can be implemented in starfix and then create an issue with the label as `enahancement`. Always include as much exhaustive description as possible to help understand better.
 
 === Pull Request
 
@@ -181,7 +181,7 @@ Opening a pull request will trigger a Github Actions build to check the validity
 
 === Quick Command reference:
 - **Starting in Development mode** : `mvn quarkus:dev`
-- **Passing arguments** : When you run with `mvn quarkus:dev` you can add `-Dquarkus.args=yourvalue` as arguments you want to pass into the command line.
+- **Passing arguments**: When you run with `mvn quarkus:dev` you can add `-Dquarkus.args=yourvalue` as arguments you want to pass into the command line.
   Example `mvn quarkus:dev -Dquarkus.args="https://github.com/user/repo.git"`
 - **Building native executable** : `mvnw package -Dnative`
 
@@ -194,9 +194,9 @@ As StarFix uses Command Mode in Quarkus refer these links to learn more about it
 == FAQS
 
 [qanda]
-Why we call it StarFix ? ::
+Why do we call it StarFix ? ::
   The following image  is good enough to explain ...
 image:https://github.com/starfixdev/starfix/blob/master/images/starfix_illustration.png[StarFix Illustration,title="starfix illustration"]
 
 Why are we using Quarkus? ::
-  The reason for going with this is that **anything other** than this(like node or python bound) would **require additional setup** .On other hand **Java or Native** is something that can be **shipped fairly lightweight**.Furthermore we need a **cross-platform** application(Linux,Windows and MacOS).Thus Quarkus would be the best choice.
+  The reason for going with this is that **anything other** than this(like node or python bound) would **require additional setup**. On the other hand **Java or Native** is something that can be **shipped fairly lightweight**. Furthermore we need a **cross-platform** application(Linux, Windows, and MacOS). Thus Quarkus would be the best choice.
