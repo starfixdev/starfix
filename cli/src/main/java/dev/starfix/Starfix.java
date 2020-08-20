@@ -1,4 +1,4 @@
-package dk.xam.starfish;
+package dev.starfix;
 
 import io.quarkus.runtime.QuarkusApplication;
 import java.io.BufferedReader;
@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
-public class Starfish implements QuarkusApplication {
+public class Starfix implements QuarkusApplication {
   @Override
   public int run(String... args) throws Exception {   
     
@@ -29,9 +29,9 @@ public class Starfish implements QuarkusApplication {
     }
 
     if(args[0].equalsIgnoreCase("config")){
-    //Incase user wants to configure starfish
+    //Incase user wants to configure starfix
     editConfig();//Calling function that enables to edit configuration
-    return 10; //Incase user typed "starfish config" we only want to edit configuration
+    return 10; //Incase user typed "starfix config" we only want to edit configuration
     }
 
     //URL Validation to check a valid git repository
@@ -112,17 +112,17 @@ return  System.getProperty("os.name").toLowerCase().indexOf("windows")>=0;
 public static File getConfigFile(){
     String userHome = System.getProperty( "user.home" ); //Get User Home Directory: /home/user_name
 
-    File configFile = new File(userHome + "/.config/starfish.yaml"); //Loading YAML
+    File configFile = new File(userHome + "/.config/starfix.yaml"); //Loading YAML
 
     return configFile;
 
 }
 
 
-//Function to edit configuration and serves for command line starfish config editor
+//Function to edit configuration and serves for command line starfix config editor
 public static void editConfig()throws Exception{
     System.out.println("\n-------------------------------------------------------");
-    System.out.println("\t\tStarfish Configuration Editor");
+    System.out.println("\t\tStarfix Configuration Editor");
     System.out.println("-------------------------------------------------------\n");
     String clone_path="";//Holds path to  destination Where the Repository Must Be Clonned
     String ide="";  //Holds command for IDE to open upon
@@ -137,7 +137,7 @@ public static void editConfig()throws Exception{
     try {
         if (!configFile.exists()) {
             //Incase no config file exists
-            System.out.println("\n-No configurations exist for starfish...You'll have to  configure it");
+            System.out.println("\n-No configurations exist for Starfix...You'll have to  configure it");
             System.out.println("\n-New  configuration file will be created at: " + configFile.getAbsolutePath() + "\n");
             configFile.createNewFile();
             }

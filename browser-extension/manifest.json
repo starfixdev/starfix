@@ -1,14 +1,14 @@
 {
   "manifest_version": 2,
 
-  "name": "Starfish",
+  "name": "Starfix",
   "version": "1.0",
-  "description": "Utility  Extension for Starfish.It Intends to  add an \"Open in IDE\" button on Github.Easily Configurable to chose between cloning Protocols viz HTTPS and SSH",
+  "description": "Utility  Extension for Starfix.It Intends to  add an \"Open in IDE\" button on Github.Easily Configurable to chose between cloning Protocols viz HTTPS and SSH",
   "author": "Fahad Israr",
-  "icons": { "16": "starfish_icon.png",
-    "32": "starfish_icon.png",
-   "48": "starfish_icon.png" },
-  "browser_action": { "default_popup": "./options.html","default_title": "Starfish Configuration","default_icon":"./starfish_icon.png" },
+  "icons": { "16": "starfix_icon.png",
+    "32": "starfix_icon.png",
+   "48": "starfix_icon.png" },
+  "browser_action": { "default_popup": "./options.html","default_title": "Starfix Configuration","default_icon":"./starfix_icon.png" },
   "options_ui": {
     "page": "options.html",
     "open_in_tab": false

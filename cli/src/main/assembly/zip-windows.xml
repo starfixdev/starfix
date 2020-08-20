@@ -16,8 +16,8 @@
     <files>
         <file>
             <source> ${project.build.directory}/${project.build.finalName}-runner.exe</source>
-            <outputDirectory>/installer/Starfish</outputDirectory>
-            <destName>starfish.exe</destName>
+            <outputDirectory>/installer/Starfix</outputDirectory>
+            <destName>starfix.exe</destName>
         </file>
     </files>
 </assembly>
