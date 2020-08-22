@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Objects;
 import java.io.File;
 import java.util.regex.Matcher;
@@ -28,14 +29,21 @@ public class Starfix implements QuarkusApplication {
         return -1;
     }
 
-    if(args[0].equalsIgnoreCase("config")){
+    String url = args[0];
+
+    if(url.equalsIgnoreCase("config")){
     //Incase user wants to configure starfix
     editConfig();//Calling function that enables to edit configuration
     return 10; //Incase user typed "starfix config" we only want to edit configuration
     }
 
+    if(url.startsWith("ide://")) {
+        // stripping out ide:// to simplify launcher scripts.
+        url = url.substring(6);
+    }
+
     //URL Validation to check a valid git repository
-    if (!validate_url(args[0])){ //Incase URI doesn't  macth our scheme we'll terminate
+    if (!validate_url(url)){ //Incase URI doesn't  macth our scheme we'll terminate
         System.out.println("Not a valid URI for git repository");
         return 10;
     }
@@ -62,7 +70,7 @@ public class Starfix implements QuarkusApplication {
         
         ide=config.ide;
         clone_path=config.clone_path;
-        if(ide==null||clone_path==null)editConfig(); //Incase of absence of configuration in file Launch Config 
+        if(ide==null||clone_path==null)editConfig(); //Incase of absence of configuration in file Launch Config
         
         
     }
@@ -73,22 +81,26 @@ public class Starfix implements QuarkusApplication {
     
 
 
-    
-    String repo_name=args[0].substring(args[0].lastIndexOf("/"),args[0].lastIndexOf(".")); //Extracts the Name of Repository
-   
-    String originUrl = args[0];
-    Path directory = Paths.get(clone_path+repo_name);
+    try {
 
-    if(!Files.exists(directory)) //Check if the user cloned the repo previously and in that case no cloning is needed
-    gitClone(directory, originUrl);
-   
+        String repo_name = url.substring(url.lastIndexOf("/"), url.lastIndexOf(".")); //Extracts the Name of Repository
+
+        String originUrl = url;
+        Path directory = Paths.get(clone_path + repo_name);
+
+        if (!Files.exists(directory)) //Check if the user cloned the repo previously and in that case no cloning is needed
+            gitClone(directory, originUrl);
 
 
+        //Launching Editor on the Cloned Directory
+        System.out.println("Launching  Editor Now...");
+        launch_editor(directory.getParent(), ide, clone_path + repo_name);
+    } catch(Exception e) {
+        e.printStackTrace();
+        return 10;
+    }
+    return 0; // all went good - no exit code should be set.
 
-    //Launching Editor on the Cloned Directory 
-    System.out.println("Launching  Editor Now...");
-    launch_editor(directory.getParent(), ide,clone_path+repo_name);
-    return 10;
     
 }//Main ends here
 
@@ -222,7 +234,7 @@ public static Process process_runner(Path directory, String... command)throws IO
     int exit = p.waitFor();
 
     if (exit != 0) {
-        throw new AssertionError(String.format("runCommand returned %d", exit));
+        throw new AssertionError(String.format("runCommand %s in %s returned %d", Arrays.toString(command), directory, exit));
     }
     return p;
 }
