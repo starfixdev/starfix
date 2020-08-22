@@ -1,48 +1,202 @@
-# Project Starfix
+= StarFix : Simplifying The Devflow
+:toc:
+:toc-placement!:
 
-A  cross platform client side application that would let you open a file in IDE of your choice (vscode, eclipse, intellij, emacs, vi, etc.) and  other cammands locally directly from the browser or file system.This will enable an option to “Open in IDE” through browser extension on various websites like github, gitlab,gitbucket etc similar to one you see in this demo below.
 
-image::https://user-images.githubusercontent.com/31308705/79685056-61078280-8253-11ea-8ac1-aab1531ca0ab.gif[Starfix Demo]
+image:https://github.com/starfixdev/starfix/blob/master/images/starfix.png[StarFix Logo,title="StarFix Logo"]
 
-## Workflow
-- Click on "Open in IDE" on Repository page.
-- Repository is cloned
-- The cloned Repository is opened in the preferred IDE.
+== Intro
+Would it not be nice if..
 
-## Necessary Utilities 
-- A browser extension that injects "Open In IDE" button 
-- Custom URI Handler to handle `ide://` scheme.
-- A native application that clones the repository and opens up the IDE.
-- A configuration file (.yaml) to hold the Preferred IDE and Clone Path.
-- Command line support for application.
+You could open your IDE on any file from any app? 
 
-## Targeted Websites:
-- Primary: [github.com](https://github.com/)
-- Secondary: [gitlab.com](https://gitlab.com/)
-- Additional: [bitbucket](https://bitbucket.org/)
-..more can be added
+OR
 
-## Targeted Platforms:
+Open a repository/file from a browser in your editor of choice? 
+
+OR
+
+Start a debugger locally from your web browser? 
+
+**StarFix** is a **cross-platform client-side application** that would let you **open a file in Editor** of your choice (__vscode, eclipse, intellij, emacs, vi, etc.__) and  other commands locally **directly from the browser or file system**. This will enable an option to “Open in IDE” through browser extension __on various websites like **Github, Gitlab**, etc__ similar to the one you see in this demo below.
+
+== Demo
+
+image:https://github.com/starfixdev/starfix/blob/master/images/demo.gif[Starfish Demo]
+
+[discrete]
+# INDEX
+
+toc::[]
+
+== Features
+**StarFix**  comprises of  __amazing__ features :
+
+=== CLI Tool
+StarFix can be used as a CLI tool as well where the repo is cloned and then the preferred Editor is launched. It also supports modifying the configurations.
+
+=== Configurable
+StarFix has two configurable properties:
+- Cloning Path: The local directory where the repository gets cloned.
+- Preferred Editor: The Editor to launch after the repository gets cloned.
+These can be configured easily through the CLI.
+
+=== Custom Protocol Handler
+StarFix includes a custom URL Handler to handle `ide://` on the user's machine. Whenever a URI with scheme `ide://` is encountered StarFix app is launched with the arguement as the  URI.
+
+=== Browser Extension
+To be able to add an "Open In IDE" button on Web Pages and launching the protocol handler we need a browser extension. The extension also acts as the __integration between web and desktop__.
+
+
+== Supported Platforms:
 - Linux
 - Windows
 - Mac OS X
 
-## Quick Command reference:
-- Starting in Development mode : `mvn quarkus:dev`
-- Passing arguements: When you run with `mvn quarkus:dev` you can add `-Dquarkus.args=yourvalue` as arguments you want to pass into the command line.
-  Example `mvn quarkus:dev -Dquarkus.args="https://github.com/user/repo.git"`
-- Building native executable: `mvnw package -Dnative`
+== Installation
+=== LINUX
+- Download the `starfix-linux.zip` file from the Latest Release.
+- Extract and Navigate to `installer` directory
+- On the terminal execute the following(ensure the current directory is `installer` ) 
 
-## Useful resources:
-As Starfix uses Command Mode in Quarkus refer these links to learn more about it:
+[source, bash]
+----
+./install
+----
+
+- Once you execute the above command you'll  be prompted for the password (for sudo ).
+- Test your installation by going to terminal and typing `starfix`.
+- To set-up the Browser Extension, navigate to this section: link:#browser-extension-1[Broswer Extension]
+
+=== WINDOWS
+- Download the `starfix-win64.zip` file from the Latest Release
+- Extract and Navigate to `installer` directory
+- Now execute the file `install.cmd` (You can simply double click)
+- As the app is unrecognized, Windows may launch up a new Dialog titled as `Windows protected your PC` with description `Microsoft Defender SmartScreen prevented an unrecognised app from starting. Running this app might put your PC at risk.`
+- You may click on `More info` and the choose `Run anyway`
+- You will then be **prompted** with a series of **dialog boxes** asking **permission** for the operations(modifying the registry). Please **Select Yes** in all those prompts to allow the installation.
+- Test your installation by typing `starfix` on the Terminal(Command Prompt or Windows PowerShell)
+- To set-up the Browser Extension, navigate to this section: link:#browser-extension-1[Broswer Extension]
+
+=== MACOS
+- Download the `starfix-macos.zip` file from the Latest Release
+- Extract and Navigate to `installer` directory
+- On the terminal execute the following(ensure the current directory is `installer` ) 
+
+[source, bash]
+----
+./install
+----
+
+- Once you execute the above command you'll  be prompted for the password (for sudo )
+- Test your installation by going to terminal and typing `starfix`
+- To set-up the Browser Extension, navigate to this section: link:#browser-extension-1[Broswer Extension]
+
+=== BROWSER EXTENSION
+-  Clone This Repository.
+- Now **Load Unpacked Extension** in the `browser-extension` directory.The method for Loading Unpacked extension generally varies  across **browsers**. We'll guide you with loading up on **Google Chrome** and **Mozilla Firefox**.
+
+==== Loading unpacked on Google Chrome
+- Open the Extension Management page by navigating to chrome://extensions.
+- The Extension Management page can also be opened by clicking on the Chrome menu, hovering over More Tools then selecting the Extensions.
+- Enable Developer Mode by clicking the toggle switch next to Developer mode.
+- Click the LOAD UNPACKED button and select the extension directory(`browser-extension`).
+Ta-da! The extension has been successfully installed
+
+==== Loading unpacked on Mozilla Firefox
+- Open the `about:debugging` page
+- Click "This Firefox" (in newer versions of Firefox)
+- Click "Load Temporary Add-on"
+- Select any file(like `manifest.json`) in the extension's directory(`browser-extension`).
+
+__**P.S: Browser Extensions will soon be published on Browser's App Store to simplify installation**__.
+
+== Usage
+ 
+=== As a CLI Tool
+- Launch the terminal and type `starfix https://github.com/user_name/repo_name.git` (You can also use ssh)
+- The repository will be cloned in the preferred directory and launched in the preferred Editor. See the Demo below:
+image:https://github.com/starfixdev/starfix/blob/master/images/cli_demo.gif[StarFix CLI,title="StarFix CLI"]
+
+=== Fully Integrated
+- Navigate to the repository (on github.com/user/repo)
+- Click on the "Open in IDE" button on the repository page.
+- The repository is cloned in the preferred directory.
+- The cloned repository is opened in the preferred IDE.
+image:https://github.com/starfixdev/starfix/blob/master/images/demo.gif[StarFix Demo]
+
+=== Configuration Editor
+- The first time you launch up StarFix you'll be prompted to choose the preferred Editor and cloning directory.
+- To change the configurations you can launch up terminal and  type `starfix config`
+- You'll then be prompted to choose the preferred Editor and cloning path as shown in Demo below.
+image:https://github.com/starfixdev/starfix/blob/master/images/config_demo.gif[StarFix Configurations,title="StarFix Configurations"]
+
+
+
+
+
+
+== Contributing to StarFix
+=== Creating Issues
+Start by looking at the existing issues at https://github.com/starfixdev/starfish/issues[starfix/issues] to **ensure** that the issue you intend to create **doesn't exist already**.
+
+- **Bugs:** Run the StarFix application and if you find unexpected behavior  then open a new issue with the label `bug` and include a proper description/comment.
+
+- **Feature request:** Brainstorm ideas and bring them to surface on the features that can be implemented in starfix and then create an issue with the label as `enahancement`. Always include as much exhaustive description as possible to help understand better.
+
+=== Pull Request
+
+After you've created a branch on your fork with your changes, it's time to https://help.github.com/articles/creating-a-pull-request/[make a pull request]
+
+Once you’ve submitted a pull request, the collaborators can review your proposed changes and decide whether or not to incorporate (pull in) your changes.
+
+==== Pull Request Pro Tips
+
+- http://guides.github.com/activities/forking/[Fork] the repository and https://help.github.com/articles/cloning-a-repository/[clone] it locally.
+Connect your local repository to the original `upstream` repository by adding it as a https://help.github.com/articles/configuring-a-remote-for-a-fork/[remote].
+Pull in changes from `upstream` often so that you stay up to date and so when you submit your pull request,
+merge conflicts will be less likely. See more detailed instructions https://help.github.com/articles/syncing-a-fork[here].
+- Create a http://guides.github.com/introduction/flow/[branch] for your edits.
+- Contribute in the style of the project as outlined above. This makes it easier for the collaborators to merge
+and for others to understand and maintain in the future.
+- Please make sure you squash all commits together before opening a pull request. If your pull request requires changes upon review, please be sure to squash all additional commits as well. https://github.com/todotxt/todo.txt-android/wiki/Squash-All-Commits-Related-to-a-Single-Issue-into-a-Single-Commit[This page] outlines the squash process.
+
+==== Open Pull Requests
+
+Once you’ve opened a pull request, a discussion will start around your proposed changes.
+
+Other contributors and users may chime in, but ultimately the decision is made by the collaborators.
+
+During the discussion, you may be asked to make some changes to your pull request.
+
+If so, add more commits to your branch and push them – they will automatically go into the existing pull request!
+
+Opening a pull request will trigger a Github Actions build to check the validity of proposed changes. After the build completes, **please ensure that the build has succeeded**. If the build did not succeed, please view the Github Actions log and correct any errors that were found in your contribution. 
+
+=== Technology for Development
+- https://quarkus.io/[Quarkus] : The Starfish CLI is built as a native executable with Quarkus.Specifically,we are using the **command mode** of Quarkus.
+- https://junit.org/junit5/[JUNIT5]:  As Quarkus supports JUNIT5, it has been used for Unit Testing.
+- https://maven.apache.org/plugins/maven-assembly-plugin/[Maven Assembly] : As we needed to combine project output(native exectable) into a single distributable archive that along with installer scripts  we are using Maven Assembly.
+- https://github.com/features/actions[Github Actions] : Github actions makes our CI/CD very easy.We are using it build,test and generate artifacts and distributable packages.Currently we are using it  on Pull Request(Builds and generates artifacts), Push(Builds and generates artifacts) and  Releases(generates distributable packages as zip file).We have also set-up a release mechanism on pushing with tags v* .
+
+=== Quick Command reference:
+- **Starting in Development mode** : `mvn quarkus:dev`
+- **Passing arguments**: When you run with `mvn quarkus:dev` you can add `-Dquarkus.args=yourvalue` as arguments you want to pass into the command line.
+  Example `mvn quarkus:dev -Dquarkus.args="https://github.com/user/repo.git"`
+- **Building native executable** : `mvnw package -Dnative`
+
+=== Useful Links/Resources:
+As StarFix uses Command Mode in Quarkus refer these links to learn more about it:
 
 - https://quarkus.io/blog/introducing-command-mode/[Introducing Command Mode ] written by https://github.com/maxandersen[@maxandersen]
 - https://quarkus.io/guides/command-mode-reference[QUARKUS - COMMAND MODE APPLICATIONS]
 
-## Contributing to Starfix
-- Issues: Start by looking at the existing issues at https://github.com/starfixdev/starfix/issues[Starfix/issues] and create a Pull Request with appropriate description/comment.
-- Bugs: Run the Starfix application and if you find unexpected behaviour then open a new issue with label `bug` and include a proper description/comment.
-- Feature request: Brainstorm ideas and bring them to surface on the features that can be implemented in Starfix and then create an issue with label as `enahancement`.Always include as exhaustive description as possible to help understand better.
+== FAQS
 
-## Technology for Development
-- https://quarkus.io/[Quarkus]
+[qanda]
+Why do we call it StarFix ? ::
+  The following image  is good enough to explain ...
+image:https://github.com/starfixdev/starfix/blob/master/images/starfix_illustration.png[StarFix Illustration,title="starfix illustration"]
+
+Why are we using Quarkus? ::
+  The reason for going with this is that **anything other** than this(like node or python bound) would **require additional setup**. On the other hand **Java or Native** is something that can be **shipped fairly lightweight**. Furthermore we need a **cross-platform** application(Linux, Windows, and MacOS). Thus Quarkus would be the best choice.
