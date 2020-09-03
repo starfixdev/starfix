@@ -183,6 +183,10 @@ public static void editConfig()throws Exception{
             while(true){
             System.out.println("\n--------Enter preferred Clonning path--------");
             clone_path=reader.readLine();
+            // If user enters path in form of ~/directory/sub_directory
+            if(clone_path.startsWith("~"))
+            clone_path=System.getProperty( "user.home" )+clone_path.substring(1);
+            
             //We'll check if the path enterd by user is a valid path or not
             File tmp=new File(clone_path);
             if(tmp.exists())break;
