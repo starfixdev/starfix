@@ -25,7 +25,7 @@ public class Starfix implements QuarkusApplication {
     System.out.println("\nTarget : "+s);//Printing Received Arguements */
     if(args.length == 0){
         System.out.println("No input provided!!");
-        
+        help();
         return -1;
     }
 
