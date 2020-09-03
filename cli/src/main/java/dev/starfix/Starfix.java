@@ -42,9 +42,16 @@ public class Starfix implements QuarkusApplication {
         url = url.substring(6);
     }
 
+    if(url.equalsIgnoreCase("help")||url.equalsIgnoreCase("h")||url.equalsIgnoreCase("-h")||url.equalsIgnoreCase("--help"))
+    {   //Calling diplay help function
+        help();
+        return 10;
+    }
+
     //URL Validation to check a valid git repository
     if (!validate_url(url)){ //Incase URI doesn't  macth our scheme we'll terminate
         System.out.println("Not a valid URI for git repository");
+        help();
         return 10;
     }
 
@@ -253,7 +260,15 @@ public static String gobbleStream(Process p) throws IOException, InterruptedExce
     outputGobbler.join();
     return outputGobbler.getExecResult()+errorGobbler.getExecResult();
 }
-
+ public static void help(){
+     System.out.println("\nstarfix: opens your file and project in any ide/editor.\n" );
+     System.out.println("usage: starfix <command> [<args>]\n");
+     System.out.println("-h, --help     Display help/info\n");
+     System.out.println("Commands:\n");
+     System.out.println("   url        Valid git repository URL to clone and open in ide/Editor");
+     System.out.println("   config     To configure preferred editor and clone path");
+     System.out.println();
+ }
 
 
 private static class StreamGobbler extends Thread {
