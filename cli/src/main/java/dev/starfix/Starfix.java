@@ -165,8 +165,8 @@ public static void editConfig()throws Exception{
             //--------------------------First we'll input preferred IDE from user------------------------------
 
             int id=0;
-            while(id!=1||id!=2||id!=3){
-            System.out.println("\n--------Chose the preferred IDE --------\n 1.for vscode \n 2.for eclipse \n 3.for IntelliJ_IDEA ");
+            while(id!=1||id!=2||id!=3||id==4){
+            System.out.println("\n--------Chose the preferred IDE --------\n 1.for vscode \n 2.for eclipse \n 3.for IntelliJ_IDEA \n 4. for custom ide/editor");
             
             id=Integer.parseInt(reader.readLine());
             
@@ -175,6 +175,8 @@ public static void editConfig()throws Exception{
             if(id==2){ide="eclipse";System.out.println("\n--------Selected IDE:Eclipse--------");break;}
             else
             if(id==3){ide="idea";System.out.println("\n--------Selected IDE:IntelliJ_IDEA--------");break;}
+            else
+            if(id==4){System.out.println("\n--------Enter Launch command for the editor/ide--------");ide=reader.readLine();break;}
             else
             System.out.println("\n--------Invalid Input!! Try Again--------");
             }
