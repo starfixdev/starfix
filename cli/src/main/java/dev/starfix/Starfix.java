@@ -77,20 +77,28 @@ public class Starfix implements QuarkusApplication {
         
         ide=config.ide;
         clone_path=config.clone_path;
-        if(ide==null||clone_path==null)editConfig(); //Incase of absence of configuration in file Launch Config
-        
+        if(ide==null||clone_path==null){
+            editConfig(); //Incase of absence of configuration in file Launch Config
+            Config config_temp = mapper.readValue(configFile, Config.class);
+            ide=config_temp.ide;
+            clone_path=config_temp.clone_path;
+        }
+        if(clone_path.startsWith("~"))clone_path=System.getProperty( "user.home" )+clone_path.substring(1);
         
     }
     catch (Exception e) {
         e.printStackTrace();
         
     }
-    
 
 
     try {
+        String repo_name;
 
-        String repo_name = url.substring(url.lastIndexOf("/"), url.lastIndexOf(".")); //Extracts the Name of Repository
+        if(url.endsWith(".git"))
+        repo_name = url.substring(url.lastIndexOf("/"), url.lastIndexOf(".")); //Extracts the Name of Repository
+        else
+        repo_name=url.substring(url.lastIndexOf("/"));
 
         String originUrl = url;
         Path directory = Paths.get(clone_path + repo_name);
