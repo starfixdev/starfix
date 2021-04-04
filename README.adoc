@@ -22,7 +22,7 @@ Start a debugger locally from your web browser?
 
 == Demo
 
-image:https://github.com/starfixdev/starfix/blob/master/images/demo.gif[Starfish Demo]
+image:https://github.com/starfixdev/starfix/blob/master/images/demo.gif[Starfix Demo]
 
 [discrete]
 # INDEX
@@ -138,7 +138,7 @@ image:https://github.com/starfixdev/starfix/blob/master/images/config_demo.gif[S
 
 == Contributing to StarFix
 === Creating Issues
-Start by looking at the existing issues at https://github.com/starfixdev/starfish/issues[starfix/issues] to **ensure** that the issue you intend to create **doesn't exist already**.
+Start by looking at the existing issues at https://github.com/starfixdev/Starfix/issues[starfix/issues] to **ensure** that the issue you intend to create **doesn't exist already**.
 
 - **Bugs:** Run the StarFix application and if you find unexpected behavior  then open a new issue with the label `bug` and include a proper description/comment.
 
@@ -174,7 +174,7 @@ If so, add more commits to your branch and push them – they will automatically
 Opening a pull request will trigger a Github Actions build to check the validity of proposed changes. After the build completes, **please ensure that the build has succeeded**. If the build did not succeed, please view the Github Actions log and correct any errors that were found in your contribution. 
 
 === Technology for Development
-- https://quarkus.io/[Quarkus] : The Starfish CLI is built as a native executable with Quarkus.Specifically,we are using the **command mode** of Quarkus.
+- https://quarkus.io/[Quarkus] : The Starfix CLI is built as a native executable with Quarkus.Specifically,we are using the **command mode** of Quarkus.
 - https://junit.org/junit5/[JUNIT5]:  As Quarkus supports JUNIT5, it has been used for Unit Testing.
 - https://maven.apache.org/plugins/maven-assembly-plugin/[Maven Assembly] : As we needed to combine project output(native exectable) into a single distributable archive that along with installer scripts  we are using Maven Assembly.
 - https://github.com/features/actions[Github Actions] : Github actions makes our CI/CD very easy.We are using it build,test and generate artifacts and distributable packages.Currently we are using it  on Pull Request(Builds and generates artifacts), Push(Builds and generates artifacts) and  Releases(generates distributable packages as zip file).We have also set-up a release mechanism on pushing with tags v* .
