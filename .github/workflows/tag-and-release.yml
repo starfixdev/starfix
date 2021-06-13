@@ -50,7 +50,7 @@ jobs:
     - name: Install graalvm
       uses: DeLaGuardo/setup-graalvm@3
       with:
-        graalvm-version: '20.0.0.java11'
+        graalvm-version: '20.2.0.java11'
     
     # Install Native Image,Set Version and Build from Linux and MACOS
     - if: matrix.os != 'windows-2019' 
