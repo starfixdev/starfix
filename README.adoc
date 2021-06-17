@@ -138,7 +138,7 @@ image:https://github.com/starfixdev/starfix/blob/master/images/config_demo.gif[S
 
 == Contributing to StarFix
 === Creating Issues
-Start by looking at the existing issues at https://github.com/starfixdev/Starfix/issues[starfix/issues] to **ensure** that the issue you intend to create **doesn't exist already**.
+Start by looking at the existing issues at https://github.com/starfixdev/starfix/issues[starfix/issues] to **ensure** that the issue you intend to create **doesn't exist already**.
 
 - **Bugs:** Run the StarFix application and if you find unexpected behavior  then open a new issue with the label `bug` and include a proper description/comment.
 
