@@ -30,8 +30,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 
 @CommandLine.Command(mixinStandardHelpOptions = true)
+@RegisterForReflection
 public class Starfix {
 
     @Command
