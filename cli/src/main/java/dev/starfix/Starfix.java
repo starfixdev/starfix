@@ -6,7 +6,7 @@
 //Q:CONFIG quarkus.log.level=WARN
 
 package dev.starfix;
-
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.ExitCode;
@@ -284,6 +284,7 @@ public class Starfix {
         }
     }
 
+    @RegisterForReflection
     public static class Config {
         public String ide;
         public String clone_path;
