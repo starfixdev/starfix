@@ -84,8 +84,19 @@ public class Starfix {
         }
 
         try {
-            URI uri = new URI(url);
+            String filePath = "";
+            String branch = "";
+            if(isBlob(url))
+            {   // Example URL : https://github.com/starfixdev/starfix/blob/master/cli/pom.xml
 
+                String temp = url.substring(url.indexOf("blob/")+5);
+                branch = temp.substring(0,temp.indexOf("/"));
+                filePath = temp.substring(temp.indexOf("/")+1);
+                url = url.substring(0,url.indexOf("/blob"));
+            }
+
+            URI uri = new URI(url);
+            
             // extract name of repository
             String repo_name = Path.of(uri.getPath()).getFileName().toString();
             repo_name = repo_name.replace(".git", "");
@@ -97,9 +108,12 @@ public class Starfix {
                                           // needed
                 gitClone(directory, originUrl);
 
+            if(filePath.length()>0)
+            filePath = Paths.get(clone_path,repo_name,filePath).toAbsolutePath().toString();
+
             // Launching Editor on the Cloned Directory
             System.out.println("Launching  Editor Now...");
-            launch_editor(directory, ide, directory.toAbsolutePath().toString());
+            launch_editor(directory, ide, directory.toAbsolutePath().toString(),filePath);
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }
@@ -110,6 +124,15 @@ public class Starfix {
     public static boolean validate_url(String url) {
         // URL Validation to check a valid git repository
         String pattern = "((git|ssh|http(s)?)|(git@[\\w\\.]+))(:(//)?)([\\w\\.@\\:/\\-~]+)(\\.git)?(/)?";
+        Pattern r = Pattern.compile(pattern);
+        // Now create matcher object.
+        Matcher m = r.matcher(url);
+        return m.matches();
+    }
+
+    // Function to check if the URL points to a file
+    public static boolean isBlob(String url){
+        String pattern = "^https://github.com/(.*)/blob/(.*)$";
         Pattern r = Pattern.compile(pattern);
         // Now create matcher object.
         Matcher m = r.matcher(url);
@@ -205,8 +228,8 @@ public class Starfix {
     }
 
     // Function to Launch the Editor
-    public static void launch_editor(Path directory, String ide, String path) throws IOException, InterruptedException {
-        runCommand(directory.getParent(), ide, path);// Launching the editor now
+    public static void launch_editor(Path directory, String ide, String path, String filePath) throws IOException, InterruptedException {
+        runCommand(directory.getParent(), ide, path,filePath);// Launching the editor now
 
     }
 
