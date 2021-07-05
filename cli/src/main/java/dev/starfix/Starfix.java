@@ -32,7 +32,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 @CommandLine.Command(mixinStandardHelpOptions = true)
-public class Starfix {
+public class Starfix implements Runnable{
 
     @Command
     public int config() throws Exception {
@@ -116,6 +116,14 @@ public class Starfix {
             throw new IllegalStateException(e);
         }
         return ExitCode.OK;
+    }
+    
+    @Parameters(arity = "0..1")
+    String uri;
+    
+    @Override
+    public void run() {
+        cloneCmd(uri);
     }
 
     // Function to validate URL using with Regex
