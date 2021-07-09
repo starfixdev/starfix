@@ -123,6 +123,11 @@ public class Starfix implements Runnable{
     
     @Override
     public void run() {
+        if(uri==null||uri.isEmpty())
+            {
+                System.out.println("Empty args..");
+                return;
+            }
         cloneCmd(uri);
     }
 
