@@ -125,7 +125,7 @@ public class Starfix implements Runnable{
     public void run() {
         if(uri==null||uri.isEmpty())
         {   
-            System.out.println("Empty Arguments received");
+            System.out.println("\n === No/Empty Arguments received === ");
             new CommandLine(new Starfix()).usage(System.out); // Will invoke Picocli Help
             return;
         }
