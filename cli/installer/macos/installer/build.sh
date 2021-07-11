@@ -17,5 +17,5 @@ plutil -insert CFBundleURLTypes -xml '
           </dict>
         </array>
         ' starfix.app/Contents/Info.plist
-cp ../../target/starfix-*-runner starfix.app/Contents/Resources/starfix
+cp starfix  starfix.app/Contents/Resources/starfix
 
