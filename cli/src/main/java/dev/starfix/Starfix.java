@@ -30,6 +30,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import static dev.starfix.Editor.launch_editor;
 
 @CommandLine.Command(mixinStandardHelpOptions = true)
 public class Starfix implements Runnable{
@@ -93,27 +94,6 @@ public class Starfix implements Runnable{
                 branch = temp.substring(0,temp.indexOf("/"));
                 filePath = temp.substring(temp.indexOf("/")+1);
                 url = url.substring(0,url.indexOf("/blob"));
-
-                if(filePath.indexOf("#")>0){
-                    // ==== VS CODE ====
-                    // code -g file:line
-                    if(ide.equals("code")||ide.equals("code.cmd")){
-                        filePath = filePath.replace("#L",":");
-                        ide  = ide +" -g " ;
-                    }
-                    // ===== IntelliJ =====
-                    // idea64.exe [--line <number>] [--column <number>] <path ...>
-                    if(ide.equals("idea")){
-                        ide = ide + "--line "+filePath.substring(filePath.lastIndexOf("#")+1)+" ";
-                        filePath = filePath.substring(0,filePath.lastIndexOf("#"));
-                    }
-                    // === Eclipse =====
-                    // eclipse.exe file.txt:22 
-                    if(ide.equals("eclipse")){
-                        filePath = filePath.replace("#L",":");
-                    }
-                    
-                }
             }
 
             URI uri = new URI(url);
@@ -253,13 +233,6 @@ public class Starfix implements Runnable{
             e.printStackTrace();
 
         }
-
-    }
-
-    // Function to Launch the Editor
-    public static void launch_editor(Path directory, String ide, String path, String filePath) throws IOException, InterruptedException {
-        String command = ide+" "+path+" "+filePath;
-        runCommand(directory.getParent(), command.split(" "));// Launching the editor now
 
     }
 
