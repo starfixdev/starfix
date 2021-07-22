@@ -1,9 +1,8 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $?
-//DEPS io.quarkus:quarkus-jackson:1.8.1.Final
+//DEPS io.quarkus:quarkus-jackson:2.1.0.CR1
 //DEPS com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.2
-//DEPS io.quarkus:quarkus-picocli:1.8.1.Final
-//Q:CONFIG quarkus.banner.enabled=false
-//Q:CONFIG quarkus.log.level=WARN
+//DEPS io.quarkus:quarkus-picocli:2.1.0.CR1
+//FILES application.properties=../../../resources/application.properties
 
 package dev.starfix;
 import io.quarkus.runtime.annotations.RegisterForReflection;
