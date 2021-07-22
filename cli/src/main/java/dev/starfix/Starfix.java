@@ -350,12 +350,5 @@ public class Starfix implements Runnable{
 
     }
 
-    public static interface IDE {
-
-    }
-
-    public static class GenericIDE implements IDE {
-
-    }
 
 }
