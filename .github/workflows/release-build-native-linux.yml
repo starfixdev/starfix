@@ -23,9 +23,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install graalvm
-      uses: DeLaGuardo/setup-graalvm@3
+      uses: DeLaGuardo/setup-graalvm@master
       with:
-        graalvm-version: '20.2.0.java11'
+        graalvm: 21.0.0.2
+        java: java11
     - name: Install native-image
       run: gu install native-image
     - name: Set version
@@ -51,9 +52,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install graalvm
-        uses: DeLaGuardo/setup-graalvm@3
+        uses: DeLaGuardo/setup-graalvm@master
         with:
-          graalvm-version: '20.2.0.java11'
+          graalvm: 21.0.0.2
+          java: java11
       - name: Install native-image
         run: gu install native-image
       - name: Set version
