@@ -82,7 +82,7 @@ jobs:
         # Invoke the native-image build with the necessary Visual Studio tooling/environment intialized
         run: |
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86_amd64
-          mvnw package -Dnative"
+          mvnw package -Dnative
         shell: cmd
       - name: Upload native executable
         id: upload-native-executable
