@@ -2,29 +2,28 @@
 //DEPS io.quarkus:quarkus-jackson:2.1.0.CR1
 //DEPS com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.2
 //DEPS io.quarkus:quarkus-picocli:2.1.0.CR1
+//DEPS org.zeroturnaround:zt-exec:1.12
 //FILES application.properties=../../../resources/application.properties
 
 package dev.starfix;
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import org.zeroturnaround.exec.ProcessExecutor;
+import org.zeroturnaround.exec.ProcessResult;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.ExitCode;
-import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
-import io.quarkus.runtime.QuarkusApplication;
+
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
 import java.io.File;
+import java.util.concurrent.TimeoutException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -250,71 +249,21 @@ public class Starfix implements Runnable{
 
     public static String runCommand(Path directory, String... command) throws IOException, InterruptedException {
         // Function to Run Commands using Process Builder
-        Process p = process_runner(directory, command);
-        return gobbleStream(p);
-
-    }
-
-    public static Process process_runner(Path directory, String... command) throws IOException, InterruptedException {
-        Objects.requireNonNull(directory, "directory");
-        if (!Files.exists(directory)) {
-            throw new RuntimeException("can't run command in non-existing directory '" + directory + "'");
+        ProcessResult presult;
+        try {
+            presult = new ProcessExecutor().command(command).redirectOutput(System.out).redirectErrorStream(true).readOutput(true)
+                    .execute();
+        } catch (TimeoutException e) {
+            throw new RuntimeException("Error running command", e);
         }
-        ProcessBuilder pb = new ProcessBuilder().command(command).directory(directory.toFile());
-        Process p = pb.start();
 
-        int exit = p.waitFor();
-
-        if (exit != 0) {
+        int exit = presult.getExitValue();
+        if (exit!=0) {
             throw new AssertionError(
                     String.format("runCommand %s in %s returned %d", Arrays.toString(command), directory, exit));
         }
-        return p;
-    }
 
-    public static String gobbleStream(Process p) throws IOException, InterruptedException {
-        StreamGobbler errorGobbler = new StreamGobbler(p.getErrorStream(), "E");
-        StreamGobbler outputGobbler = new StreamGobbler(p.getInputStream(), "O");
-        outputGobbler.start();
-        errorGobbler.start();
-        int exit = p.waitFor();
-        if (exit != 0) {
-            throw new AssertionError(String.format("runCommand returned %d", exit));
-        }
-        errorGobbler.join();
-        outputGobbler.join();
-        return outputGobbler.getExecResult() + errorGobbler.getExecResult();
-    }
-
-    private static class StreamGobbler extends Thread {
-        private String exec_result;
-
-        private final InputStream is;
-        private final String type;
-
-        private StreamGobbler(InputStream is, String type) {
-            this.is = is;
-            this.type = type;
-        }
-
-        @Override
-        public void run() {
-            exec_result = ""; // Resets result variable for every new process execution
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(is));) {
-                String line;
-
-                while ((line = br.readLine()) != null) {
-                    System.out.println(type + "> " + line);
-                    exec_result += line;
-                }
-            } catch (IOException ioe) {
-                ioe.printStackTrace();
-            }
-        }
-
-        public String getExecResult() {
-            return exec_result;
-        }
+        return presult.outputUTF8();
     }
 
     @RegisterForReflection
@@ -350,5 +299,12 @@ public class Starfix implements Runnable{
 
     }
 
+    public static interface IDE {
+
+    }
+
+    public static class GenericIDE implements IDE {
+
+    }
 
 }
