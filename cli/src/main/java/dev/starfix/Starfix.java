@@ -29,6 +29,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import static dev.starfix.Editor.launch_editor;
 
 @CommandLine.Command(mixinStandardHelpOptions = true)
 public class Starfix implements Runnable{
@@ -49,6 +50,7 @@ public class Starfix implements Runnable{
 
         // URL Validation to check a valid git repository
         if (!validate_url(url)) { // Incase URI doesn't macth our scheme we'll terminate
+            System.out.println(url);
             throw new IllegalArgumentException("Not a valid URI for git repository");
         }
 
@@ -85,6 +87,7 @@ public class Starfix implements Runnable{
             String branch = "";
             if(isBlob(url))
             {   // Example URL : https://github.com/starfixdev/starfix/blob/master/cli/pom.xml
+                // Example URL2: https://github.com/hexsum/Mojo-Webqq/blob/master/script/check_dependencies.pl#L17
 
                 String temp = url.substring(url.indexOf("blob/")+5);
                 branch = temp.substring(0,temp.indexOf("/"));
@@ -133,20 +136,14 @@ public class Starfix implements Runnable{
     // Function to validate URL using with Regex
     public static boolean validate_url(String url) {
         // URL Validation to check a valid git repository
-        String pattern = "((git|ssh|http(s)?)|(git@[\\w\\.]+))(:(//)?)([\\w\\.@\\:/\\-~]+)(\\.git)?(/)?";
-        Pattern r = Pattern.compile(pattern);
-        // Now create matcher object.
-        Matcher m = r.matcher(url);
-        return m.matches();
+        String pattern = "((git|ssh|http(s)?)|(git@[\\w\\.]+))(:(//)?)([\\w\\.@\\:/\\-~]+)(.*)?";
+        return Pattern.matches(pattern,url);
     }
 
     // Function to check if the URL points to a file
     public static boolean isBlob(String url){
         String pattern = "^https://github.com/(.*)/blob/(.*)$";
-        Pattern r = Pattern.compile(pattern);
-        // Now create matcher object.
-        Matcher m = r.matcher(url);
-        return m.matches();
+        return Pattern.matches(pattern,url);
     }
 
     // Function yo determine if the current OS is Windows
@@ -202,11 +199,11 @@ public class Starfix implements Runnable{
                     System.out.println("\n--------Selected IDE:VsCode--------");
                     break;
                 } else if (id == 2) {
-                    ide = "eclipse";
+                    ide = isWindows() ? "eclipse.exe":"eclipse";
                     System.out.println("\n--------Selected IDE:Eclipse--------");
                     break;
                 } else if (id == 3) {
-                    ide = "idea";
+                    ide = isWindows() ?"idea64.exe":"idea";
                     System.out.println("\n--------Selected IDE:IntelliJ_IDEA--------");
                     break;
                 } else
@@ -234,12 +231,6 @@ public class Starfix implements Runnable{
             e.printStackTrace();
 
         }
-
-    }
-
-    // Function to Launch the Editor
-    public static void launch_editor(Path directory, String ide, String path, String filePath) throws IOException, InterruptedException {
-        runCommand(directory.getParent(), ide, path,filePath);// Launching the editor now
 
     }
 
