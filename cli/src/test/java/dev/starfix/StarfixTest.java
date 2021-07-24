@@ -41,7 +41,8 @@ public class StarfixTest {
     public void testEcho()throws Exception {
         Path directory = Paths.get(System.getProperty( "user.home" ));
         String test_string="This is some random String that I want to Echo";
-        assertEquals(test_string,runCommand(directory,"echo",test_string),"Echo Random String");
+        String result = runCommand(directory,"echo",test_string);
+        assertEquals(test_string+System.lineSeparator(),result,"Echo Random String");
     }
 
   
