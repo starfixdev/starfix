@@ -32,6 +32,9 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 @CommandLine.Command(mixinStandardHelpOptions = true)
 public class Starfix implements Runnable{
 
+    @Parameters(arity = "0..1")
+    String uri;
+    
     @Command
     public int config() throws Exception {
         editConfig();
@@ -77,7 +80,6 @@ public class Starfix implements Runnable{
 
         } catch (Exception e) {
             e.printStackTrace();
-
         }
 
         try {
@@ -118,8 +120,7 @@ public class Starfix implements Runnable{
         return ExitCode.OK;
     }
     
-    @Parameters(arity = "0..1")
-    String uri;
+
     
     @Override
     public void run() {
@@ -134,7 +135,7 @@ public class Starfix implements Runnable{
     // Function to validate URL using with Regex
     public static boolean validate_url(String url) {
         // URL Validation to check a valid git repository
-        String pattern = "((git|ssh|http(s)?)|(git@[\\w\\.]+))(:(//)?)([\\w\\.@\\:/\\-~]+)(.*)?";
+        String pattern = "((git|ssh|http(s)?)|(git@[\\w.]+))(:(//)?)([\\w.@:/\\-~]+)(.*)?";
         return Pattern.matches(pattern,url);
     }
 
@@ -146,16 +147,14 @@ public class Starfix implements Runnable{
 
     // Function yo determine if the current OS is Windows
     public static boolean isWindows() {
-        return System.getProperty("os.name").toLowerCase().indexOf("windows") >= 0;
+        return System.getProperty("os.name").toLowerCase().contains("windows");
     }
 
     // Function to fetch config file
     public static File getConfigFile() {
         String userHome = System.getProperty("user.home"); // Get User Home Directory: /home/user_name
 
-        File configFile = new File(userHome + "/.config/starfix.yaml"); // Loading YAML
-
-        return configFile;
+        return new File(userHome + "/.config/starfix.yaml");
 
     }
 
@@ -186,7 +185,7 @@ public class Starfix implements Runnable{
             // user------------------------------
 
             int id = 0;
-            while (id != 1 || id != 2 || id != 3) {
+            while (true) {
                 System.out.println(
                         "\n--------Chose the preferred IDE --------\n 1.for vscode \n 2.for eclipse \n 3.for IntelliJ_IDEA ");
 
@@ -319,4 +318,7 @@ public class Starfix implements Runnable{
             runCommand(directory.getParent(),ide,path,filePath);// Launching the editor now
         }
     }
+
+
+
 }
