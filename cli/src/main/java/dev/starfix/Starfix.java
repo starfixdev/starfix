@@ -7,7 +7,6 @@
 //SOURCES YAMLDefaultProvider.java
 
 package dev.starfix;
-import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.zeroturnaround.exec.ProcessExecutor;
 import org.zeroturnaround.exec.ProcessResult;
 import picocli.CommandLine;
@@ -26,7 +25,6 @@ import java.util.Arrays;
 import java.io.File;
 import java.util.Properties;
 import java.util.concurrent.TimeoutException;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -103,7 +101,7 @@ public class Starfix implements Runnable{
             filePath = Paths.get(clone_path,repo_name,filePath).toAbsolutePath().toString();
 
             // Launching Editor on the Cloned Directory
-            System.out.println("Launching  Editor Now...");
+            System.out.println("Opening " + filePath);
             launch_editor(directory, ide, directory.toAbsolutePath().toString(),filePath);
         } catch (Exception e) {
             throw new IllegalStateException(e);
@@ -226,13 +224,14 @@ public class Starfix implements Runnable{
 
     public static void gitClone(Path directory, String originUrl) throws IOException, InterruptedException {
         // Function for git clonning
-        runCommand(directory.getParent(), "git", "clone", originUrl, directory.getFileName().toString());
+        runCommand(directory.getParent(), "git", "clone", originUrl, directory.toString());
     }
 
     public static String runCommand(Path directory, String... command) throws IOException, InterruptedException {
         // Function to Run Commands using Process Builder
         ProcessResult presult;
         try {
+            System.out.println("Running " + String.join(" ", command));
             presult = new ProcessExecutor().command(command).redirectOutput(System.out).redirectErrorStream(true).readOutput(true)
                     .execute();
         } catch (TimeoutException e) {
