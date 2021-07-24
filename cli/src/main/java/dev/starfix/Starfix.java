@@ -4,6 +4,7 @@
 //DEPS io.quarkus:quarkus-picocli:2.1.0.CR1
 //DEPS org.zeroturnaround:zt-exec:1.12
 //FILES application.properties=../../../resources/application.properties
+//SOURCES YAMLDefaultProvider.java
 
 package dev.starfix;
 import io.quarkus.runtime.annotations.RegisterForReflection;
@@ -23,18 +24,26 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.io.File;
+import java.util.Properties;
 import java.util.concurrent.TimeoutException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
-@CommandLine.Command(mixinStandardHelpOptions = true)
+@CommandLine.Command(name = "starfix", mixinStandardHelpOptions = true, defaultValueProvider = YAMLDefaultProvider.class)
 public class Starfix implements Runnable{
 
     @Parameters(arity = "0..1")
     String uri;
-    
+
+    // Holds path to destination Where the Repository Must Be Clonned
+    @CommandLine.Option(names = "--clone-path", descriptionKey = "clone_path")
+    String clone_path;
+
+    @CommandLine.Option(names = "--editor", descriptionKey = "ide")
+    String ide = ""; // Holds command for IDE to open
+
     @Command
     public int config() throws Exception {
         editConfig();
@@ -55,31 +64,13 @@ public class Starfix implements Runnable{
             throw new IllegalArgumentException("Not a valid URI for git repository");
         }
 
-        // Configuration identifiers
-        String clone_path = "";// Holds path to destination Where the Repository Must Be Clonned
-        String ide = ""; // Holds command for IDE to open upon
 
-        File configFile = getConfigFile();// Calling functiono to fetch config file
+        if(ide==null) {
+            throw new IllegalArgumentException("Editor not specifed, please specify via --editor or use config to set it up.");
+        }
 
-        // Reading Configuration File
-        try {
-            if (!configFile.exists()) {
-                // Incase no config file exists
-                editConfig(); // Calling function that lets user to configure
-            }
-
-            // System.out.println("\nLoading configurations.....\n");
-            ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-
-            Config config = mapper.readValue(configFile, Config.class);
-
-            ide = config.ide;
-            clone_path = config.clone_path;
-            if (ide == null || clone_path == null)
-                editConfig(); // Incase of absence of configuration in file Launch Config
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        if(clone_path==null) {
+            throw new IllegalArgumentException("Clone path not specifed, please specify via --clone-path or use config to set it up.");
         }
 
         try {
@@ -221,7 +212,9 @@ public class Starfix implements Runnable{
             }
             // ----------Now we'll write configurations to the YAML FILE------------
             ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-            Config configuration = new Config(ide, clone_path);
+            Properties configuration = new Properties();
+            configuration.put("ide", ide);
+            configuration.put("clone_path", clone_path);
             mapper.writeValue(configFile, configuration); // Writing to YAML File
 
         } catch (Exception e) {
@@ -255,38 +248,6 @@ public class Starfix implements Runnable{
         return presult.outputUTF8();
     }
 
-    @RegisterForReflection
-    public static class Config {
-        public String ide;
-        public String clone_path;
-
-        public Config() {
-            // Default constructor
-        }
-
-        public Config(String ide, String clone_path) {
-            this.ide = ide;
-            this.clone_path = clone_path;
-
-        }
-
-        public String getIde() {
-            return ide;
-        }
-
-        public void setIde(String ide) {
-            this.ide = ide;
-        }
-
-        public String getClone_path() {
-            return clone_path;
-        }
-
-        public void setClone_path(String clone_path) {
-            this.clone_path = clone_path;
-        }
-
-    }
 
     public static void launch_editor(Path directory, String ide, String path, String filePath) throws IOException, InterruptedException {
 
