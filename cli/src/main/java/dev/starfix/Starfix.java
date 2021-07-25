@@ -221,6 +221,7 @@ public class Starfix implements Runnable{
                 String clonePathInput = reader.readLine();
                 if(clonePathInput == null || clonePathInput.isEmpty()){
                     System.out.println("No input provided for Clone Path:Now using Existing/Default Config");
+                    break;
                 }
                 // We'll check if the path enterd by user is a valid path or not
                 File tmp = new File(clonePathInput);
