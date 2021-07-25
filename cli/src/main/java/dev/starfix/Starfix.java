@@ -95,7 +95,6 @@ public class Starfix implements Runnable{
             if(isBlob(url))
             {   // Example URL : https://github.com/starfixdev/starfix/blob/master/cli/pom.xml
                 // Example URL2: https://github.com/hexsum/Mojo-Webqq/blob/master/script/check_dependencies.pl#L17
-                System.out.println(url);
                 String temp = url.substring(url.indexOf("blob/")+5);
                 branch = temp.substring(0,temp.indexOf("/"));
                 filePath = temp.substring(temp.indexOf("/")+1);
