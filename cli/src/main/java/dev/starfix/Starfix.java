@@ -14,10 +14,12 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.ExitCode;
 import picocli.CommandLine.Parameters;
 
+import java.io.UnsupportedEncodingException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -43,7 +45,12 @@ public class Starfix implements Runnable{
 
     @Command(name = "clone")
     public int cloneCmd(@Parameters(index = "0") String url) {
-
+        try{
+            url = URLDecoder.decode(url,"UTF-8");
+        }catch(UnsupportedEncodingException e){
+            throw new IllegalStateException(e.getMessage(), e);
+        }
+        
         if (url.startsWith("ide://")) {
             // stripping out ide:// to simplify launcher scripts.
             url = url.substring(6);
@@ -88,7 +95,7 @@ public class Starfix implements Runnable{
             if(isBlob(url))
             {   // Example URL : https://github.com/starfixdev/starfix/blob/master/cli/pom.xml
                 // Example URL2: https://github.com/hexsum/Mojo-Webqq/blob/master/script/check_dependencies.pl#L17
-
+                System.out.println(url);
                 String temp = url.substring(url.indexOf("blob/")+5);
                 branch = temp.substring(0,temp.indexOf("/"));
                 filePath = temp.substring(temp.indexOf("/")+1);
