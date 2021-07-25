@@ -179,6 +179,10 @@ public class Starfix implements Runnable{
                 System.out.println(
                         "\n-New  configuration file will be created at: " + configFile.getAbsolutePath() + "\n");
                 configFile.createNewFile();
+            }else{
+                Config config = new ObjectMapper(new YAMLFactory()).readValue(configFile, Config.class);
+                ide = config.getIde();
+                clone_path = config.getClone_path();
             }
 
             // --------------------------First we'll input preferred IDE from
@@ -188,9 +192,12 @@ public class Starfix implements Runnable{
             while (true) {
                 System.out.println(
                         "\n--------Chose the preferred IDE --------\n 1.for vscode \n 2.for eclipse \n 3.for IntelliJ_IDEA ");
-
-                id = Integer.parseInt(reader.readLine());
-
+                String ideInput = reader.readLine().trim();
+                if(ideInput==null || ideInput.isEmpty()){
+                    System.out.println("No input provided for IDE:Now using Existing/Default Config");
+                    break;
+                }
+                id = Integer.parseInt(ideInput);
                 if (id == 1) {
                     ide = isWindows() ? "code.cmd" : "code";
                     System.out.println("\n--------Selected IDE:VsCode--------");
@@ -211,11 +218,16 @@ public class Starfix implements Runnable{
             // user--------------
             while (true) {
                 System.out.println("\n--------Enter preferred Clonning path--------");
-                clone_path = reader.readLine();
+                String clonePathInput = reader.readLine();
+                if(clonePathInput == null || clonePathInput.isEmpty()){
+                    System.out.println("No input provided for Clone Path:Now using Existing/Default Config");
+                }
                 // We'll check if the path enterd by user is a valid path or not
-                File tmp = new File(clone_path);
-                if (tmp.exists())
+                File tmp = new File(clonePathInput);
+                if (tmp.exists()){
+                    clone_path = clonePathInput;
                     break;
+                }
                 // Incase of Invalid path he'll be shown an error and directed to try again
                 System.out.println("\n--------Invalid Path!! Try Again--------");
             }
