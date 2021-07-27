@@ -45,12 +45,6 @@ public class Starfix implements Runnable{
 
     @Command(name = "clone")
     public int cloneCmd(@Parameters(index = "0") String url) {
-        try{
-            url = URLDecoder.decode(url,"UTF-8");
-        }catch(UnsupportedEncodingException e){
-            throw new IllegalStateException(e.getMessage(), e);
-        }
-        
         if (url.startsWith("ide://")) {
             // stripping out ide:// to simplify launcher scripts.
             url = url.substring(6);
@@ -98,9 +92,9 @@ public class Starfix implements Runnable{
                 String temp = url.substring(url.indexOf("blob/")+5);
                 branch = temp.substring(0,temp.indexOf("/"));
                 filePath = temp.substring(temp.indexOf("/")+1);
+                filePath = URLDecoder.decode(filePath,"UTF-8");
                 url = url.substring(0,url.indexOf("/blob"));
             }
-
             URI uri = new URI(url);
             
             // extract name of repository
@@ -109,7 +103,6 @@ public class Starfix implements Runnable{
 
             String originUrl = url;
             Path directory = Paths.get(clone_path, repo_name);
-
             if (!Files.exists(directory)) // Check if the user cloned the repo previously and in that case no cloning is
                                           // needed
                 gitClone(directory, originUrl);
