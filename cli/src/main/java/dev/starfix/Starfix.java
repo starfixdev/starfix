@@ -194,7 +194,7 @@ public class Starfix implements Runnable{
                         "\n--------Chose the preferred IDE --------\n 1.for vscode \n 2.for eclipse \n 3.for IntelliJ_IDEA ");
                 String ideInput = reader.readLine().trim();
                 if(ideInput==null || ideInput.isEmpty()){
-                    System.out.println("No input provided for IDE:Now using Existing/Default Config");
+                    System.out.println("Empty/blank input provided - reseting to existing/default setting");
                     break;
                 }
                 id = Integer.parseInt(ideInput);
@@ -220,12 +220,12 @@ public class Starfix implements Runnable{
                 System.out.println("\n--------Enter preferred Clonning path--------");
                 String clonePathInput = reader.readLine();
                 if(clonePathInput == null || clonePathInput.isEmpty()){
-                    System.out.println("No input provided for Clone Path:Now using Existing/Default Config");
+                    System.out.println("Empty/blank input provided - reseting to existing/default setting");
                     break;
                 }
-                // We'll check if the path enterd by user is a valid path or not
+                // We'll check if the path enterd by user exists else try creating it
                 File tmp = new File(clonePathInput);
-                if (tmp.exists()){
+                if (tmp.exists()||tmp.mkdir()){
                     clone_path = clonePathInput;
                     break;
                 }
