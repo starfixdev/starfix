@@ -192,6 +192,10 @@ public class Starfix implements Runnable{
                     ide = isWindows() ?"idea64.exe":"idea";
                     System.out.println("\n--------Selected IDE:IntelliJ_IDEA--------");
                     break;
+                } else if (id == 4) {
+                    ide = isWindows() ?"emacsclientw.exe":"emacsclient";
+                    System.out.println("\n--------Selected IDE:EMACS Client--------");
+                    break;
                 } else
                     System.out.println("\n--------Invalid Input!! Try Again--------");
             }
@@ -271,6 +275,13 @@ public class Starfix implements Runnable{
             if(ide.equals("eclipse")){
                 filePath = filePath.replace("#",":");
                 runCommand(directory.getParent(), ide,path,filePath);
+            }
+            if(ide.equals("emacsclientw.exe")||ide.equals("emacsclient")){
+                //emacsclient +4 info.txt
+                String lineNumber  = "+"+filePath.substring(filePath.lastIndexOf("#")+1);
+                filePath = filePath.substring(0,filePath.lastIndexOf("#"));
+
+                runCommand(directory.getParent(), ide,lineNumber,filePath);
             }
 
         }
