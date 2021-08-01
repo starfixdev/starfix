@@ -212,6 +212,7 @@ public class Starfix implements Runnable{
                     break;
                 } else
                     System.out.println("\n--------Invalid Input!! Try Again--------");
+                    
             }
 
             // -----------Now we'll get preferred clone path on local file system from
