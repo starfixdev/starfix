@@ -24,7 +24,6 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.io.File;
 import java.util.concurrent.TimeoutException;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -71,7 +70,7 @@ public class Starfix implements Runnable{
             // System.out.println("\nLoading configurations.....\n");
             ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
 
-            Config config = mapper.readValue(configFile, Config.class);
+            XConfig config = mapper.readValue(configFile, XConfig.class);
 
             ide = config.ide;
             clone_path = config.clone_path;
@@ -180,7 +179,7 @@ public class Starfix implements Runnable{
                         "\n-New  configuration file will be created at: " + configFile.getAbsolutePath() + "\n");
                 configFile.createNewFile();
             }else{
-                Config config = new ObjectMapper(new YAMLFactory()).readValue(configFile, Config.class);
+                XConfig config = new ObjectMapper(new YAMLFactory()).readValue(configFile, XConfig.class);
                 ide = config.getIde();
                 clone_path = config.getClone_path();
             }
@@ -235,7 +234,7 @@ public class Starfix implements Runnable{
             }
             // ----------Now we'll write configurations to the YAML FILE------------
             ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-            Config configuration = new Config(ide, clone_path);
+            XConfig configuration = new XConfig(ide, clone_path);
             mapper.writeValue(configFile, configuration); // Writing to YAML File
 
         } catch (Exception e) {
@@ -270,15 +269,15 @@ public class Starfix implements Runnable{
     }
 
     @RegisterForReflection
-    public static class Config {
+    public static class XConfig {
         public String ide;
         public String clone_path;
 
-        public Config() {
+        public XConfig() {
             // Default constructor
         }
 
-        public Config(String ide, String clone_path) {
+        public XConfig(String ide, String clone_path) {
             this.ide = ide;
             this.clone_path = clone_path;
 
