@@ -113,8 +113,7 @@ public class Starfix implements Runnable{
 
             // Launching Editor on the Cloned Directory
             System.out.println("Launching  Editor Now...");
-            GenericIDE genericIde =  new GenericIDE(ide) ;
-            genericIde.getIDE().launch_editor(directory, ide, directory.toAbsolutePath().toString(),filePath);
+            getIDE(ide).launch_editor(directory, ide, directory.toAbsolutePath().toString(),filePath);
 
         } catch (Exception e) {
             throw new IllegalStateException(e);
@@ -295,49 +294,22 @@ public class Starfix implements Runnable{
 
     }
 
-    public static class GenericIDE extends IDE{
+    public static IDE getIDE(String ide){
+        // Will return IDE based on String
+        switch(ide){
+            case "code":
+            case "code.cmd":
+                return new VsCode();
 
-        IDE ide;
+           case "idea":
+           case "idea64.exe":
+                return new IntelliJIdea();
 
-        GenericIDE(){
-            // Default Constructor
-        }
-
-        GenericIDE(String ide){
-            setIDE(ide);
-        }
-
-        public IDE getIDE(){
-            //Return Current IDE
-            return ide;
-        }
-
-        public IDE getIDE(String ide){
-            // Will return IDE based on String
-            switch(ide){
-                case "code":
-                case "code.cmd":
-                    return new VsCode();
-
-               case "idea":
-               case "idea64.exe":
-                    return new IntelliJIdea();
-
-               case "eclipse":
-               case "eclipse.exe":
-                    return new Eclipse();
-               default:
-                    throw new IllegalArgumentException("IDE not supported");
-            }
-
-        }
-
-        public void setIDE(String ide){
-            this.ide = getIDE(ide);
-        }
-
-        public  void launch_editor(Path directory, String ide, String path, String filePath)throws IOException, InterruptedException{
-            runCommand(directory.getParent(),ide,path,filePath);
+           case "eclipse":
+           case "eclipse.exe":
+                return new Eclipse();
+           default:
+                throw new IllegalArgumentException("IDE not supported");
         }
 
     }
@@ -352,7 +324,7 @@ public class Starfix implements Runnable{
                 runCommand(directory.getParent(), ide,"-g",path,filePath);
             }
             else{
-               new GenericIDE().launch_editor(directory.getParent(),ide,path,filePath);
+                runCommand(directory.getParent(),ide,path,filePath);
             }
         }
     }
@@ -370,7 +342,6 @@ public class Starfix implements Runnable{
             }
             else{
                 runCommand(directory.getParent(),ide,path,filePath);
-                new GenericIDE().launch_editor(directory.getParent(),ide,path,filePath);
             }
         }
     }
@@ -389,7 +360,6 @@ public class Starfix implements Runnable{
             }
             else{
                 runCommand(directory.getParent(),ide,path,filePath);
-                new GenericIDE().launch_editor(directory.getParent(),ide,path,filePath);
             }
         }
     }
