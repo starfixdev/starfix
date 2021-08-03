@@ -1,5 +1,5 @@
 on open location this_URL
-	set AppleScript's text item delimiters to ":"
+	set AppleScript's text item delimiters to "ide://"
 	set uri_elements to every text item of this_URL
 	set protocol to item 1 of uri_elements
 	set the script_file to POSIX path of (path to resource "starfix")
