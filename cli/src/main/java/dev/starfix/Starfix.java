@@ -103,8 +103,6 @@ public class Starfix implements Runnable{
             // Launching Editor on the Cloned Directory
             System.out.println("Launching  Editor Now...");
             getIDE(ide).launch_editor(directory, ide, directory.toAbsolutePath().toString(),filePath);
-            System.out.println("Opening " + filePath);
-            launch_editor(directory, ide, directory.toAbsolutePath().toString(),filePath);
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }
