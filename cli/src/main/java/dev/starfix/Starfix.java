@@ -7,6 +7,7 @@
 //SOURCES YAMLDefaultProvider.java
 
 package dev.starfix;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.zeroturnaround.exec.ProcessExecutor;
 import org.zeroturnaround.exec.ProcessResult;
 import picocli.CommandLine;
@@ -32,6 +33,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 @CommandLine.Command(name = "starfix", mixinStandardHelpOptions = true, defaultValueProvider = YAMLDefaultProvider.class)
+@RegisterForReflection(classNames = "java.util.Properties")
 public class Starfix implements Runnable{
 
     @Parameters(arity = "0..1")
