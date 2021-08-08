@@ -2,6 +2,7 @@ package dev.starfix;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import picocli.CommandLine;
 import picocli.CommandLine.IDefaultValueProvider;
 import picocli.CommandLine.Model.ArgSpec;
@@ -67,6 +68,7 @@ import java.util.Properties;
  * git.commit.cleanup = strip
  * </pre>
  */
+@RegisterForReflection
 public class YAMLDefaultProvider implements IDefaultValueProvider {
 
     private Properties properties;
