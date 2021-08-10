@@ -126,7 +126,7 @@ public class Starfix implements Runnable{
 
         if(!configDir.exists()){ // If .config directory does not exist we create it
             if(!configDir.mkdir()){ // If creation failed
-                throw new IllegalArgumentException("Cannot create .config directory: " + configDir.getAbsolutePath());
+                throw new IllegalStateException("Cannot create .config directory: " + configDir.getAbsolutePath());
             }
         }
         return new File(userHome + "/.config/starfix.yaml");
