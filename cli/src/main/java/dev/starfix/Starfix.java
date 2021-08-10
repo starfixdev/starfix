@@ -122,7 +122,13 @@ public class Starfix implements Runnable{
     // Function to fetch config file
     public static File getConfigFile() {
         String userHome = System.getProperty("user.home"); // Get User Home Directory: /home/user_name
+        File configDir = new File(userHome+ "/.config");
 
+        if(!configDir.exists()){ // If .config directory does not exist we create it
+            if(!configDir.mkdir()){ // If creation failed
+                throw new IllegalArgumentException("Cannot create .config directory: " + configDir.getAbsolutePath());
+            }
+        }
         return new File(userHome + "/.config/starfix.yaml");
 
     }
