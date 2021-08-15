@@ -8,6 +8,8 @@
 
 package dev.starfix;
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import jdk.jfr.StackTrace;
+
 import org.zeroturnaround.exec.ProcessExecutor;
 import org.zeroturnaround.exec.ProcessResult;
 import picocli.CommandLine;
@@ -32,6 +34,8 @@ import java.util.concurrent.TimeoutException;
 import java.util.regex.Pattern;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import java.awt.Desktop;
+import java.io.*;
 
 @CommandLine.Command(name = "starfix", mixinStandardHelpOptions = true, defaultValueProvider = YAMLDefaultProvider.class)
 @RegisterForReflection(classNames = "java.util.Properties")
@@ -54,12 +58,15 @@ public class Starfix implements Runnable{
     }
 
     @Command(name = "clone")
-    public int cloneCmd(@Parameters(index = "0") String url) {
+    public int cloneCmd(@Parameters(index = "0") String url)throws Exception {
         CloneUrl cloneUrl = new CloneUrl(url);
         // URL Validation to check a valid git repository
         if (!validate_url(cloneUrl.url)) { // Incase URI doesn't macth our scheme we'll terminate
             System.out.println(url);
-            throw new IllegalArgumentException("Not a valid URI for git repository");
+            String message = "Not a valid URI for git repository: "+cloneUrl.url;
+            Exception illegalArgumentException = new  IllegalArgumentException(message);
+            generateHTML(illegalArgumentException.getStackTrace(),message);
+            throw  illegalArgumentException;
         }
 
 
@@ -100,7 +107,11 @@ public class Starfix implements Runnable{
             new CommandLine(new Starfix()).usage(System.out); // Will invoke Picocli Help
             return;
         }
+        try{
         cloneCmd(uri);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     // Function to validate URL using with Regex
@@ -339,6 +350,26 @@ public class Starfix implements Runnable{
         cloneUrl.setFilePath(filePath);
         cloneUrl.setRepo_name(repo_name);
 
+    }
+
+    public static void generateHTML(StackTraceElement[] stacktrace, String message)throws IOException{
+        String userHome = System.getProperty("user.home");
+        File f = new File(userHome+"/starfix-exception.html");
+        BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+        bw.write("<html><body><h1>Starfix</h1>");
+        bw.write("<a href='ide://config'>Launch Starfix Config Editor</a>");
+        bw.write("<h2>"+message+"</h2>");
+        bw.write("<p>");
+
+        for(StackTraceElement line:stacktrace){
+            bw.write(line.toString()+"<br>");
+        }
+
+        bw.write("</p>");
+        bw.write("</body></html>");
+        bw.close();
+
+        Desktop.getDesktop().browse(f.toURI());
     }
 
 
