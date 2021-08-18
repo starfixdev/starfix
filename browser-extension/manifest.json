@@ -3,7 +3,7 @@
 
   "name": "Starfix",
   "version": "1.0",
-  "description": "Utility  Extension for Starfix.It Intends to  add an \"Open in IDE\" button on Github.Easily Configurable to chose between cloning Protocols viz HTTPS and SSH",
+  "description": "Extension for Starfix. Adds an \"Open in IDE\" button on Github. Supports easy switching b/w  cloning Protocols viz HTTPS and SSH",
   "author": "Fahad Israr",
   "icons": { "16": "starfix_icon.png",
     "32": "starfix_icon.png",
@@ -14,8 +14,7 @@
     "open_in_tab": false
   },
   "permissions": [
-    "storage",
-    "tabs" 
+    "storage"
   ],
   "content_scripts": [{
     "css": ["styles.css"],
