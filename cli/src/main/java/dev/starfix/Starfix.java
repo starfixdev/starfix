@@ -164,7 +164,7 @@ public class Starfix implements Runnable{
             int id = 0;
             while (true) {
                 System.out.println(
-                        "\n--------Chose the preferred IDE --------\n 1.for vscode \n 2.for eclipse \n 3.for IntelliJ_IDEA ");
+                        "\n--------Chose the preferred IDE --------\n 1.for vscode \n 2.for eclipse \n 3.for IntelliJ_IDEA \n 4.for Other(You'll have to enter launch command)");
                 String ideInput = reader.readLine().trim();
                 if(ideInput==null || ideInput.isEmpty()){
                     System.out.println("Empty/blank input provided - reseting to existing/default setting");
@@ -182,6 +182,11 @@ public class Starfix implements Runnable{
                 } else if (id == 3) {
                     ide = isWindows() ?"idea64.exe":"idea";
                     System.out.println("\n--------Selected IDE:IntelliJ_IDEA--------");
+                    break;
+                }else if (id == 4) {
+                    System.out.println("Enter launch command ");
+                    ide = reader.readLine();
+                    System.out.println("\n--------Launch command: "+ide);
                     break;
                 } else
                     System.out.println("\n--------Invalid Input!! Try Again--------");
@@ -361,7 +366,7 @@ public class Starfix implements Runnable{
            case "eclipse.exe":
                 return new Eclipse();
            default:
-                throw new IllegalArgumentException("IDE not supported");
+                return new CustomIDE();
         }
 
     }
@@ -371,8 +376,7 @@ public class Starfix implements Runnable{
         public  void launch_editor(Path directory, String ide, String path, String filePath) throws IOException, InterruptedException {
             if(filePath.indexOf("#")>0){
                 // code -g file:line
-                filePath = filePath.replace("#L","#");
-                filePath = filePath.replace("#",":");
+                filePath = filePath.replace("#L",":");
                 runCommand(directory.getParent(), ide,"-g",path,filePath);
             }
             else{
@@ -402,17 +406,21 @@ public class Starfix implements Runnable{
 
         public  void launch_editor(Path directory, String ide, String path, String filePath) throws IOException, InterruptedException {
             if(filePath.indexOf("#")>0){
-                filePath = filePath.replace("#L","#");
+                filePath = filePath.replace("#L",":");
                 // eclipse.exe file.txt:22
-                if(ide.equals("eclipse")){
-                    filePath = filePath.replace("#",":");
-                    runCommand(directory.getParent(), ide,path,filePath);
-                }
+            }
+            runCommand(directory.getParent(), ide,path,filePath);
+        }
+    }
 
+    public static class CustomIDE extends IDE{
+
+        public  void launch_editor(Path directory, String ide, String path, String filePath) throws IOException, InterruptedException {
+            if(filePath.indexOf("#")>0){
+                filePath = filePath.replace("#L",":");
+                // eclipse.exe file.txt:22
             }
-            else{
-                runCommand(directory.getParent(),ide,path,filePath);
-            }
+            runCommand(directory.getParent(), ide,path,filePath);
         }
     }
 
