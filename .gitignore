@@ -1,3 +1,4 @@
 .idea
 starfish.iml
 installer/osx/starfix.app
+.DS_Store
