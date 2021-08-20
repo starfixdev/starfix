@@ -1,0 +1,41 @@
+name: "Browser-Extension-Release"
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'browser-extension/**'
+  release:
+    types: [created] 
+
+jobs:
+  build:
+    name: "Build"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v1
+
+      - name: "web-ext build"
+        id: web-ext-build
+        uses: kewisch/action-web-ext@v1
+        with:
+          cmd: build
+          source: browser-extension
+
+      - name: "Upload Artifact"
+        uses: actions/upload-artifact@master
+        with:
+          name: target.xpi
+          path: ${{ steps.web-ext-build.outputs.target }}
+
+      - name: "publish firefox add-on"
+        uses: trmcnvn/firefox-addon@v1
+        with:
+          # uuid is only necessary when updating an existing addon,
+          # omitting it will create a new addon
+          uuid: '{5c6a0505-6d48-4094-97e9-6ba0a42df92d}'
+          xpi: ${{ steps.web-ext-build.outputs.target }}
+          manifest: browser-extension/manifest.json
+          api-key: ${{ secrets.FIREFOX_API_KEY }}
+          api-secret: ${{ secrets.FIREFOX_API_SECRET }}
