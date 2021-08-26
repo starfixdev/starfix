@@ -40,6 +40,8 @@ import java.io.*;
 @CommandLine.Command(name = "starfix", mixinStandardHelpOptions = true, defaultValueProvider = YAMLDefaultProvider.class)
 @RegisterForReflection(classNames = "java.util.Properties")
 public class Starfix implements Runnable{
+    
+    private static String OS = System.getProperty("os.name").toLowerCase();
 
     @Parameters(arity = "0..1")
     String uri;
@@ -127,10 +129,16 @@ public class Starfix implements Runnable{
         return Pattern.matches(pattern,url);
     }
 
-    // Function yo determine if the current OS is Windows
+    // Function to determine if the current OS is Windows
     public static boolean isWindows() {
-        return System.getProperty("os.name").toLowerCase().contains("windows");
+        return OS.contains("windows");
     }
+
+    public static boolean isMac() {
+        return OS.contains("mac");
+    }
+
+
 
     // Function to fetch config file
     public static File getConfigFile() {
@@ -352,9 +360,9 @@ public class Starfix implements Runnable{
 
     }
 
-    public static void generateHTML(StackTraceElement[] stacktrace, String message)throws IOException{
+    public static void generateHTML(StackTraceElement[] stacktrace, String message)throws IOException, InterruptedException{
         String userHome = System.getProperty("user.home");
-        File f = new File(userHome+"/starfix-exception.html");
+        File f = new File(userHome+"/starfixException.html");
         BufferedWriter bw = new BufferedWriter(new FileWriter(f));
         bw.write("<html><body><h1>Starfix</h1>");
         bw.write("<a href='ide://config'>Launch Starfix Config Editor</a>");
@@ -368,8 +376,26 @@ public class Starfix implements Runnable{
         bw.write("</p>");
         bw.write("</body></html>");
         bw.close();
+        
+        openWebPageInBrowser(f.toURI());
 
-        Desktop.getDesktop().browse(f.toURI());
+        
+    }
+
+    public static void openWebPageInBrowser(URI uri) throws IOException, InterruptedException{
+        
+        runCommand(Paths.get(""),getBrowserLaunchCommandBasedOnOS(),uri.toString());
+        
+    }
+
+    public static String getBrowserLaunchCommandBasedOnOS(){
+        if(isWindows()){
+            return "start"; // If Windows
+        } else if(isMac()){
+            return "open"; //If macosx
+        } else {
+            return "xdg-open"; // If Linux
+        }
     }
 
 
