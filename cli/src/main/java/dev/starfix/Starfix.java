@@ -207,22 +207,16 @@ public class Starfix implements Runnable{
 
             // -----------Now we'll get preferred clone path on local file system from
             // user--------------
-            while (true) {
-                System.out.println("\n--------Enter preferred Clonning path--------");
-                String clonePathInput = reader.readLine();
-                if(clonePathInput == null || clonePathInput.isEmpty()){
-                    System.out.println("Empty/blank input provided - reseting to existing/default setting");
-                    break;
-                }
-                // We'll check if the path enterd by user exists else try creating it
-                File tmp = new File(clonePathInput);
-                if (tmp.exists()||tmp.mkdir()){
-                    clone_path = clonePathInput;
-                    break;
-                }
-                // Incase of Invalid path he'll be shown an error and directed to try again
-                System.out.println("\n--------Invalid Path!! Try Again--------");
+
+            System.out.println("\n--------Enter preferred Clonning path--------");
+            String clonePathInput = reader.readLine();
+            if(clonePathInput == null || clonePathInput.isEmpty()){
+                System.out.println("Empty/blank input provided - reseting to existing/default setting");
+            }else{
+                clone_path = clonePathInput;
             }
+
+            
             // ----------Now we'll write configurations to the YAML FILE------------
             ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
             Properties configuration = new Properties();
