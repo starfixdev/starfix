@@ -8,7 +8,6 @@
 
 package dev.starfix;
 import io.quarkus.runtime.annotations.RegisterForReflection;
-import jdk.jfr.StackTrace;
 
 import org.zeroturnaround.exec.ProcessExecutor;
 import org.zeroturnaround.exec.ProcessResult;
@@ -34,8 +33,8 @@ import java.util.concurrent.TimeoutException;
 import java.util.regex.Pattern;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import java.awt.Desktop;
 import java.io.*;
+import java.sql.Timestamp;
 
 @CommandLine.Command(name = "starfix", mixinStandardHelpOptions = true, defaultValueProvider = YAMLDefaultProvider.class)
 @RegisterForReflection(classNames = "java.util.Properties")
@@ -67,7 +66,7 @@ public class Starfix implements Runnable{
             System.out.println(url);
             String message = "Not a valid URI for git repository: "+cloneUrl.url;
             Exception illegalArgumentException = new  IllegalArgumentException(message);
-            generateHTML(illegalArgumentException.getStackTrace(),message);
+            generateHTML(illegalArgumentException);
             throw  illegalArgumentException;
         }
 
@@ -360,19 +359,23 @@ public class Starfix implements Runnable{
 
     }
 
-    public static void generateHTML(StackTraceElement[] stacktrace, String message)throws IOException, InterruptedException{
-        String userHome = System.getProperty("user.home");
-        File f = new File(userHome+"/starfixException.html");
+    public static void generateHTML(Exception e)throws IOException, InterruptedException{
+        // String userHome = System.getProperty("user.home");
+        File f = File.createTempFile("starfixException",".html"); //Create Temp File with Prefix:"starfixException" and Suffix: ".html"
+        f.deleteOnExit(); // Delete Temp File on Exiting Normally
         BufferedWriter bw = new BufferedWriter(new FileWriter(f));
         bw.write("<html><body><h1>Starfix</h1>");
         bw.write("<a href='ide://config'>Launch Starfix Config Editor</a>");
-        bw.write("<h2>"+message+"</h2>");
+        bw.write("<h2>"+e.getMessage()+"</h2>");
         bw.write("<p>");
 
-        for(StackTraceElement line:stacktrace){
+        for(StackTraceElement line:e.getStackTrace()){
             bw.write(line.toString()+"<br>");
         }
+        bw.write("<br>");
 
+        bw.write("<b>Timestamp: "+ new Timestamp(System.currentTimeMillis())+"</b>");
+        
         bw.write("</p>");
         bw.write("</body></html>");
         bw.close();
