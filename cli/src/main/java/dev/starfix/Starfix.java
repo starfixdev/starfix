@@ -8,6 +8,7 @@
 
 package dev.starfix;
 import io.quarkus.runtime.annotations.RegisterForReflection;
+
 import org.zeroturnaround.exec.ProcessExecutor;
 import org.zeroturnaround.exec.ProcessResult;
 import picocli.CommandLine;
@@ -32,10 +33,14 @@ import java.util.concurrent.TimeoutException;
 import java.util.regex.Pattern;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import java.io.*;
+import java.sql.Timestamp;
 
 @CommandLine.Command(name = "starfix", mixinStandardHelpOptions = true, defaultValueProvider = YAMLDefaultProvider.class)
 @RegisterForReflection(classNames = "java.util.Properties")
 public class Starfix implements Runnable{
+    
+    private static String OS = System.getProperty("os.name").toLowerCase();
 
     @Parameters(arity = "0..1")
     String uri;
@@ -54,12 +59,15 @@ public class Starfix implements Runnable{
     }
 
     @Command(name = "clone")
-    public int cloneCmd(@Parameters(index = "0") String url) {
+    public int cloneCmd(@Parameters(index = "0") String url)throws Exception {
         CloneUrl cloneUrl = new CloneUrl(url);
         // URL Validation to check a valid git repository
         if (!validate_url(cloneUrl.url)) { // Incase URI doesn't macth our scheme we'll terminate
             System.out.println(url);
-            throw new IllegalArgumentException("Not a valid URI for git repository");
+            String message = "Not a valid URI for git repository: "+cloneUrl.url;
+            Exception illegalArgumentException = new  IllegalArgumentException(message);
+            generateHTML(illegalArgumentException);
+            throw  illegalArgumentException;
         }
 
 
@@ -100,7 +108,11 @@ public class Starfix implements Runnable{
             new CommandLine(new Starfix()).usage(System.out); // Will invoke Picocli Help
             return;
         }
+        try{
         cloneCmd(uri);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     // Function to validate URL using with Regex
@@ -116,10 +128,16 @@ public class Starfix implements Runnable{
         return Pattern.matches(pattern,url);
     }
 
-    // Function yo determine if the current OS is Windows
+    // Function to determine if the current OS is Windows
     public static boolean isWindows() {
-        return System.getProperty("os.name").toLowerCase().contains("windows");
+        return OS.contains("windows");
     }
+
+    public static boolean isMac() {
+        return OS.contains("mac");
+    }
+
+
 
     // Function to fetch config file
     public static File getConfigFile() {
@@ -344,6 +362,48 @@ public class Starfix implements Runnable{
         cloneUrl.setFilePath(filePath);
         cloneUrl.setRepo_name(repo_name);
 
+    }
+
+    public static void generateHTML(Exception e)throws IOException, InterruptedException{
+        // String userHome = System.getProperty("user.home");
+        File f = File.createTempFile("starfixException",".html"); //Create Temp File with Prefix:"starfixException" and Suffix: ".html"
+        f.deleteOnExit(); // Delete Temp File on Exiting Normally
+        BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+        bw.write("<html><body><h1>Starfix</h1>");
+        bw.write("<a href='ide://config'>Launch Starfix Config Editor</a>");
+        bw.write("<h2>"+e.getMessage()+"</h2>");
+        bw.write("<p>");
+
+        for(StackTraceElement line:e.getStackTrace()){
+            bw.write(line.toString()+"<br>");
+        }
+        bw.write("<br>");
+
+        bw.write("<b>Timestamp: "+ new Timestamp(System.currentTimeMillis())+"</b>");
+        
+        bw.write("</p>");
+        bw.write("</body></html>");
+        bw.close();
+        
+        openWebPageInBrowser(f.toURI());
+
+        
+    }
+
+    public static void openWebPageInBrowser(URI uri) throws IOException, InterruptedException{
+        
+        runCommand(Paths.get(""),getBrowserLaunchCommandBasedOnOS(),uri.toString());
+        
+    }
+
+    public static String getBrowserLaunchCommandBasedOnOS(){
+        if(isWindows()){
+            return "start"; // If Windows
+        } else if(isMac()){
+            return "open"; //If macosx
+        } else {
+            return "xdg-open"; // If Linux
+        }
     }
 
 
