@@ -22,8 +22,8 @@ jobs:
       - name: "publish extension on chrome webstore"
         uses: Klemensas/chrome-extension-upload-action@v1.3
         with:
-          refresh-token: '1//0gWy_GbV_ZpLjCgYIARAAGBASNwF-L9IrYdkYTO4ye-jjWPLNRMHt97vZRPgbzuqgV8GrP0qvHrKm18DEyNn7p_CPtI4n7AfLfjk'
-          client-id: '962194528619-v6o0covrffphhjeptjjbnve5d3j03fbs.apps.googleusercontent.com'
+          refresh-token: 'xyz'
+          client-id: 'xyz.apps.googleusercontent.com'
           file-name: ${{ github.workspace }}/starfix-extension-chrome.zip
           app-id: 'ojlhpgekmmemhihkigibkhehlejkjdmo'
           publish: true
