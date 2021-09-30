@@ -18,18 +18,19 @@ jobs:
         with:
           files: browser-extension/
           dest: starfix-extension-chrome.zip
-
-      - name: "publish extension on chrome webstore"
-        uses: Klemensas/chrome-extension-upload-action@v1.3
-        with:
-          refresh-token: 'xyz'
-          client-id: 'xyz.apps.googleusercontent.com'
-          file-name: ${{ github.workspace }}/starfix-extension-chrome.zip
-          app-id: 'ojlhpgekmmemhihkigibkhehlejkjdmo'
-          publish: true
-
+          
       - name: "Upload Artifact"
         uses: actions/upload-artifact@v1
         with:
           name: starfix-extension-chrome.zip
           path: ${{ github.workspace }}/starfix-extension-chrome.zip
+
+      - name: "publish extension on chrome webstore"
+        uses: Klemensas/chrome-extension-upload-action@master
+        with:
+          refresh-token: ${{ secrets.GOOGLE_CHROME_REFRESH_TOKEN }}
+          client-id: ${{ secrets.GOOGLE_CHROME_CLIENT_ID }}
+          file-name: starfix-extension-chrome.zip
+          app-id: 'ojlhpgekmmemhihkigibkhehlejkjdmo'
+          publish: true
+
