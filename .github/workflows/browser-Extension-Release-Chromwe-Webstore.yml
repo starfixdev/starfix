@@ -1,4 +1,4 @@
-name: "Browser-Extension-Release-Chromwe-Webstore"
+name: "Browser-Extension-Release-Chrome-Webstore"
 on:
   push:
     branches:
@@ -9,7 +9,7 @@ on:
     types: [created] 
 
 jobs:
-  zip-files:
+  chrome-extension:
     name: "zip-files"
     runs-on: ubuntu-latest
     steps:
@@ -20,11 +20,11 @@ jobs:
           dest: starfix-extension-chrome.zip
 
       - name: "publish extension on chrome webstore"
-        uses: Klemensas/chrome-extension-upload-action@$VERSION
+        uses: Klemensas/chrome-extension-upload-action@v1.3
         with:
           refresh-token: '1//0gWy_GbV_ZpLjCgYIARAAGBASNwF-L9IrYdkYTO4ye-jjWPLNRMHt97vZRPgbzuqgV8GrP0qvHrKm18DEyNn7p_CPtI4n7AfLfjk'
           client-id: '962194528619-v6o0covrffphhjeptjjbnve5d3j03fbs.apps.googleusercontent.com'
-          file-name: ${{ github.workspace }}/result.zip
+          file-name: ${{ github.workspace }}/starfix-extension-chrome.zip
           app-id: 'ojlhpgekmmemhihkigibkhehlejkjdmo'
           publish: true
 
@@ -32,4 +32,4 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: starfix-extension-chrome.zip
-          path: ${{ github.workspace }}/result.zip
+          path: ${{ github.workspace }}/starfix-extension-chrome.zip
