@@ -55,6 +55,14 @@ public class Starfix implements Runnable{
 
     @Command(name = "clone")
     public int cloneCmd(@Parameters(index = "0") String url) {
+        String userHome =  System.getProperty("user.home"); // Get User Home Directory: /home/user_name
+        Path configPath = Paths.get(userHome + "/.config/starfix.yaml");
+        
+        //Check if config file does not exist
+        if(!Files.exists(configPath)){
+            defaultConfig();            
+        }
+
         CloneUrl cloneUrl = new CloneUrl(url);
         // URL Validation to check a valid git repository
         if (!validate_url(cloneUrl.url)) { // Incase URI doesn't macth our scheme we'll terminate
@@ -116,9 +124,19 @@ public class Starfix implements Runnable{
         return Pattern.matches(pattern,url);
     }
 
-    // Function yo determine if the current OS is Windows
+    // Function to determine if the current OS is Windows
     public static boolean isWindows() {
         return System.getProperty("os.name").toLowerCase().contains("windows");
+    }
+
+    // Function to determine if the current OS is Linux
+    public static boolean isLinux() {
+        return System.getProperty("os.name").toLowerCase().contains("linux");
+    }
+
+    // Function to determine if the current OS is MacOS
+    public static boolean isMac() {
+        return System.getProperty("os.name").toLowerCase().contains("mac");
     }
 
     // Function to fetch config file
@@ -134,6 +152,44 @@ public class Starfix implements Runnable{
         return new File(userHome + "/.config/starfix.yaml");
 
     }
+    // Function to load default config 
+    public void defaultConfig() {
+        String path_env = System.getenv("Path"); // System PATH variable
+        clone_path =  System.getProperty("user.home") + "/code"; // set clone_path to /home/user_name/code
+        File configFile = getConfigFile();
+
+        try {
+            configFile.createNewFile();
+            
+            if(isWindows()){// check if Windows OS
+                if(path_env.contains("Microsoft VS Code")){ // If PATH has VScode
+                    ide = "code.cmd";
+                    writeToYAMLFile(ide, clone_path,configFile);
+                } else if(path_env.contains("IntelliJ IDEA")){ // If PATH has IntelliJ
+                    ide = "idea64.exe";
+                    writeToYAMLFile(ide, clone_path,configFile);
+                }
+            }
+            // check if Linux OS
+            // if(isLinux()){}
+            
+            // check if Mac OS
+            // if(isMac()){}
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
+    // Function to write configurations to the YAML FILE
+    public  void writeToYAMLFile(String ide, String clone_path, File configFile) throws Exception{
+        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+        Properties configuration = new Properties();
+
+        configuration.put("ide", ide);
+        configuration.put("clone_path",clone_path);
+        mapper.writeValue(configFile, configuration);
+    }
 
     // Function to edit configuration and serves for command line starfix config
     // editor
@@ -146,6 +202,7 @@ public class Starfix implements Runnable{
         System.out.println("IDE: "+ide);
         System.out.println("Clone Path: "+clone_path);
 
+        // return a File
         File configFile = getConfigFile();
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
