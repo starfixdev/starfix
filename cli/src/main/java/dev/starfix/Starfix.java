@@ -55,12 +55,15 @@ public class Starfix implements Runnable{
 
     @Command(name = "clone")
     public int cloneCmd(@Parameters(index = "0") String url) {
-        String userHome =  System.getProperty("user.home"); // Get User Home Directory: /home/user_name
-        Path configPath = Paths.get(userHome + "/.config/starfix.yaml");
-        
-        //Check if config file does not exist
-        if(!Files.exists(configPath)){
-            defaultConfig();            
+        File configFile = getConfigFile();
+
+        try {
+            if (!configFile.exists()) {
+                defaultConfig();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
         }
 
         CloneUrl cloneUrl = new CloneUrl(url);
@@ -156,18 +159,13 @@ public class Starfix implements Runnable{
     public void defaultConfig() {
         String path_env = System.getenv("Path"); // System PATH variable
         clone_path =  System.getProperty("user.home") + "/code"; // set clone_path to /home/user_name/code
-        File configFile = getConfigFile();
 
         try {
-            configFile.createNewFile();
-            
             if(isWindows()){// check if Windows OS
                 if(path_env.contains("Microsoft VS Code")){ // If PATH has VScode
                     ide = "code.cmd";
-                    writeToYAMLFile(ide, clone_path,configFile);
                 } else if(path_env.contains("IntelliJ IDEA")){ // If PATH has IntelliJ
                     ide = "idea64.exe";
-                    writeToYAMLFile(ide, clone_path,configFile);
                 }
             }
             // check if Linux OS
@@ -181,16 +179,6 @@ public class Starfix implements Runnable{
 
         }
     }
-    // Function to write configurations to the YAML FILE
-    public  void writeToYAMLFile(String ide, String clone_path, File configFile) throws Exception{
-        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-        Properties configuration = new Properties();
-
-        configuration.put("ide", ide);
-        configuration.put("clone_path",clone_path);
-        mapper.writeValue(configFile, configuration);
-    }
-
     // Function to edit configuration and serves for command line starfix config
     // editor
     public  void editConfig() throws Exception {
