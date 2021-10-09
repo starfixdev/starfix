@@ -55,10 +55,10 @@ public class Starfix implements Runnable{
 
     @Command(name = "clone")
     public int cloneCmd(@Parameters(index = "0") String url) {
-        File configFile = getConfigFile();
+        File configFilePath = getConfigFilePath(); // Get path for config file 
 
         try {
-            if (!configFile.exists()) {
+            if (!configFilePath.exists()) {// Check if config file exist
                 defaultConfig();
             }
         } catch (Exception e) {
@@ -142,19 +142,25 @@ public class Starfix implements Runnable{
         return System.getProperty("os.name").toLowerCase().contains("mac");
     }
 
+    // Function to fetch config file path
+    public static File getConfigFilePath(){
+        String userHome = System.getProperty("user.home");
+        return new File(userHome + "/.config/starfix.yaml");
+    }
+
     // Function to fetch config file
     public static File getConfigFile() {
-        String userHome = System.getProperty("user.home"); // Get User Home Directory: /home/user_name
-        File configDir = new File(userHome+ "/.config");
-
-        if(!configDir.exists()){ // If .config directory does not exist we create it
-            if(!configDir.mkdirs()){ // If creation failed
-                throw new IllegalStateException("Cannot create .config directory: " + configDir.getAbsolutePath());
+        File configFilePath = getConfigFilePath();
+        
+        if(!configFilePath.getParentFile().exists()){// Check if parent directory exists
+            if(!configFilePath.getParentFile().mkdirs()){// Create parent dir if not exist
+                throw new IllegalStateException("Cannot create .config directory: " + configFilePath.getParentFile().getAbsolutePath());
             }
         }
-        return new File(userHome + "/.config/starfix.yaml");
+        return configFilePath;
 
     }
+    
     // Function to load default config 
     public void defaultConfig() {
         String path_env = System.getenv("Path"); // System PATH variable
