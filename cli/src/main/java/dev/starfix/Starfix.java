@@ -57,13 +57,8 @@ public class Starfix implements Runnable{
     public int cloneCmd(@Parameters(index = "0") String url) {
         File configFilePath = getConfigFilePath(); // Get path for config file 
 
-        try {
-            if (!configFilePath.exists()) {// Check if config file exist
-                defaultConfig();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-
+        if (!configFilePath.exists()) {// Check if config file exist
+            defaultConfig(); // Sets up default config
         }
 
         CloneUrl cloneUrl = new CloneUrl(url);
@@ -161,29 +156,23 @@ public class Starfix implements Runnable{
 
     }
     
-    // Function to load default config 
-    public void defaultConfig() {
+    // Function to setup default config 
+    void defaultConfig() {
         String path_env = System.getenv("Path"); // System PATH variable
         clone_path =  System.getProperty("user.home") + "/code"; // set clone_path to /home/user_name/code
 
-        try {
-            if(isWindows()){// check if Windows OS
-                if(path_env.contains("Microsoft VS Code")){ // If PATH has VScode
-                    ide = "code.cmd";
-                } else if(path_env.contains("IntelliJ IDEA")){ // If PATH has IntelliJ
-                    ide = "idea64.exe";
-                }
+        if(isWindows()){// check if Windows OS
+            if(path_env.contains("Microsoft VS Code")){ // If PATH has VScode
+                ide = "code.cmd";
+            } else if(path_env.contains("IntelliJ IDEA")){ // If PATH has IntelliJ
+                ide = "idea64.exe";
             }
-            // check if Linux OS
-            // if(isLinux()){}
-            
-            // check if Mac OS
-            // if(isMac()){}
-
-        } catch (Exception e) {
-            e.printStackTrace();
-
         }
+        // check if Linux OS
+        // if(isLinux()){}
+        
+        // check if Mac OS
+        // if(isMac()){}
     }
     // Function to edit configuration and serves for command line starfix config
     // editor
