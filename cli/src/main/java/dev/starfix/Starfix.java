@@ -55,6 +55,12 @@ public class Starfix implements Runnable{
 
     @Command(name = "clone")
     public int cloneCmd(@Parameters(index = "0") String url) {
+        File configFilePath = getConfigFilePath(); // Get path for config file 
+
+        if (!configFilePath.exists()) {// Check if config file exist
+            defaultConfig(); // Sets up default config
+        }
+
         CloneUrl cloneUrl = new CloneUrl(url);
         // URL Validation to check a valid git repository
         if (!validate_url(cloneUrl.url)) { // Incase URI doesn't macth our scheme we'll terminate
@@ -116,25 +122,58 @@ public class Starfix implements Runnable{
         return Pattern.matches(pattern,url);
     }
 
-    // Function yo determine if the current OS is Windows
+    // Function to determine if the current OS is Windows
     public static boolean isWindows() {
         return System.getProperty("os.name").toLowerCase().contains("windows");
     }
 
-    // Function to fetch config file
-    public static File getConfigFile() {
-        String userHome = System.getProperty("user.home"); // Get User Home Directory: /home/user_name
-        File configDir = new File(userHome+ "/.config");
-
-        if(!configDir.exists()){ // If .config directory does not exist we create it
-            if(!configDir.mkdirs()){ // If creation failed
-                throw new IllegalStateException("Cannot create .config directory: " + configDir.getAbsolutePath());
-            }
-        }
-        return new File(userHome + "/.config/starfix.yaml");
-
+    // Function to determine if the current OS is Linux
+    public static boolean isLinux() {
+        return System.getProperty("os.name").toLowerCase().contains("linux");
     }
 
+    // Function to determine if the current OS is MacOS
+    public static boolean isMac() {
+        return System.getProperty("os.name").toLowerCase().contains("mac");
+    }
+
+    // Function to fetch config file path
+    public static File getConfigFilePath(){
+        String userHome = System.getProperty("user.home");
+        return new File(userHome + "/.config/starfix.yaml");
+    }
+
+    // Function to fetch config file
+    public static File getConfigFile() {
+        File configFilePath = getConfigFilePath();
+        
+        if(!configFilePath.getParentFile().exists()){// Check if parent directory exists
+            if(!configFilePath.getParentFile().mkdirs()){// Create parent dir if not exist
+                throw new IllegalStateException("Cannot create .config directory: " + configFilePath.getParentFile().getAbsolutePath());
+            }
+        }
+        return configFilePath;
+
+    }
+    
+    // Function to setup default config 
+    void defaultConfig() {
+        String path_env = System.getenv("Path"); // System PATH variable
+        clone_path =  System.getProperty("user.home") + "/code"; // set clone_path to /home/user_name/code
+
+        if(isWindows()){// check if Windows OS
+            if(path_env.contains("Microsoft VS Code")){ // If PATH has VScode
+                ide = "code.cmd";
+            } else if(path_env.contains("IntelliJ IDEA")){ // If PATH has IntelliJ
+                ide = "idea64.exe";
+            }
+        }
+        // check if Linux OS
+        // if(isLinux()){}
+        
+        // check if Mac OS
+        // if(isMac()){}
+    }
     // Function to edit configuration and serves for command line starfix config
     // editor
     public  void editConfig() throws Exception {
@@ -146,6 +185,7 @@ public class Starfix implements Runnable{
         System.out.println("IDE: "+ide);
         System.out.println("Clone Path: "+clone_path);
 
+        // return a File
         File configFile = getConfigFile();
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
