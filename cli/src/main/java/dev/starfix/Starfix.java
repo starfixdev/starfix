@@ -158,7 +158,7 @@ public class Starfix implements Runnable{
     
     // Function to setup default config 
     void defaultConfig() {
-        String path_env = System.getenv("Path"); // System PATH variable
+        String path_env = System.getenv("PATH"); // System PATH variable
         clone_path =  System.getProperty("user.home") + "/code"; // set clone_path to /home/user_name/code
 
         if(isWindows()){// check if Windows OS
@@ -168,8 +168,20 @@ public class Starfix implements Runnable{
                 ide = "idea64.exe";
             }
         }
-        // check if Linux OS
-        // if(isLinux()){}
+
+        if(isLinux()){// check if Linux OS
+            String[] sub_paths = path_env.split(":");
+
+            for (String sub_path : sub_paths) {
+                if(Files.exists(Paths.get(sub_path+"/code"))){
+                    ide = "code";
+                }else if(Files.exists(Paths.get(sub_path+"/idea"))){
+                    ide = "idea";
+                }else if(Files.exists(Paths.get(sub_path+"/eclipse"))){
+                    ide = "eclipse";
+                }
+            }
+        }
         
         // check if Mac OS
         // if(isMac()){}
