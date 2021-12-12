@@ -1,7 +1,8 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $?
-//DEPS io.quarkus:quarkus-jackson:2.1.0.CR1
-//DEPS com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.2
-//DEPS io.quarkus:quarkus-picocli:2.1.0.CR1
+//DEPS io.quarkus.platform:quarkus-bom:2.6.0.CR1@pom
+//DEPS io.quarkus:quarkus-jackson
+//DEPS com.fasterxml.jackson.dataformat:jackson-dataformat-yaml
+//DEPS io.quarkus:quarkus-picocli
 //DEPS org.zeroturnaround:zt-exec:1.12
 //FILES application.properties=../../../resources/application.properties
 //SOURCES YAMLDefaultProvider.java
@@ -374,7 +375,7 @@ public class Starfix implements Runnable{
         String filePath = "";
         String branch = "";
         if(isBlob(url))
-        {   // Example URL : https://github.com/starfixdev/starfix/blob/master/cli/pom.xml
+        {   // Example URL : https://github.com/starfixdev/starfix/blob/HEAD/cli/pom.xml
             // Example URL2: https://github.com/hexsum/Mojo-Webqq/blob/master/script/check_dependencies.pl#L17
             cloneUrl.setIsBlob(true);
             String temp = url.substring(url.indexOf("blob/")+5);
