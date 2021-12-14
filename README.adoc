@@ -6,19 +6,15 @@
 image:https://github.com/starfixdev/starfix/blob/HEAD/images/starfix.png[StarFix Logo,title="StarFix Logo"]
 
 == Intro
-Would it not be nice if..
+Would it not be nice if, You could open your IDE on any file from any app? __OR__
 
-You could open your IDE on any file from any app? 
-
-OR
-
-Open a repository/file from a browser in your editor of choice? 
-
-OR
+Open a repository/file from a browser in your editor of choice? __OR__
 
 Start a debugger locally from your web browser? 
 
-**StarFix** is a **cross-platform client-side application** that would let you **open a file in Editor** of your choice (__vscode, eclipse, intellij, emacs, vi, etc.__) and  other commands locally **directly from the browser or file system**. This will enable an option to “Open in IDE” through browser extension __on various websites like **Github, Gitlab**, etc__ similar to the one you see in this demo below.
+`**Starfix**` brings a solution to these problems.
+
+**StarFix** is a `**cross-platform client-side application**` that would let you `**open a file in Editor**` of your choice (__vscode, eclipse, intellij, emacs, vi, etc.__) and  other commands locally `**directly from the browser or file system**`. This will enable an option to “Open in IDE” through browser extension __on various websites like `**Github, Gitlab**, etc__` similar to the one you see in this demo below.
 
 == Demo
 
