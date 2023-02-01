@@ -180,6 +180,12 @@ public class Starfix implements Runnable{
                     ide = "idea";
                 }else if(Files.exists(Paths.get(sub_path+"/eclipse"))){
                     ide = "eclipse";
+                }else if(Files.exists(Paths.get(sub_path+"/atom"))){
+                    ide="atom";
+                }else if(Files.exists(Paths.get(sub_path+"/subl"))){
+                    ide="subl";
+                }else if(Files.exists(Paths.get(sub_path+"/pycharm")) || Files.exists(Paths.get(sub_path+"/pycharm.sh")) ){
+                    ide="pycharm";
                 }
             }
         }
@@ -223,7 +229,7 @@ public class Starfix implements Runnable{
             int id = 0;
             while (true) {
                 System.out.println(
-                        "\n--------Chose the preferred IDE --------\n 1.for vscode \n 2.for eclipse \n 3.for IntelliJ_IDEA \n 4.for Other(You'll have to enter launch command)");
+                        "\n--------Chose the preferred IDE --------\n 1.for vscode \n 2.for eclipse \n 3.for IntelliJ_IDEA \n 4.for sublime_text \n 5.for atom \n 6.for PyCharm \n 7.for Other(You'll have to enter launch command)");
                 String ideInput = reader.readLine().trim();
                 if(ideInput==null || ideInput.isEmpty()){
                     System.out.println("Empty/blank input provided - reseting to existing/default setting");
@@ -243,13 +249,26 @@ public class Starfix implements Runnable{
                     System.out.println("\n--------Selected IDE:IntelliJ_IDEA--------");
                     break;
                 }else if (id == 4) {
+                    ide = isWindows() ?"subl.exe":"subl";
+                    System.out.println("\n--------Selected IDE:Sublime_Text--------");
+                    break;
+                }else if (id == 5) {
+                    ide = isWindows() ?"atom.exe":"atom";
+                    System.out.println("\n--------Selected IDE:Atom--------");
+                    break;
+                }else if (id == 6) {
+                    ide = isWindows() ?"pycharm.exe":"pycharm";
+                    System.out.println("\n--------Selected IDE:PyCharm--------");
+                    break;
+                } else if(id == 7){
                     System.out.println("Enter launch command ");
                     ide = reader.readLine();
                     System.out.println("\n--------Launch command: "+ide);
                     break;
-                } else
+                } else{
                     System.out.println("\n--------Invalid Input!! Try Again--------");
-                    
+                }
+
             }
 
             // -----------Now we'll get preferred clone path on local file system from
@@ -418,6 +437,15 @@ public class Starfix implements Runnable{
            case "eclipse":
            case "eclipse.exe":
                 return new Eclipse();
+           case "subl":
+           case "subl.exe":
+                return new SublimeText();
+           case "atom":
+           case "atom.exe":
+                return new Atom();
+           case "pycharm":
+           case "pycharm64.exe":
+                return new PyCharm();
            default:
                 return new CustomIDE();
         }
@@ -425,7 +453,6 @@ public class Starfix implements Runnable{
     }
 
     public static class VsCode extends IDE{
-        
         public  void launch_editor(Path directory, String ide, String path, String filePath) throws IOException, InterruptedException {
             if(filePath.indexOf("#")>0){
                 // code -g file:line
@@ -463,6 +490,39 @@ public class Starfix implements Runnable{
                 // eclipse.exe file.txt:22
             }
             runCommand(directory.getParent(), ide,path,filePath);
+        }
+    }
+
+    public static class SublimeText extends IDE{
+
+        public  void launch_editor(Path directory, String ide, String path, String filePath) throws IOException, InterruptedException {
+            if(filePath.indexOf("#")>0){
+                // subl file:line_number
+                filePath = filePath.replace("#L",":");
+            }
+            runCommand(directory.getParent(),ide,path,filePath);
+        }
+    }
+
+    public static class Atom extends IDE{
+
+        public  void launch_editor(Path directory, String ide, String path, String filePath) throws IOException, InterruptedException {
+            if(filePath.indexOf("#")>0){
+                // atom file:line_number
+                filePath = filePath.replace("#L",":");
+            }
+            runCommand(directory.getParent(),ide,path,filePath);
+        }
+    }
+
+    public static class PyCharm extends IDE{
+
+        public  void launch_editor(Path directory, String ide, String path, String filePath) throws IOException, InterruptedException {
+            if(filePath.indexOf("#")>0){
+                // atom file:line_number
+                filePath = filePath.replace("#L",":");
+            }
+            runCommand(directory.getParent(),ide,path,filePath);
         }
     }
 
