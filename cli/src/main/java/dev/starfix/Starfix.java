@@ -519,10 +519,15 @@ public class Starfix implements Runnable{
 
         public  void launch_editor(Path directory, String ide, String path, String filePath) throws IOException, InterruptedException {
             if(filePath.indexOf("#")>0){
-                // atom file:line_number
-                filePath = filePath.replace("#L",":");
+                filePath = filePath.replace("#L","#");
+                // pycharm64.exe [--line <number>] [--column <number>] <path ...>
+                // pycharm ~ --line 40 ~Main.java
+                String lineNumber  = filePath.substring(filePath.lastIndexOf("#")+1);
+                filePath = filePath.substring(0,filePath.lastIndexOf("#"));
+                runCommand(directory.getParent(), ide,path,"--line",lineNumber,filePath);
+            } else{
+                runCommand(directory.getParent(),ide,path,filePath);
             }
-            runCommand(directory.getParent(),ide,path,filePath);
         }
     }
 
