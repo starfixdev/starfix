@@ -167,6 +167,12 @@ public class Starfix implements Runnable{
                 ide = "code.cmd";
             } else if(path_env.contains("IntelliJ IDEA")){ // If PATH has IntelliJ
                 ide = "idea64.exe";
+            }else if(path_env.contains("Sublime Text")){ // If PATH has Sublime Text
+                ide = "subl.exe";
+            }else if(path_env.contains("PyCharm")){ // If PATH has PyCharm
+                ide = "pycharm64.exe";
+            }else if(path_env.contains("Atom")){ // If PATH has Atom
+                ide = "atom.exe";
             }
         }
 
@@ -257,7 +263,7 @@ public class Starfix implements Runnable{
                     System.out.println("\n--------Selected IDE:Atom--------");
                     break;
                 }else if (id == 6) {
-                    ide = isWindows() ?"pycharm.exe":"pycharm";
+                    ide = isWindows() ?"pycharm64.exe":"pycharm";
                     System.out.println("\n--------Selected IDE:PyCharm--------");
                     break;
                 } else if(id == 7){
