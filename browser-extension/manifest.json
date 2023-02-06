@@ -1,14 +1,24 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
 
   "name": "Starfix",
   "version": "1.1",
-  "description": "Extension for Starfix. Adds an \"Open in IDE\" button on Github. Supports easy switching b/w  cloning Protocols viz HTTPS and SSH",
+  "description": "Extension for Starfix. Adds an \"Open in IDE\" button on Github. Supports easy switching b/w cloning Protocols viz HTTPS and SSH",
   "author": "Fahad Israr",
-  "icons": { "16": "starfix_icon.png",
+  "icons": {
+    "16": "starfix_icon.png",
     "32": "starfix_icon.png",
-   "48": "starfix_icon.png" },
-  "browser_action": { "default_popup": "./options.html","default_title": "Starfix Configuration","default_icon":"./starfix_icon.png" },
+    "48": "starfix_icon.png"
+  },
+  "action": {
+    "default_popup": "./options.html",
+    "default_title": "Starfix Configuration",
+    "default_icon": {
+      "16": "starfix_icon.png",
+      "32": "starfix_icon.png",
+      "48": "starfix_icon.png"
+    }
+  },
   "options_ui": {
     "page": "options.html",
     "open_in_tab": false
