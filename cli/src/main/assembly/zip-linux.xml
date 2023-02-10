@@ -13,7 +13,7 @@
              <outputDirectory>/</outputDirectory>
         </fileSet>
     </fileSets>
-	<files>
+    <files>
         <file>
             <source> ${project.build.directory}/${project.build.finalName}-runner</source>
             <outputDirectory>/installer</outputDirectory>
