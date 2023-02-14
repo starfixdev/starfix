@@ -300,7 +300,17 @@ public class Starfix implements Runnable{
                     String.format("runCommand %s in %s returned %d", Arrays.toString(command), directory, exit));
         }
 
-        return presult.outputUTF8();
+        String result = presult.outputUTF8();
+
+        // for windows
+        if (isWindows()){
+            if (result.contains("\r\n")){
+                result = result.replaceAll("\r\n","");
+                result = result+System.lineSeparator();
+            }
+        }
+
+        return result;
     }
 
     public static class CloneUrl{
