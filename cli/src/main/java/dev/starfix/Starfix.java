@@ -15,6 +15,7 @@ import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.ExitCode;
 import picocli.CommandLine.Parameters;
+import java.io.InputStream;
 
 import java.io.UnsupportedEncodingException;
 import java.io.BufferedReader;
@@ -285,32 +286,40 @@ public class Starfix implements Runnable{
 
     public static String runCommand(Path directory, String... command) throws IOException, InterruptedException {
         // Function to Run Commands using Process Builder
-        ProcessResult presult;
-        try {
+        if (isWindows()) {
             System.out.println("Running " + String.join(" ", command));
-            presult = new ProcessExecutor().command(command).redirectOutput(System.out).redirectErrorStream(true).readOutput(true)
-                    .execute();
-        } catch (TimeoutException e) {
-            throw new RuntimeException("Error running command", e);
-        }
 
-        int exit = presult.getExitValue();
-        if (exit!=0) {
-            throw new AssertionError(
-                    String.format("runCommand %s in %s returned %d", Arrays.toString(command), directory, exit));
-        }
-
-        String result = presult.outputUTF8();
-
-        // for windows
-        if (isWindows()){
-            if (result.contains("\r\n")){
-                result = result.replaceAll("\r\n","");
-                result = result+System.lineSeparator();
+            final Process exec = new ProcessBuilder("CMD", "/C", command[0], command[1]).start();
+            InputStream inputStream = exec.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            String output = reader.readLine().replaceAll("\"", "");
+            System.out.print(output+System.lineSeparator());
+            
+            int exit = exec.waitFor();
+            if (exit!=0) {
+                throw new AssertionError(
+                        String.format("runCommand %s in %s returned %d", Arrays.toString(command), directory, exit));
             }
-        }
+            return output+System.lineSeparator();
+            
+        } else{
+            ProcessResult presult;
+            try {
+                System.out.println("Running " + String.join(" ", command));
+                presult = new ProcessExecutor().command(command).redirectOutput(System.out).redirectErrorStream(true).readOutput(true)
+                        .execute();
+            } catch (TimeoutException e) {
+                throw new RuntimeException("Error running command", e);
+            }
 
-        return result;
+            int exit = presult.getExitValue();
+            if (exit!=0) {
+                throw new AssertionError(
+                        String.format("runCommand %s in %s returned %d", Arrays.toString(command), directory, exit));
+            }
+
+            return presult.outputUTF8();
+        }
     }
 
     public static class CloneUrl{
