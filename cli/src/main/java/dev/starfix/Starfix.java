@@ -287,13 +287,17 @@ public class Starfix implements Runnable{
     public static String runCommand(Path directory, String... command) throws IOException, InterruptedException {
         // Function to Run Commands using Process Builder
         if (isWindows()) {
-            System.out.println("Running " + String.join(" ", command));
+            try{
+                System.out.println("Running " + String.join(" ", command));
 
-            final Process exec = new ProcessBuilder("CMD", "/C", command[0], command[1]).start();
-            InputStream inputStream = exec.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            String output = reader.readLine().replaceAll("\"", "");
-            System.out.print(output+System.lineSeparator());
+                final Process exec = new ProcessBuilder("CMD", "/C", command[0], command[1]).start();
+                InputStream inputStream = exec.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                String output = reader.readLine().replaceAll("\"", "");
+                System.out.print(output+System.lineSeparator());
+            } catch (TimeoutException e) {
+                throw new RuntimeException("Error running command", e);
+            }
             
             int exit = exec.waitFor();
             if (exit!=0) {
