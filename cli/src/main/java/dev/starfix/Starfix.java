@@ -183,9 +183,25 @@ public class Starfix implements Runnable{
                 }
             }
         }
-        
-        // check if Mac OS
-        // if(isMac()){}
+
+        else if (isMac()) { // check if Mac OS
+            if (isCommandAvailable("code")) { // If VSCode is installed
+                ide = "code";
+            } else if (isCommandAvailable("idea")) { // If IntelliJ is installed
+                ide = "idea";
+            } else if (new File("/Applications/Eclipse.app").exists()) { // If Eclipse is installed in default location
+                ide = "eclipse";
+            }
+        }
+    }
+    private static boolean isCommandAvailable(String command) {
+        try {
+            Process process = Runtime.getRuntime().exec("which " + command);
+            return process.waitFor() == 0;
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
     // Function to edit configuration and serves for command line starfix config
     // editor
