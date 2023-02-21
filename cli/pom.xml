@@ -96,6 +96,10 @@
         <os>
           <family>windows</family>
         </os>
+        <property>
+          <name>native</name>
+          <value>true</value>
+        </property>
      </activation>
      <build>
         <plugins>
@@ -126,30 +130,13 @@
         <os>
           <family>unix</family>
         </os>
+        <property>
+          <name>native</name>
+          <value>true</value>
+        </property>
      </activation>
      <build>
         <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>exec-maven-plugin</artifactId>
-            <version>${exec-maven-plugin.version}</version>
-            <executions>
-              <execution>
-                <id>run-my-script</id>
-                <phase>package</phase>
-                <goals>
-                  <goal>exec</goal>
-                </goals>
-                <configuration>
-                  <executable>/bin/bash</executable>
-                  <arguments>
-                    <argument>-c</argument>
-                    <argument>src/main/assembly/my-script.sh</argument>
-                  </arguments>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
           <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-assembly-plugin</artifactId>
@@ -169,28 +156,6 @@
                   </execution>
               </executions>
           </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-antrun-plugin</artifactId>
-            <version>${maven-antrun-plugin.version}</version>
-            <executions>
-              <execution>
-                <id>fixing-descriptor-file</id>
-                <phase>package</phase>
-                <goals>
-                  <goal>run</goal>
-                </goals>
-                <configuration>
-                  <target>
-                    <exec executable="/bin/bash">
-                      <arg value="-c"/>
-                      <arg value="src/main/assembly/my-script.sh"/>
-                    </exec>
-                  </target>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
         </plugins>
      </build>
     </profile>
@@ -200,6 +165,10 @@
         <os>
           <family>mac</family>
         </os>
+        <property>
+          <name>native</name>
+          <value>true</value>
+        </property>
      </activation>
      <build>
         <plugins>
