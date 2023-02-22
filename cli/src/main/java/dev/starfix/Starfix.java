@@ -286,30 +286,27 @@ public class Starfix implements Runnable{
 
     public static String runCommand(Path directory, String... command) throws IOException, InterruptedException {
         // Function to Run Commands using Process Builder
+         ProcessResult presult;
+
         if (isWindows()) {
-            final Process exec;
-            String output;
             try{
                 System.out.println("Running " + String.join(" ", command));
+                presult = new ProcessExecutor().command("CMD", "/C", command[0], command[1]).redirectOutput(System.out).redirectErrorStream(true).readOutput(true)
+                        .execute();
+                } catch (Exception e) {
+                    throw new RuntimeException("Error running command", e);
+                }
 
-                exec = new ProcessBuilder("CMD", "/C", command[0], command[1]).start();
-                InputStream inputStream = exec.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                output = reader.readLine().replaceAll("\"", "");
-                System.out.print(output+System.lineSeparator());
-            } catch (Exception e) {
-                throw new RuntimeException("Error running command", e);
-            }
+                int exit = presult.getExitValue();
+                if (exit!=0) {
+                    throw new AssertionError(
+                            String.format("runCommand %s in %s returned %d", Arrays.toString(command), directory, exit));
+                }
 
-            int exit = exec.waitFor();
-            if (exit!=0) {
-                throw new AssertionError(
-                        String.format("runCommand %s in %s returned %d", Arrays.toString(command), directory, exit));
-            }
-            return output+System.lineSeparator();
+                return presult.outputUTF8().replaceAll("\"","");
             
         } else{
-            ProcessResult presult;
+
             try {
                 System.out.println("Running " + String.join(" ", command));
                 presult = new ProcessExecutor().command(command).redirectOutput(System.out).redirectErrorStream(true).readOutput(true)
@@ -325,6 +322,7 @@ public class Starfix implements Runnable{
             }
 
             return presult.outputUTF8();
+
         }
     }
 
