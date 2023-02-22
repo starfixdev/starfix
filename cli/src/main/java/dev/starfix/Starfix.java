@@ -15,7 +15,6 @@ import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.ExitCode;
 import picocli.CommandLine.Parameters;
-import java.io.InputStream;
 
 import java.io.UnsupportedEncodingException;
 import java.io.BufferedReader;
