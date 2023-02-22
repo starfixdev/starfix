@@ -2,7 +2,7 @@ name: "Browser-Extension-Release"
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - 'browser-extension/**'
   release:
