@@ -94,6 +94,10 @@
         <os>
           <family>windows</family>
         </os>
+        <property>
+          <name>native</name>
+          <value>true</value>
+        </property>
      </activation>
      <build>
         <plugins>
@@ -102,6 +106,7 @@
               <artifactId>maven-assembly-plugin</artifactId>
               <executions>
                   <execution>
+                      <id>default-assembly</id>
                       <phase>package</phase>
                       <goals>
                           <goal>single</goal>
@@ -124,6 +129,10 @@
         <os>
           <family>unix</family>
         </os>
+        <property>
+          <name>native</name>
+          <value>true</value>
+        </property>
      </activation>
      <build>
         <plugins>
@@ -132,6 +141,7 @@
               <artifactId>maven-assembly-plugin</artifactId>
               <executions>
                   <execution>
+                      <id>default-assembly</id>
                       <phase>package</phase>
                       <goals>
                           <goal>single</goal>
@@ -154,6 +164,10 @@
         <os>
           <family>mac</family>
         </os>
+        <property>
+          <name>native</name>
+          <value>true</value>
+        </property>
      </activation>
      <build>
         <plugins>
@@ -162,6 +176,7 @@
               <artifactId>maven-assembly-plugin</artifactId>
               <executions>
                   <execution>
+                      <id>default-assembly</id>
                       <phase>package</phase>
                       <goals>
                           <goal>single</goal>
