@@ -285,22 +285,48 @@ public class Starfix implements Runnable{
 
     public static String runCommand(Path directory, String... command) throws IOException, InterruptedException {
         // Function to Run Commands using Process Builder
-        ProcessResult presult;
-        try {
-            System.out.println("Running " + String.join(" ", command));
-            presult = new ProcessExecutor().command(command).redirectOutput(System.out).redirectErrorStream(true).readOutput(true)
-                    .execute();
-        } catch (TimeoutException e) {
-            throw new RuntimeException("Error running command", e);
-        }
+         ProcessResult presult;
 
-        int exit = presult.getExitValue();
-        if (exit!=0) {
-            throw new AssertionError(
-                    String.format("runCommand %s in %s returned %d", Arrays.toString(command), directory, exit));
-        }
+        if (isWindows()) {
+            try{
+                System.out.println("Running " + String.join(" ", command));
+                String[] commandLineArgs = new String[2 + command.length];
+                commandLineArgs[0] = "CMD";
+                commandLineArgs[1] = "/C";
+                System.arraycopy(command, 0, commandLineArgs, 2, command.length);
+                presult = new ProcessExecutor().command(commandLineArgs).redirectOutput(System.out).redirectErrorStream(true).readOutput(true)
+                        .execute();
+                } catch (Exception e) {
+                    throw new RuntimeException("Error running command", e);
+                }
 
-        return presult.outputUTF8();
+                int exit = presult.getExitValue();
+                if (exit!=0) {
+                    throw new AssertionError(
+                            String.format("runCommand %s in %s returned %d", Arrays.toString(command), directory, exit));
+                }
+
+                return presult.outputUTF8().replaceAll("\"","");
+            
+        } else{
+
+            try {
+                System.out.println("Running " + String.join(" ", command));
+                presult = new ProcessExecutor().command(command).redirectOutput(System.out).redirectErrorStream(true).readOutput(true)
+                        .execute();
+            } catch (TimeoutException e) {
+                throw new RuntimeException("Error running command", e);
+            }
+
+            int exit = presult.getExitValue();
+            if (exit!=0) {
+                throw new AssertionError(
+                        String.format("runCommand %s in %s returned %d", Arrays.toString(command), directory, exit));
+            }
+
+            return presult.outputUTF8();
+
+        }
     }
 
     public static class CloneUrl{
